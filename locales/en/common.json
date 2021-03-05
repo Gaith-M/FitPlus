@@ -1,0 +1,18 @@
+{
+    "navbar": {
+        "home": "home",
+        "about": "about",
+        "blog": "blogs",
+        "shop": "shop",
+        "contact": "contact",
+        "cart": "cart",
+        "user": "User"
+    },
+    "footer": {
+        "p-policy": "pirvacy policy",
+        "t-o-service": "terms of service",
+        "address": "Address: Some city - some street - near some place",
+        "phone": "phone: +00 132 213 3211",
+        "email": "Email: Fit+@gmail.com"
+    }
+}

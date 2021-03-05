@@ -1,0 +1,18 @@
+Navbar
+Footer
+Slider
+Home Page Sections
+Blog Card
+Buttons (shared)
+search bar (shared)
+product card (shared)
+about us card
+form inputs (shared)
+product Page
+blog page
+title component (shared)
+cart step indecator
+product entry
+thank you page
+user page
+admin page

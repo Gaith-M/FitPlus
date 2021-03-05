@@ -1,0 +1,19 @@
+/* Chrome, Safari, Edge, Opera */
+.generalStyles {
+  width: 100%;
+  margin: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+}
+
+.numberInput::-webkit-outer-spin-button,
+.numberInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+.numberInput[type='number'] {
+  -moz-appearance: textfield;
+}
