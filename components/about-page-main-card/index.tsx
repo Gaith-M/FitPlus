@@ -1,6 +1,6 @@
 import { space_4, space_2 } from '../../styles/styleConstants';
+import { Container } from '../shared-components/containers';
 import Heading from '../heading';
-import Card from '../about-card';
 import React from 'react';
 
 interface compInterface {
@@ -11,7 +11,7 @@ interface compInterface {
 
 const index: React.FC<compInterface> = ({ title, imgSrc, children }) => {
   return (
-    <Card w='100%' p={space_2} m={`${space_2} auto ${space_4}`}>
+    <Container p={space_2} m={`${space_2} auto ${space_4}`}>
       <div
         style={{
           width: '100%',
@@ -26,7 +26,7 @@ const index: React.FC<compInterface> = ({ title, imgSrc, children }) => {
         {title}
       </Heading>
       {children}
-    </Card>
+    </Container>
   );
 };
 

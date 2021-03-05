@@ -6,13 +6,15 @@ import { space_max } from '../styles/styleConstants';
 import Heading from '../components/heading';
 import Stepper from '../components/cart-stepper';
 import FirstView from '../widgets/cart-first-view';
+import SecondView from '../widgets/cart-second-view';
+import { Container } from '../components/shared-components/containers';
 
 const cart = () => {
   const { t } = useTranslation('cart');
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const nextStep = () => {
-    if (step >= 3) return;
+    if (step > 4) return;
     setStep(step + 1);
   };
 
@@ -26,7 +28,7 @@ const cart = () => {
       case 0:
         return <FirstView handleClick={nextStep} />;
       case 1:
-        return <div>Second</div>;
+        return <SecondView next={nextStep} />;
       case 2:
         return <div>Third</div>;
       case 3:
@@ -36,19 +38,32 @@ const cart = () => {
     }
   };
 
+  let currentHeading = (current) => {
+    switch (current) {
+      case 0:
+        return t`cart`;
+      case 1:
+        return t`payment-details`;
+      case 2:
+        return t`confirm-order`;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Meta title='Fit+ Cart' />
 
-      <div style={{ margin: `${space_max} 0` }}>
-        <Heading lvl={2}>{t`cart`}</Heading>
+      <Container m={`${space_max} 0`}>
+        <Heading lvl={2}>{currentHeading(step)}</Heading>
         {step > 2 ? null : <Stepper current={step} />}
 
         {currentView(step)}
 
         <button onClick={nextStep}>Next</button>
         <button onClick={previousStep}>previous</button>
-      </div>
+      </Container>
     </>
   );
 };

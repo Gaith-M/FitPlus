@@ -7,6 +7,7 @@ import Searchbar from '../components/searchbar';
 import ViewControls from '../components/blogs-page-view-filter-controls';
 import BlogCard from '../components/blog-card';
 import fakeData from '../components/blog-card/fakeData';
+import { Container } from '../components/shared-components/containers';
 
 const blogs = () => {
   const [selected, setSelected] = useState('newest');
@@ -17,7 +18,7 @@ const blogs = () => {
   return (
     <>
       <Meta title='Fit+ Blogs' />
-      <div style={{ margin: `${space_max} 0` }}>
+      <Container m={`${space_max} 0`}>
         <Heading lvl={2}>Blogs</Heading>
         <Searchbar />
         <ViewControls selected={selected} handleChange={handleChange} />
@@ -39,7 +40,7 @@ const blogs = () => {
             />
           ))}
         </main>
-      </div>
+      </Container>
     </>
   );
 };

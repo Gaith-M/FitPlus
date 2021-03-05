@@ -1,24 +1,26 @@
-import React from 'react';
-import StyledContainer from '../../components/sectionContainer';
 import Searchbar from '../../components/searchbar';
 import ProductCard from '../../components/product-card';
 import Heading from '../../components/heading';
+import {
+  Container,
+  FlexContainer,
+} from '../../components/shared-components/containers';
 
 const index = () => {
   return (
-    <StyledContainer>
+    <Container>
       <Heading lvl={2}>Shop</Heading>
       <Searchbar />
 
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <FlexContainer wrap={true}>
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
-      </div>
-    </StyledContainer>
+      </FlexContainer>
+    </Container>
   );
 };
 

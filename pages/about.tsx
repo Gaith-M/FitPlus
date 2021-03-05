@@ -1,20 +1,20 @@
 import useTranslation from 'next-translate/useTranslation';
 import Meta from '../components/Meta';
 // -------------------UI Imports-------------------
-import { space_max, space_4, space_2, dark } from '../styles/styleConstants';
+import { space_max, space_2, dark } from '../styles/styleConstants';
 import Heading from '../components/heading';
-import Card from '../components/about-card';
 import Paragraph from '../components/paragraph';
 import Button from '../components/button';
 
 import AboutCard from '../components/about-page-main-card';
+import { Container } from '../components/shared-components/containers';
 
 export const About = () => {
   const { t } = useTranslation('about');
   return (
     <>
       <Meta title='Fit+ About' />
-      <div style={{ margin: `${space_max} 0` }}>
+      <Container m={`${space_max} 0`}>
         <main>
           <Heading lvl={2}>Who We Are</Heading>
 
@@ -101,7 +101,7 @@ export const About = () => {
             </Button>
           </AboutCard>
         </main>
-      </div>
+      </Container>
     </>
   );
 };

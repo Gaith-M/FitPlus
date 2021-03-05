@@ -1,14 +1,17 @@
-import StyledContainer from '../../components/sectionContainer';
 import Heading from '../../components/heading';
-import { accent } from '../../styles/styleConstants';
+import { accent, space_4 } from '../../styles/styleConstants';
 import Button from '../../components/button';
 import Paragraph from '../../components/paragraph';
-import AboutCard from '../../components/about-card';
 import Image from 'next/image';
+import {
+  Container,
+  FlexContainer,
+  FlexItem,
+} from '../../components/shared-components/containers';
 
 const index = () => {
   return (
-    <StyledContainer>
+    <Container>
       <Heading lvl={2}>
         What is <span style={{ color: accent, fontWeight: 'bold' }}>Fit+</span>?
       </Heading>
@@ -57,46 +60,39 @@ const index = () => {
         walls.
       </Paragraph>
 
-      <div
+      <FlexContainer
+        wrap={true}
+        justify='space-between'
+        m={`${space_4} 0`}
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '40px 0',
           textAlign: 'center',
           padding: '20px 0',
           fontWeight: 'bold',
         }}
       >
-        <AboutCard flex={30}>
+        <FlexItem flex='0 0 30%'>
           <Image src='/about_thumb.jpg' width={300} height={200} />
           <Paragraph>State of The Art</Paragraph>
-        </AboutCard>
-        <AboutCard flex={30}>
+        </FlexItem>
+        <FlexItem flex='0 0 30%'>
           <Image src='/about_thumb_coach.jpg' width={300} height={200} />
           <Paragraph>Hot Coaches</Paragraph>
-        </AboutCard>
-        <AboutCard flex={30}>
+        </FlexItem>
+        <FlexItem flex='0 0 30%'>
           <Image src='/about_thumb_doc.jpg' width={300} height={200} />
           <Paragraph>Medically Prepared just in case</Paragraph>
-        </AboutCard>
-      </div>
+        </FlexItem>
+      </FlexContainer>
 
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          margin: '40px 0',
-        }}
-      >
+      <FlexContainer wrap={true} justify='space-between' m={`${space_4} 0`}>
         <Button flex={49} p='20px'>
           Learn More
         </Button>
         <Button flex={49} p='20px'>
           Get in touch
         </Button>
-      </div>
-    </StyledContainer>
+      </FlexContainer>
+    </Container>
   );
 };
 

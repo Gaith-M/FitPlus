@@ -4,5 +4,16 @@
     "quantity": "الكمية",
     "price": "السعر",
     "total": "الاجمالي",
-    "next": "التالي"
+    "next": "التالي",
+    "payment-details": "معلومات الدفع",
+    "credit-card-details": "معلومات بطاقة الائتمان",
+    "user-details": "معلومات المستخدم",
+    "confirm-order": "تأكيد الطلب",
+    "first-name": "الاسم",
+    "last-name": "الكنية",
+    "address": "العنوان",
+    "phone": "رقم الهاتف",
+    "email": "البريد الالكتروني",
+    "credit-card-number": "رقم بطاقة الائتمان",
+    "CVC": "رمز البطاقة"
 }

@@ -78,7 +78,7 @@ export const StyledLink = styled.a`
   color: ${(props) => (props.active ? secondaryAccent : dark)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
   filter: drop-shadow(${dynamicShadow});
-  transition: 0.3s ease-out;
+  transition: 0.3s color ease-out;
 
   &:hover {
     color: ${secondaryAccent};

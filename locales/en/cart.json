@@ -1,8 +1,19 @@
 {
-    "cart": "cart",
-    "name": "name",
-    "quantity": "quantity",
-    "price": "price",
-    "total": "total",
-    "next": "next"
+    "cart": "Cart",
+    "name": "Name",
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total",
+    "next": "Next",
+    "user-details": "User Details",
+    "credit-card-details": "Credit Card Details",
+    "payment-details": "Payment Details",
+    "confirm-order": "Confirm Order",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "credit-card-number": "Credit Card Number",
+    "CVC": "CVC"
 }

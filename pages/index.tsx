@@ -8,6 +8,8 @@ import AboutSection from '../widgets/about-section';
 import BlogsSection from '../widgets/blog-section';
 import Heading from '../components/heading';
 import Meta from '../components/Meta';
+import { Container } from '../components/shared-components/containers';
+import { space_max } from '../styles/styleConstants';
 
 const Home: React.FC = () => {
   const { t } = useTranslation('home');
@@ -35,14 +37,15 @@ const Home: React.FC = () => {
         title='Fit+ Home Page'
         description='Fit+ is an e-store that sells everything a modern athletic needs. from suppliments to gear to everything in between. Fit+ also provides a soruce of fitness and diet focused articles written by experts in this field'
       ></Meta>
-      <Heading lvl={1} CN='SEOHeading'>
-        Fit+
-      </Heading>
-      <CustomeCarousel />
-      <BlogsSection />
-      <ProductsSection />
-
-      <AboutSection />
+      <Container m={`${space_max} 0`}>
+        <Heading lvl={1} CN='SEOHeading'>
+          Fit+
+        </Heading>
+        <CustomeCarousel />
+        <BlogsSection />
+        <ProductsSection />
+        <AboutSection />
+      </Container>
     </>
   );
 };

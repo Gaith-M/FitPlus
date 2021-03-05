@@ -11,8 +11,10 @@ import {
   space_3,
 } from '../../styles/styleConstants';
 import data from './itemsData';
+import useTranslation from 'next-translate/useTranslation';
 
 const index = ({ handleClick }) => {
+  const { t } = useTranslation('cart');
   const [state, setState] = useState(data);
 
   // handlers
@@ -60,7 +62,7 @@ const index = ({ handleClick }) => {
         }}
       >
         <Button w='150px' handleClick={handleClick}>
-          Next
+          {t`next`}
         </Button>
       </div>
     </>
