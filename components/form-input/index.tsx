@@ -2,7 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { light, space_1 } from '../../styles/styleConstants';
 
-const BaseInput = styled.input`
+interface baseInputInterface {
+  p?: string;
+  bg?: string;
+}
+
+const BaseInput: React.FC<baseInputInterface> = styled.input`
+  display: block;
   padding: ${space_1};
   background-color: ${light};
   min-width: 280px;
@@ -25,7 +31,10 @@ interface compInterface {
   placeholder: string;
   inputName: string;
   value: string;
+  p?: string;
+  bg?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  style?: {};
 }
 
 const index: React.FC<compInterface> = ({
@@ -35,6 +44,7 @@ const index: React.FC<compInterface> = ({
   value,
   placeholder,
   handleChange,
+  style,
 }) => {
   return flex ? (
     <FlexItemInput
@@ -43,6 +53,7 @@ const index: React.FC<compInterface> = ({
       value={value}
       onChange={handleChange}
       placeholder={placeholder}
+      style={style}
     />
   ) : (
     <FluidInput
@@ -51,6 +62,7 @@ const index: React.FC<compInterface> = ({
       value={value}
       onChange={handleChange}
       placeholder={placeholder}
+      style={style}
     />
   );
 };

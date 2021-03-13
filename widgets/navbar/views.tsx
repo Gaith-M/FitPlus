@@ -1,10 +1,16 @@
-import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/dist/client/router';
+// ---------------Logic Imports---------------
 import { useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/Link';
-import { dark } from '../../styles/styleConstants';
+import useTranslation from 'next-translate/useTranslation';
+// ---------------UI Imports---------------
 import UserIcon from '../../components/svgs/UserIcon';
+import StyledBadge from '../../components/badge';
+import LogoIcon from '../../components/svgs/LogoIcon';
+import MenuIcon from '../../components/menu-icon';
+import Popup from 'reactjs-popup';
 import { CartIcon } from '../../components/svgs/CartIcon';
+import { dark } from '../../styles/styleConstants';
 import {
   StyledNavbar,
   StyledLink,
@@ -16,11 +22,14 @@ import {
   SmallNavLink,
   NavWrapper,
 } from './styledElements';
-import StyledBadge from '../../components/badge';
-import LogoIcon from '../../components/svgs/LogoIcon';
-import MenuIcon from '../../components/menu-icon';
 
-export const LargeViewNav = () => {
+interface NavInterface {
+  numberOfItemsInCart: number;
+}
+
+export const LargeViewNav: React.FC<NavInterface> = ({
+  numberOfItemsInCart,
+}) => {
   const { pathname } = useRouter();
   const { t } = useTranslation('common');
   return (
@@ -54,24 +63,52 @@ export const LargeViewNav = () => {
         </StyledNav>
 
         <StyledUserSectionContainer>
-          <StyledBadge xOffset='24px' yOffset='-5px' count={3}>
+          <Popup
+            className='userActions'
+            on='hover'
+            trigger={() => (
+              <button
+                style={{
+                  border: 'none',
+                  fontSize: '1em',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                }}
+              >
+                <UserIcon color={dark} />
+              </button>
+            )}
+          >
+            <Link passHref href='/login'>
+              <StyledLink>login</StyledLink>
+            </Link>
+            <Link passHref href='/sign-up'>
+              <StyledLink>sign up</StyledLink>
+            </Link>
+          </Popup>
+
+          <StyledBadge
+            xOffset='24px'
+            yOffset='-5px'
+            count={numberOfItemsInCart}
+          >
             <Link href='/cart'>
               <a>
                 <CartIcon color={dark} />
               </a>
             </Link>
           </StyledBadge>
-
-          <UserIcon color={dark} />
         </StyledUserSectionContainer>
       </StyledNavbar>
     </StyledNavbarContainer>
   );
 };
 
-export const SmallViewNav = () => {
+export const SmallViewNav: React.FC<NavInterface> = ({
+  numberOfItemsInCart,
+}) => {
   const { t, lang } = useTranslation('common');
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   return (
     <>
@@ -91,7 +128,7 @@ export const SmallViewNav = () => {
         <MenuIcon h='5px' color={dark} onClick={() => setToggle(true)} />
       </div>
       <Overlay open={toggle} onClick={() => setToggle(false)} />
-      <NavWrapper ltr={lang === 'en'} open={toggle}>
+      <NavWrapper open={toggle}>
         <div
           style={{
             display: 'flex',
@@ -121,7 +158,11 @@ export const SmallViewNav = () => {
           <Link href='/cart' passHref>
             <SmallNavLink className='smallNavLink'>
               <span className='linkTextContainer'>
-                <StyledBadge count={9} xOffset='35px' yOffset='-10px'>
+                <StyledBadge
+                  count={numberOfItemsInCart}
+                  xOffset='35px'
+                  yOffset='-10px'
+                >
                   {t`navbar.cart`}
                 </StyledBadge>
               </span>

@@ -14,12 +14,13 @@ const StyledButton = styled.button`
   text-transform: capitalize;
   transition: 0.3s;
   outline: none;
-  padding: ${({ p }) => (p ? `${p} 20px` : '10px 20px')};
+  width: ${({ w }) => (w ? w : 'auto')};
+  padding: ${({ p }) => (p ? p : '10px 20px')};
+  margin: ${({ m }) => (m ? m : '0 0 0 0')};
   box-shadow: ${({ noShadow }) => (noShadow ? '' : boxShadow)};
   background-color: ${({ bg }) => (bg ? bg : accent)};
   color: ${({ color }) => (color ? color : light)} !important;
-  width: ${({ w }) => (w ? w : 'auto')};
-  margin: ${({ m }) => (m ? m : '0 0 0 0')};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : 'inherit')};
 
   &:hover {
     background-color: ${accentHover};
@@ -27,7 +28,7 @@ const StyledButton = styled.button`
 `;
 
 const FlexButton = styled(StyledButton)`
-  flex: ${({ flex }) => `0 1 ${flex}%`};
+  flex: ${({ flex }) => flex};
 `;
 
 interface buttonInterface {
@@ -37,8 +38,9 @@ interface buttonInterface {
   color?: string;
   children: React.ReactChild;
   noShadow?: boolean;
-  flex?: number;
+  flex?: string;
   m?: string;
+  fontSize?: string;
   handleClick?: () => void;
 }
 
@@ -51,6 +53,7 @@ const index: React.FC<buttonInterface> = ({
   noShadow,
   flex,
   m,
+  fontSize,
   handleClick,
 }) => {
   return flex ? (
@@ -62,6 +65,7 @@ const index: React.FC<buttonInterface> = ({
       noShadow={noShadow}
       flex={flex}
       m={m}
+      fontSize={fontSize}
       onClick={handleClick}
     >
       {children}
@@ -74,6 +78,7 @@ const index: React.FC<buttonInterface> = ({
       m={m}
       color={color}
       noShadow={noShadow}
+      fontSize={fontSize}
       onClick={handleClick}
     >
       {children}

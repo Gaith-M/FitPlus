@@ -4,8 +4,12 @@ module.exports = {
   localeDetection: false,
   pages: {
     '*': ['common'],
-    '/': ['home'],
+    '/': ['home', 'common'],
     '/about': ['about'],
     '/cart': ['cart'],
+    '/contact': ['contact'],
+    '/blogs': ['blogs'],
+    '/blogs/[title]': ['blogs'],
+    '/shop': ['shop'],
   },
 };

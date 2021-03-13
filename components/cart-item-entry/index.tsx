@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   accent,
@@ -36,18 +37,18 @@ const DeleteButton = styled.button`
 `;
 
 interface compInterface {
-  imgDetails: { src: string; alt: string };
-  name: string;
+  imgSrc: string;
+  title: string;
   qty: number;
   price: number;
-  id: number;
-  handleDelete: (id: number) => void;
-  handleChange: (id: number, value: number) => void;
+  id: string;
+  handleDelete: (id: string) => void;
+  handleChange: (id: string, qty: number) => void;
 }
 
 const index: React.FC<compInterface> = ({
-  imgDetails: { src, alt },
-  name,
+  imgSrc,
+  title,
   qty,
   price,
   id,
@@ -56,8 +57,8 @@ const index: React.FC<compInterface> = ({
 }) => {
   return (
     <Entry>
-      <img src={src} width='75px' height='75px' alt={alt} />
-      <span style={{ flex: '0 1 35%', cursor: 'default' }}>{name}</span>
+      <img src={imgSrc} width='75px' height='75px' />
+      <span style={{ flex: '0 1 35%', cursor: 'default' }}>{title}</span>
       <span
         style={{
           flex: '0 1 10%',
@@ -65,7 +66,7 @@ const index: React.FC<compInterface> = ({
           textAlign: 'center',
         }}
       >
-        <NumberInput id={id} value={qty} handleChange={handleChange} />
+        <NumberInput value={qty} id={id} handleChange={handleChange} />
       </span>
       <span
         style={{
@@ -85,7 +86,7 @@ const index: React.FC<compInterface> = ({
           cursor: 'default',
         }}
       >
-        {price * qty}$
+        {(price * qty).toFixed(2)}$
       </span>
       <DeleteButton
         style={{ flex: '0 1 30px' }}

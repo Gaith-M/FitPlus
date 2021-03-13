@@ -23,6 +23,77 @@ a {
   top: -999999999px;
 }
 
+/* --------------Remove Handlers from input type number----------------- */
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+input[type='number'][type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* -------------------------------------------------------------------- */
+
+/* --------------Custome Popup----------------- */
+.searchOption-content {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  width: 90% !important;
+  left: 5% !important;
+}
+
+.searchOption-arrow {
+  display: none !important;
+}
+
+.userActions-content {
+  background-color: #fafafa;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* ------------------------------------------- */
+
+/* --------------Custome Select----------------- */
+.css-1pahdxg-control {
+  border-color: hsl(0, 0%, 80%) !important;
+  box-shadow: none !important;
+}
+
+.sizeSelect {
+  width: 200px !important;
+  margin: 0 10px;
+}
+/* ----------------------------------------------- */
+
+/* --------------Custome Scrollbar----------------- */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: 4px 6px 8px #75757585;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(83, 83, 84, 0.789);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fb4361;
+}
+
+/* ------------------------------------------------------ */
+
 /* --------------Carousel Styles Override----------------- */
 .control-dots > .dot {
   transform: scale(1.6);
@@ -72,6 +143,18 @@ a {
 }
 /* -------------------------------- */
 
+/* ---------------product list item----------------- */
+.productListItem {
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  word-spacing: 2.2px;
+}
+
+.productListItem > span {
+  font-weight: bold;
+}
+/* ----------------------------------------------- */
 .svgIcon {
   transition: 0.3s ease-out;
   cursor: pointer;
@@ -80,11 +163,6 @@ a {
 ul {
   list-style: none;
   padding: 40px 0;
-}
-
-.footerList {
-  flex: 1 1 50%;
-  min-width: 430px;
 }
 
 .youtubeSVG:hover {
@@ -112,7 +190,6 @@ li a:hover {
 .socialMediaParentContainer {
   flex: 0 1 50%;
   margin: 40px 0;
-  min-width: 400px;
 }
 
 @media (max-width: 870px) {

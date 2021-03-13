@@ -1,35 +1,36 @@
-import { useState } from 'react';
+// --------------------Logic--------------------
+import React, { useState } from 'react';
+import { addToCart } from '../../redux/reducers/cart-slice';
+import Link from 'next/Link';
+// --------------------UI Imports--------------------
 import Image from 'next/image';
 import Button from '../button';
-import styled from 'styled-components';
 import Paragraph from '../paragraph';
-import { boxShadow, dark } from '../../styles/styleConstants';
+import StyledQTYButton from './styledElements';
+import { boxShadow, secondaryLight } from '../../styles/styleConstants';
+import { Container, FlexContainer } from '../shared-components/containers';
+import { useAppDispatch } from '../../redux/hooks';
+import useTranslation from 'next-translate/useTranslation';
+// --------------------Component's Interface--------------------
+interface ProductCardProductDetailsInterface {
+  id: string;
+  title: string;
+  imgDetails: { imgSrc: string; alt: string };
+  price: number;
+}
+interface ProductCardInterface {
+  productDetails: ProductCardProductDetailsInterface;
+}
 
-const StyledContainer = styled.div`
-  width: 220px;
-  background-color: #fff;
-  text-align: center;
-  padding: 10px 0;
-  box-shadow: ${boxShadow};
-  margin: 15px auto;
-`;
-
-const StyledQTYButton = styled.button`
-  flex: 1 1 30%;
-  border: none;
-  color: #fff;
-  background-color: ${dark};
-  height: 30px;
-  font-weight: bold;
-  outline: none;
-  transition: 0.3s ease-out;
-
-  &:hover {
-    background-color: #5a5a5d;
-  }
-`;
-
-const index = () => {
+const index: React.FC<ProductCardInterface> = ({
+  productDetails: {
+    id,
+    title,
+    price,
+    imgDetails: { imgSrc, alt },
+  },
+}) => {
+  const { t } = useTranslation('common');
   const [count, setCount] = useState(0);
   const increment = () => setCount(count + 1);
   const decrement = () => {
@@ -37,14 +38,39 @@ const index = () => {
     setCount(count - 1);
   };
 
+  const dispatch = useAppDispatch();
+  const sendToCart = () => {
+    if (count <= 0) return;
+    dispatch(
+      addToCart({
+        qty: count,
+        id: id,
+        title: title,
+        price: price,
+        imgSrc: imgSrc,
+      })
+    );
+    setCount(0);
+  };
   return (
-    <StyledContainer>
-      <Image src='/whey_protein_thumb.jpg' width={200} height={200} />
-      <Paragraph m='10px'>Whey Protein - Gold Standard</Paragraph>
-      <Button w='100%' noShadow>
-        View
-      </Button>
-      <div style={{ display: 'flex', margin: '5px 0' }}>
+    <Container
+      w='220px'
+      bg={secondaryLight}
+      style={{
+        textAlign: 'center',
+        boxShadow: boxShadow,
+      }}
+    >
+      <Image src={imgSrc} alt={alt} width={200} height={200} />
+      <Paragraph m='10px'>{price}$</Paragraph>
+      <Link href={`http://localhost:3000/products/${id}`}>
+        <a>
+          <Button w='100%' noShadow>
+            {t`buttons.view`}
+          </Button>
+        </a>
+      </Link>
+      <FlexContainer m='5px 0' align='center'>
         <StyledQTYButton onClick={decrement}>-</StyledQTYButton>
         <span
           style={{
@@ -57,11 +83,11 @@ const index = () => {
           {count}
         </span>
         <StyledQTYButton onClick={increment}>+</StyledQTYButton>
-      </div>
-      <Button w='100%' noShadow>
-        add to cart
+      </FlexContainer>
+      <Button w='100%' noShadow handleClick={sendToCart}>
+        {t`buttons.addToCart`}
       </Button>
-    </StyledContainer>
+    </Container>
   );
 };
 

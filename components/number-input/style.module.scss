@@ -3,17 +3,12 @@
   width: 100%;
   margin: 0;
   outline: none;
-  border: none;
+  border: 2px solid transparent;
   background-color: transparent;
   text-align: center;
+  transition: 0.3s ease-out;
 }
 
-.numberInput::-webkit-outer-spin-button,
-.numberInput::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-/* Firefox */
-.numberInput[type='number'] {
-  -moz-appearance: textfield;
+.generalStyles:focus {
+  border-color: rgba(99, 99, 99, 0.802);
 }

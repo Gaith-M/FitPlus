@@ -1,6 +1,7 @@
 import RadioInput from '../radio-input';
 import { space_1, space_6 } from '../../styles/styleConstants';
 import React from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface compInterface {
   selected: string;
@@ -8,6 +9,7 @@ interface compInterface {
 }
 
 const index: React.FC<compInterface> = ({ selected, handleChange }) => {
+  const { t } = useTranslation('blogs');
   return (
     <div
       style={{
@@ -18,16 +20,24 @@ const index: React.FC<compInterface> = ({ selected, handleChange }) => {
         padding: '0 3px',
       }}
     >
-      <span style={{ marginRight: space_1, fontSize: '0.8em' }}>Sort By:</span>
+      <span
+        style={{
+          display: 'inline-block',
+          marginRight: space_1,
+          fontSize: '0.8em',
+        }}
+      >
+        {t`sortBy`}:
+      </span>
       <RadioInput
-        label='newest'
-        name='filterBy'
+        label={t`newest`}
+        name='newest'
         value='newest'
         isSelected={selected === 'newest'}
         handleChange={handleChange}
       />
       <RadioInput
-        label='most viewed'
+        label={t`mostViewed`}
         name='filterBy'
         value='mostViewed'
         isSelected={selected === 'mostViewed'}

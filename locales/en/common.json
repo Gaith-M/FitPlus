@@ -13,6 +13,19 @@
         "t-o-service": "terms of service",
         "address": "Address: Some city - some street - near some place",
         "phone": "phone: +00 132 213 3211",
-        "email": "Email: Fit+@gmail.com"
+        "email": "Email: Fit+@gmail.com",
+        "reserved": "all rights reservered"
+    },
+    "section-titles": {
+        "shop": "shop",
+        "blogs": "blogs",
+        "whyFit": "why fit+?"
+    },
+    "buttons": {
+        "getInTouch": "Get In touch",
+        "learnMore": "learn more",
+        "addToCart": "add To Cart",
+        "view": "view",
+        "go": "go"
     }
 }

@@ -4,7 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const index = () => {
   return (
-    <div dir='ltr'>
+    <div dir='ltr' style={{ marginBottom: '30px' }}>
       <Carousel
         showThumbs={false}
         infiniteLoop
@@ -49,13 +49,15 @@ const index = () => {
               <br />
               <span
                 style={{
-                  display: 'block',
-                  width: '75%',
-                  margin: '20px auto',
-                  textAlign: 'end',
+                  display: 'inline-flex',
+                  justifyContent: 'flex-end',
+                  width: '85%',
+                  margin: '10px 0',
                 }}
               >
-                <StyledButton w={'200px'}>Shop Now</StyledButton>
+                <StyledButton w={'200px'} fontSize='18px'>
+                  Shop Now
+                </StyledButton>
               </span>
             </p>
           </div>

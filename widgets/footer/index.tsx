@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
           <LogoIcon />
         </StyledLogoContainer>
 
-        <ul className='footerList'>
+        <ul style={{ minWidth: 300, flex: '1 1 50%', padding: '10px' }}>
           <StyledLi>
             <a href='/privacy-policy'>{t`footer.p-policy`}</a>
           </StyledLi>
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
           </StyledLi>
         </ul>
 
-        <ul className='footerList'>
+        <ul style={{ minWidth: 300, flex: '1 1 50%', padding: '10px' }}>
           <StyledLi>
             <Link href='/'>
               <a>{t`navbar.home`}</a>
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
           Fit+
         </span>{' '}
         &copy; {new Date().getFullYear()} <br />
-        all rights reserved
+        {t`footer.reserved`}
       </StyledCopyRight>
     </StyledFooterContainer>
   );

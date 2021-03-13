@@ -8,7 +8,7 @@ import {
 
 const StyledParagraph = styled.div`
   color: ${({ color }) => (color ? color : dark)};
-  font-size: ${({ size }) => (size ? '1em' : size)};
+  font-size: ${({ size }) => (size ? size : '1em')};
   line-height: ${lineHeight};
   letter-spacing: ${letterSpacing};
   margin: ${({ m }) => (m ? `${m} 0` : `${space_1} 0`)};
@@ -21,6 +21,7 @@ interface CompInterface {
   lineHeight?: string;
   letterSpacing?: string;
   m?: string;
+  style?: {};
 }
 
 const index: React.FC<CompInterface> = ({
@@ -30,6 +31,7 @@ const index: React.FC<CompInterface> = ({
   lineHeight,
   letterSpacing,
   m,
+  style,
 }) => (
   <StyledParagraph
     color={color}
@@ -37,6 +39,7 @@ const index: React.FC<CompInterface> = ({
     lineHeight={lineHeight}
     letterSpacing={letterSpacing}
     m={m}
+    style={style}
   >
     {children}
   </StyledParagraph>

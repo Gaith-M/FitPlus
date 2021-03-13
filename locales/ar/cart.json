@@ -15,5 +15,15 @@
     "phone": "رقم الهاتف",
     "email": "البريد الالكتروني",
     "credit-card-number": "رقم بطاقة الائتمان",
-    "CVC": "رمز البطاقة"
+    "CVC": "رمز البطاقة",
+    "shipping": "الشحن",
+    "free": "مجاني",
+    "express": "سريع",
+    "default": "عادي",
+    "order-date": "تاريخ الطلب" ,
+    "order-number": "رقم الطلب",
+    "type-of-delivery": "نوع التوصيل",
+    "delivery-date": "تاريخ التوصيل",
+    "purchased-items": "المشتريات",
+    "order-details": "معلومات الطلب"
 }

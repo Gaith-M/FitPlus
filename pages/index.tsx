@@ -1,5 +1,4 @@
 // --------------------Logic--------------------
-import { useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 // --------------------Components--------------------
 import CustomeCarousel from '../components/customeCarousel';
@@ -12,25 +11,6 @@ import { Container } from '../components/shared-components/containers';
 import { space_max } from '../styles/styleConstants';
 
 const Home: React.FC = () => {
-  const { t } = useTranslation('home');
-
-  useEffect(() => {
-    const detectSize = () => {
-      if (window) {
-        window.innerWidth > 900 ? console.log('big') : console.log('small');
-        // ? dispatch(SetScreenSize(false))
-        // : dispatch(SetScreenSize(true));
-      }
-    };
-    if (window) {
-      window.document.addEventListener('DOMContentLoaded', detectSize);
-    }
-    return () => {
-      if (window) {
-        window.document.removeEventListener('DOMContentLoaded', detectSize);
-      }
-    };
-  }, []);
   return (
     <>
       <Meta
@@ -42,8 +22,8 @@ const Home: React.FC = () => {
           Fit+
         </Heading>
         <CustomeCarousel />
-        <BlogsSection />
         <ProductsSection />
+        <BlogsSection />
         <AboutSection />
       </Container>
     </>

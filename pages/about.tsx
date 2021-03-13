@@ -16,9 +16,9 @@ export const About = () => {
       <Meta title='Fit+ About' />
       <Container m={`${space_max} 0`}>
         <main>
-          <Heading lvl={2}>Who We Are</Heading>
+          <Heading lvl={1}>{t`whoWeAre`}</Heading>
 
-          <AboutCard title='state of the art gyms' imgSrc='/gym_photo.jpg'>
+          <AboutCard title={t`modernGyms`} imgSrc='/gym_photo.jpg'>
             <Paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -44,7 +44,7 @@ export const About = () => {
             </Paragraph>
           </AboutCard>
 
-          <AboutCard title='Professional staff' imgSrc='/staff.jpg'>
+          <AboutCard title={t`proStaff`} imgSrc='/staff.jpg'>
             <Paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -68,7 +68,7 @@ export const About = () => {
             </Paragraph>
           </AboutCard>
 
-          <AboutCard title='Where we operate' imgSrc='/map.jpg'>
+          <AboutCard title={t`locations`} imgSrc='/map.jpg'>
             <Paragraph>
               <address
                 style={{ color: dark, lineHeight: 2.5, margin: `${space_2} 0` }}
@@ -97,7 +97,7 @@ export const About = () => {
               deserunt mollit anim id est laborum.
             </Paragraph>
             <Button w='300px' p='20px 10px' m={`${space_2} auto`}>
-              get in touch
+              {t`getInTouch`}
             </Button>
           </AboutCard>
         </main>

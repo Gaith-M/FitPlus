@@ -1,9 +1,9 @@
 import styles from './style.module.scss';
 
 interface compInterface {
-  id: number;
   value: number;
-  handleChange: (id: number, value: number) => void;
+  id: string;
+  handleChange: (id: string, qty: number) => void;
 }
 
 const index: React.FC<compInterface> = ({ handleChange, value, id }) => {
@@ -11,9 +11,10 @@ const index: React.FC<compInterface> = ({ handleChange, value, id }) => {
     <input
       type='number'
       className={`${styles.numberInput} ${styles.generalStyles}`}
-      onChange={(e) => {
-        let { value } = e.target;
-        +value <= 0 ? null : handleChange(id, +e.target.value);
+      onChange={({ target: { value } }) => {
+        if (+value > 0) {
+          handleChange(id, +value);
+        }
       }}
       value={value}
     />

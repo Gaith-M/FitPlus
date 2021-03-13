@@ -1,6 +1,6 @@
 export default [
   {
-    id: 1,
+    id: '1',
     imgDetails: {
       src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
@@ -10,7 +10,7 @@ export default [
     qty: 2,
   },
   {
-    id: 2,
+    id: '2',
     imgDetails: {
       src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
@@ -20,7 +20,7 @@ export default [
     qty: 3,
   },
   {
-    id: 3,
+    id: '3',
     imgDetails: {
       src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
@@ -30,7 +30,7 @@ export default [
     qty: 4,
   },
   {
-    id: 4,
+    id: '4',
     imgDetails: {
       src: '/whey_protein_thumb.jpg',
       alt: `product's image`,

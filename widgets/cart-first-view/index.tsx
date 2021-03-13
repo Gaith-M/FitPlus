@@ -1,8 +1,14 @@
-import { useState } from 'react';
+// -----------------Logic Imports-----------------
+import useTranslation from 'next-translate/useTranslation';
+import {
+  updateQty,
+  cartSelector,
+  removeFromCart,
+} from '../../redux/reducers/cart-slice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // -----------------UI Imports-----------------
-import { Container } from './styledElements';
-import CartHeader from '../../components/cart-first-view-header';
-import CartFooter from '../../components/cart-first-view-footer';
+import CartHeader from '../../components/cart-view-header';
+import CartFooter from '../../components/cart-view-footer';
 import Entry from '../../components/cart-item-entry';
 import Button from '../../components/button';
 import {
@@ -10,49 +16,47 @@ import {
   secondaryLight,
   space_3,
 } from '../../styles/styleConstants';
-import data from './itemsData';
-import useTranslation from 'next-translate/useTranslation';
+import {
+  Container,
+  FlexContainer,
+} from '../../components/shared-components/containers';
+import React from 'react';
 
 const index = ({ handleClick }) => {
   const { t } = useTranslation('cart');
-  const [state, setState] = useState(data);
-
-  // handlers
-  const handleDelete = (targetID) =>
-    setState(state.filter(({ id }) => id !== targetID));
-
-  const handleQtyChange = (targetID, value) =>
-    setState(
-      state.map((elem) => {
-        if (elem.id === targetID) {
-          elem.qty = value;
-          return elem;
-        } else {
-          return elem;
-        }
-      })
-    );
-
-  return state.length > 0 ? (
+  const dispatch = useAppDispatch();
+  const { items } = useAppSelector(cartSelector);
+  const handleDelete = (id: string) => dispatch(removeFromCart(id));
+  const handleQtyChange = (id: string, qty: number) =>
+    dispatch(updateQty({ id, qty }));
+  // if cart has items => show them / if not => show empty cart background
+  return items.length > 0 ? (
     <>
-      <Container>
+      <Container
+        bg={secondaryLight}
+        p='20px 10px'
+        style={{ boxShadow: boxShadow }}
+      >
         <CartHeader />
-        {state.length > 0
-          ? state.map(({ imgDetails, name, qty, price, id }) => (
-              <Entry
-                imgDetails={imgDetails}
-                name={name}
-                qty={qty}
-                price={price}
-                id={id}
-                key={id}
-                handleDelete={handleDelete}
-                handleChange={handleQtyChange}
-              />
-            ))
-          : null}
+        {items.map(({ imgSrc, title, qty, price, id }) => (
+          <Entry
+            imgSrc={imgSrc}
+            title={title}
+            qty={qty}
+            price={price}
+            id={id}
+            key={id}
+            handleDelete={handleDelete}
+            handleChange={handleQtyChange}
+          />
+        ))}
 
-        <CartFooter state={state} />
+        <CartFooter
+          value={items
+            .reduce((acc, { qty, price }) => acc + price * qty, 0)
+            .toFixed(2)}
+          text={t`total`}
+        />
       </Container>
       <div
         style={{
@@ -67,21 +71,19 @@ const index = ({ handleClick }) => {
       </div>
     </>
   ) : (
-    <div
+    <FlexContainer
+      justify='center'
+      align='center'
+      bg={secondaryLight}
       style={{
         minHeight: '40vh',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: secondaryLight,
         boxShadow: boxShadow,
       }}
     >
       <span style={{ fontSize: '3em', color: 'rgba(33,33,33, 0.3)' }}>
         Cart Is Empty
       </span>
-    </div>
+    </FlexContainer>
   );
 };
 

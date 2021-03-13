@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   space_2,
@@ -23,6 +23,11 @@ const Container = styled.div`
 `;
 
 const index = ({ next }) => {
+  useEffect(() => {
+    if (typeof window != undefined) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
   const { t } = useTranslation('cart');
   const [fName, setFName] = useState('');
   const [LName, setLName] = useState('');

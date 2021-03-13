@@ -1,23 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import {
+  detectMobile,
+  isMobileSelector,
+} from '../../redux/reducers/isMobile-slice';
 import { LargeViewNav, SmallViewNav } from './views';
 
 const NavBar = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const numberOfItemsInCart = useAppSelector((state) => state.cart.items)
+    .length;
+  const dispatch = useAppDispatch();
+  const smallScreen = useAppSelector(isMobileSelector);
 
-  const detectMobile = () => setIsMobile(window.innerWidth < 900);
+  // ----------Detect screen size--------------
+  let detectIsMobile = (isSmall) => {
+    dispatch(detectMobile(isSmall));
+  };
 
   useEffect(() => {
-    window.addEventListener('DOMContentLoaded', detectMobile);
+    let mql = window.matchMedia('(max-width: 900px)');
+    mql.addListener(({ matches }) => {
+      detectIsMobile(matches);
+    });
+  }, []);
+  // -------------------------------------
 
-    return () => window.removeEventListener('DOMContentLoaded', detectMobile);
+  useEffect(() => {
+    if (window.innerWidth < 900) {
+      detectIsMobile(true);
+    }
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('resize', detectMobile);
-    console.log(isMobile);
-  }, [isMobile]);
-
-  return isMobile ? <SmallViewNav /> : <LargeViewNav />;
+  return smallScreen ? (
+    <SmallViewNav numberOfItemsInCart={numberOfItemsInCart} />
+  ) : (
+    <LargeViewNav numberOfItemsInCart={numberOfItemsInCart} />
+  );
 };
 
 export default NavBar;

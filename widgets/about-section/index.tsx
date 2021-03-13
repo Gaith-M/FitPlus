@@ -1,5 +1,5 @@
 import Heading from '../../components/heading';
-import { accent, space_4 } from '../../styles/styleConstants';
+import { accent, secondaryLight, space_4 } from '../../styles/styleConstants';
 import Button from '../../components/button';
 import Paragraph from '../../components/paragraph';
 import Image from 'next/image';
@@ -8,13 +8,13 @@ import {
   FlexContainer,
   FlexItem,
 } from '../../components/shared-components/containers';
+import useTranslation from 'next-translate/useTranslation';
 
 const index = () => {
+  const { t } = useTranslation('common');
   return (
     <Container>
-      <Heading lvl={2}>
-        What is <span style={{ color: accent, fontWeight: 'bold' }}>Fit+</span>?
-      </Heading>
+      <Heading lvl={2}>{t`section-titles.whyFit`}</Heading>
 
       <Paragraph>
         Find something else more interesting fart in owners food mrow. Ignore
@@ -61,8 +61,9 @@ const index = () => {
       </Paragraph>
 
       <FlexContainer
-        wrap={true}
+        wrap='wrap'
         justify='space-between'
+        align='stretch'
         m={`${space_4} 0`}
         style={{
           textAlign: 'center',
@@ -70,26 +71,44 @@ const index = () => {
           fontWeight: 'bold',
         }}
       >
-        <FlexItem flex='0 0 30%'>
+        <FlexItem
+          bg={secondaryLight}
+          p='10px 5px'
+          minW='250px'
+          m='20px auto'
+          flex='0 0 30%'
+        >
           <Image src='/about_thumb.jpg' width={300} height={200} />
           <Paragraph>State of The Art</Paragraph>
         </FlexItem>
-        <FlexItem flex='0 0 30%'>
+        <FlexItem
+          bg={secondaryLight}
+          p='10px 5px'
+          minW='250px'
+          m='20px auto'
+          flex='0 0 30%'
+        >
           <Image src='/about_thumb_coach.jpg' width={300} height={200} />
           <Paragraph>Hot Coaches</Paragraph>
         </FlexItem>
-        <FlexItem flex='0 0 30%'>
+        <FlexItem
+          bg={secondaryLight}
+          p='10px 5px'
+          minW='250px'
+          m='20px auto'
+          flex='0 0 30%'
+        >
           <Image src='/about_thumb_doc.jpg' width={300} height={200} />
           <Paragraph>Medically Prepared just in case</Paragraph>
         </FlexItem>
       </FlexContainer>
 
-      <FlexContainer wrap={true} justify='space-between' m={`${space_4} 0`}>
-        <Button flex={49} p='20px'>
-          Learn More
+      <FlexContainer wrap='wrap' justify='space-between' m={`${space_4} 0`}>
+        <Button flex='1 1 200px' m='10px' p='20px'>
+          {t`buttons.learnMore`}
         </Button>
-        <Button flex={49} p='20px'>
-          Get in touch
+        <Button flex='1 1 200px' m='10px' p='20px'>
+          {t`buttons.getInTouch`}
         </Button>
       </FlexContainer>
     </Container>

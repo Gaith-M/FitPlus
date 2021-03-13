@@ -7,14 +7,16 @@ import Heading from '../components/heading';
 import Stepper from '../components/cart-stepper';
 import FirstView from '../widgets/cart-first-view';
 import SecondView from '../widgets/cart-second-view';
+import ThirdView from '../widgets/cart-third-view';
+import Thankyou from '../widgets/cart-thank-you-view';
 import { Container } from '../components/shared-components/containers';
 
 const cart = () => {
   const { t } = useTranslation('cart');
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
 
   const nextStep = () => {
-    if (step > 4) return;
+    if (step >= 3) return;
     setStep(step + 1);
   };
 
@@ -30,9 +32,9 @@ const cart = () => {
       case 1:
         return <SecondView next={nextStep} />;
       case 2:
-        return <div>Third</div>;
+        return <ThirdView handleClick={nextStep} />;
       case 3:
-        return <div>Thank You</div>;
+        return <Thankyou />;
       default:
         return null;
     }
@@ -56,13 +58,15 @@ const cart = () => {
       <Meta title='Fit+ Cart' />
 
       <Container m={`${space_max} 0`}>
-        <Heading lvl={2}>{currentHeading(step)}</Heading>
+        {step > 2 ? null : <Heading lvl={1}>{currentHeading(step)}</Heading>}
         {step > 2 ? null : <Stepper current={step} />}
 
         {currentView(step)}
 
-        <button onClick={nextStep}>Next</button>
-        <button onClick={previousStep}>previous</button>
+        <span style={{ position: 'fixed', top: '90%', left: 0 }}>
+          <button onClick={nextStep}>Next</button>
+          <button onClick={previousStep}>previous</button>
+        </span>
       </Container>
     </>
   );

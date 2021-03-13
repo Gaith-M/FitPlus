@@ -1,10 +1,18 @@
 import useTranslation from 'next-translate/useTranslation';
-import { FlexContainer } from '../../widgets/cart-first-view/styledElements';
+import { FlexContainer } from '../shared-components/containers';
 
 const index = () => {
   const { t } = useTranslation('cart');
   return (
-    <FlexContainer>
+    <FlexContainer
+      justify='space-between'
+      p='20px 5px'
+      style={{
+        textTransform: 'capitalize',
+        fontSize: '0.9em',
+        fontWeight: 'bold',
+      }}
+    >
       <span style={{ width: '75px' }} />
       <span style={{ flex: '0 1 35%' }}>{t`name`}</span>
       <span style={{ flex: '0 1 10%', margin: '0 5px', textAlign: 'center' }}>

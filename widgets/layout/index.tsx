@@ -13,12 +13,14 @@ const Layout: React.FC = (props) => {
   }, [lang]);
 
   return (
-    <div className='Layout' dir={dir}>
+    <>
       <NavBar />
-      <div style={{ marginTop: 90 }} />
-      <StyledContainer>{props.children}</StyledContainer>
+      <div className='Layout' dir={dir}>
+        <div style={{ marginTop: 90 }} />
+        <StyledContainer>{props.children}</StyledContainer>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

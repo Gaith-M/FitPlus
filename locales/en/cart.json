@@ -15,5 +15,15 @@
     "phone": "Phone",
     "email": "Email",
     "credit-card-number": "Credit Card Number",
-    "CVC": "CVC"
+    "CVC": "CVC",
+    "shipping": "shipping",
+    "free": "free",
+    "express": "express",
+    "default": "default",
+    "order-date": "order date" ,
+    "order-number": "order number",
+    "type-of-delivery": "type of delivery",
+    "delivery-date": "delivery date",
+    "purchased-items": "Purchased-Items",
+    "order-details": "Order Details"
 }

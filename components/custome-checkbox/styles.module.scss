@@ -1,0 +1,8 @@
+.checkboxLabel input:checked ~ span {
+  background-color: #c11f3a;
+  background-image: url('/checkmark_checkbox.png');
+  background-size: 13px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-color: transparent;
+}

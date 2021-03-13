@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import {
   light,
   accent,
-  secondaryAccent,
   dark,
   dynamicShadow,
   boxShadow,
@@ -18,6 +17,9 @@ export const StyledNavbarContainer = styled.div`
   position: fixed;
   top: 0;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const StyledNavbar = styled.div`
@@ -28,7 +30,6 @@ export const StyledNavbar = styled.div`
   padding: 15px 0;
   position: fixed;
   top: 0;
-  left: 6%;
   z-index: 111;
 
   display: flex;
@@ -75,13 +76,13 @@ export const StyledLink = styled.a`
   padding: 10px;
   text-transform: capitalize;
   text-decoration: none;
-  color: ${(props) => (props.active ? secondaryAccent : dark)};
+  color: ${(props) => (props.active ? accent : dark)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
   filter: drop-shadow(${dynamicShadow});
   transition: 0.3s color ease-out;
 
   &:hover {
-    color: ${secondaryAccent};
+    color: ${accent};
   }
 `;
 
@@ -111,8 +112,7 @@ export const NavWrapper = styled.div`
   transition: 0.3s;
   box-shadow: ${boxShadow};
   background-color: ${light};
-  transform: ${({ ltr, open }) =>
-    ltr ? `translateX(${open ? 0 : -115}%)` : `translateX(${open ? 0 : 115}%)`};
+  transform: ${({ open }) => `translateX(${open ? '0' : '-115%'})`};
 `;
 
 export const SmallNav = styled.nav`
@@ -129,14 +129,14 @@ export const SmallNavLink = styled.a`
   text-transform: capitalize;
   text-align: center;
   text-decoration: none;
-  color: ${(props) => (props.active ? secondaryAccent : dark)};
+  color: ${(props) => (props.active ? accent : dark)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
   filter: drop-shadow(${dynamicShadow});
   transition: 0.3s ease-out;
   overflow-x: hidden;
 
   &:hover {
-    color: ${secondaryAccent};
+    color: ${accent};
   }
 
   &::after {

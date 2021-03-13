@@ -16,7 +16,7 @@ export const StyledLogoContainer = styled.div`
   display: flex;
   flex: 1 1 50%;
   justify-content: flex-end;
-  min-width: 400px;
+  min-width: 320px;
   margin: ${space_3} 0;
 
   @media (max-width: 870px) {
@@ -79,13 +79,4 @@ export const StyledCopyRight = styled.div`
   font-size: 0.9em;
   text-transform: capitalize;
   line-height: 1.4;
-`;
-
-export const StyledFooterFlexContainer = styled.div`
-  flex: '0 1 50%';
-  min-width: 600px;
-  order: ${({ order }) => order || 0};
-  @media (max-width: 600px) {
-    text-align: center;
-  }
 `;

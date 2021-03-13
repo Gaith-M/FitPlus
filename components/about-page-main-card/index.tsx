@@ -1,4 +1,9 @@
-import { space_4, space_2 } from '../../styles/styleConstants';
+import {
+  space_4,
+  space_2,
+  secondaryLight,
+  boxShadow,
+} from '../../styles/styleConstants';
 import { Container } from '../shared-components/containers';
 import Heading from '../heading';
 import React from 'react';
@@ -11,7 +16,12 @@ interface compInterface {
 
 const index: React.FC<compInterface> = ({ title, imgSrc, children }) => {
   return (
-    <Container p={space_2} m={`${space_2} auto ${space_4}`}>
+    <Container
+      p={space_2}
+      m={`${space_2} auto ${space_4}`}
+      bg={secondaryLight}
+      style={{ boxShadow: boxShadow }}
+    >
       <div
         style={{
           width: '100%',

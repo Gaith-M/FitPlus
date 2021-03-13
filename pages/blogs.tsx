@@ -8,8 +8,10 @@ import ViewControls from '../components/blogs-page-view-filter-controls';
 import BlogCard from '../components/blog-card';
 import fakeData from '../components/blog-card/fakeData';
 import { Container } from '../components/shared-components/containers';
+import useTranslation from 'next-translate/useTranslation';
 
 const blogs = () => {
+  const { t } = useTranslation('blogs');
   const [selected, setSelected] = useState('newest');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -19,7 +21,7 @@ const blogs = () => {
     <>
       <Meta title='Fit+ Blogs' />
       <Container m={`${space_max} 0`}>
-        <Heading lvl={2}>Blogs</Heading>
+        <Heading lvl={1}>{t`blogs`}</Heading>
         <Searchbar />
         <ViewControls selected={selected} handleChange={handleChange} />
 
@@ -46,3 +48,9 @@ const blogs = () => {
 };
 
 export default blogs;
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
