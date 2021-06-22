@@ -1,11 +1,11 @@
 // -----------------Logic Imports-----------------
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import useTranslation from 'next-translate/useTranslation';
 import {
   updateQty,
   cartSelector,
   removeFromCart,
 } from '../../redux/reducers/cart-slice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // -----------------UI Imports-----------------
 import CartHeader from '../../components/cart-view-header';
 import CartFooter from '../../components/cart-view-footer';
@@ -13,6 +13,9 @@ import Entry from '../../components/cart-item-entry';
 import Button from '../../components/button';
 import {
   boxShadow,
+  dark,
+  light,
+  onyx,
   secondaryLight,
   space_3,
 } from '../../styles/styleConstants';
@@ -20,9 +23,9 @@ import {
   Container,
   FlexContainer,
 } from '../../components/shared-components/containers';
-import React from 'react';
+import { ViewInterface } from '../../pages/cart';
 
-const index = ({ handleClick }) => {
+const index: React.FC<ViewInterface> = ({ theme, next }) => {
   const { t } = useTranslation('cart');
   const dispatch = useAppDispatch();
   const { items } = useAppSelector(cartSelector);
@@ -33,9 +36,10 @@ const index = ({ handleClick }) => {
   return items.length > 0 ? (
     <>
       <Container
-        bg={secondaryLight}
+        bg={theme === 'light' ? secondaryLight : onyx}
         p='20px 10px'
         style={{ boxShadow: boxShadow }}
+        className={theme}
       >
         <CartHeader />
         {items.map(({ imgSrc, title, qty, price, id }) => (
@@ -65,7 +69,7 @@ const index = ({ handleClick }) => {
           justifyContent: 'flex-end',
         }}
       >
-        <Button w='150px' handleClick={handleClick}>
+        <Button w='150px' handleClick={next}>
           {t`next`}
         </Button>
       </div>
@@ -74,15 +78,14 @@ const index = ({ handleClick }) => {
     <FlexContainer
       justify='center'
       align='center'
-      bg={secondaryLight}
+      bg={theme === 'light' ? secondaryLight : onyx}
       style={{
         minHeight: '40vh',
         boxShadow: boxShadow,
+        color: theme === 'light' ? dark : light,
       }}
     >
-      <span style={{ fontSize: '3em', color: 'rgba(33,33,33, 0.3)' }}>
-        Cart Is Empty
-      </span>
+      <span style={{ fontSize: '3em', color: 'inherit' }}>Cart Is Empty</span>
     </FlexContainer>
   );
 };

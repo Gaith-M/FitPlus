@@ -1,5 +1,10 @@
 import Heading from '../../components/heading';
-import { accent, secondaryLight, space_4 } from '../../styles/styleConstants';
+import {
+  dark,
+  onyx,
+  secondaryLight,
+  space_4,
+} from '../../styles/styleConstants';
 import Button from '../../components/button';
 import Paragraph from '../../components/paragraph';
 import Image from 'next/image';
@@ -10,10 +15,14 @@ import {
 } from '../../components/shared-components/containers';
 import useTranslation from 'next-translate/useTranslation';
 
-const index = () => {
+interface SectionInterface {
+  theme: string;
+}
+
+const index: React.FC<SectionInterface> = ({ theme }) => {
   const { t } = useTranslation('common');
   return (
-    <Container>
+    <Container className={theme}>
       <Heading lvl={2}>{t`section-titles.whyFit`}</Heading>
 
       <Paragraph>
@@ -72,31 +81,43 @@ const index = () => {
         }}
       >
         <FlexItem
-          bg={secondaryLight}
+          bg={theme === 'light' ? secondaryLight : onyx}
           p='10px 5px'
           minW='250px'
           m='20px auto'
           flex='0 0 30%'
+          style={{
+            boxShadow: '5px 3px 11px 2px #4a4a4aab',
+            color: theme === 'light' ? dark : secondaryLight,
+          }}
         >
           <Image src='/about_thumb.jpg' width={300} height={200} />
           <Paragraph>State of The Art</Paragraph>
         </FlexItem>
         <FlexItem
-          bg={secondaryLight}
+          bg={theme === 'light' ? secondaryLight : onyx}
           p='10px 5px'
           minW='250px'
           m='20px auto'
           flex='0 0 30%'
+          style={{
+            boxShadow: '5px 3px 11px 2px #4a4a4aab',
+            color: theme === 'light' ? dark : secondaryLight,
+          }}
         >
           <Image src='/about_thumb_coach.jpg' width={300} height={200} />
           <Paragraph>Hot Coaches</Paragraph>
         </FlexItem>
         <FlexItem
-          bg={secondaryLight}
+          bg={theme === 'light' ? secondaryLight : onyx}
           p='10px 5px'
           minW='250px'
           m='20px auto'
           flex='0 0 30%'
+          style={{
+            boxShadow: '5px 3px 11px 2px #4a4a4aab',
+            color: theme === 'light' ? dark : secondaryLight,
+          }}
         >
           <Image src='/about_thumb_doc.jpg' width={300} height={200} />
           <Paragraph>Medically Prepared just in case</Paragraph>

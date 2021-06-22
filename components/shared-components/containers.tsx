@@ -5,6 +5,7 @@ interface containerInterface {
   m?: string;
   p?: string;
   bg?: string;
+  color?: string;
   style?: {};
   className?: string;
 }
@@ -28,6 +29,7 @@ interface flexContainerInterface extends containerInterface {
 interface flexItemInterface extends containerInterface {
   minW: string;
   flex: string;
+  style?: {};
 }
 
 export const Container: React.FC<containerInterface> = styled.div`

@@ -18,6 +18,7 @@ const index: React.FC<compInterface> = ({ selected, handleChange }) => {
         display: 'flex',
         alignItems: 'center',
         padding: '0 3px',
+        color: 'inherit',
       }}
     >
       <span
@@ -25,6 +26,7 @@ const index: React.FC<compInterface> = ({ selected, handleChange }) => {
           display: 'inline-block',
           marginRight: space_1,
           fontSize: '0.8em',
+          color: 'inherit',
         }}
       >
         {t`sortBy`}:

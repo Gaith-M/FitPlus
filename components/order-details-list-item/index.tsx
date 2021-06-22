@@ -8,7 +8,7 @@ const index = ({ fieldName, value }) => {
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignItems: 'center',
-        color: dark,
+        color: 'inherit',
         padding: '10px',
         marginBottom: 10,
         borderBottom: '1px solid #d8d8d8',

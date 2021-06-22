@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { space_2 } from '../../styles/styleConstants';
 import Button from '../button';
 import { FlexContainer } from '../shared-components/containers';
 
 const StyledSearchBar = styled.input`
-  min-width: 300px;
+  min-width: 270px;
   width: 100%;
-  height: 37px;
+  height: 39px;
   padding: 0 10px;
   border: none;
   outline: none;
   font-weight: bold;
+  background-color: #f1f1f1;
 `;
 
 interface compInterface {
@@ -27,9 +27,9 @@ const index: React.FC<compInterface> = ({
   text,
 }) => {
   return (
-    <FlexContainer w={w} justify='center' m={m}>
+    <FlexContainer w={w} justify='center' align='center' m={m}>
       <StyledSearchBar type='text' placeholder={text || 'search'} />
-      <Button w='100px' noShadow={true} handleClick={handleClick}>
+      <Button noRad={false} w='100px' noShadow={true} handleClick={handleClick}>
         {text || 'go'}
       </Button>
     </FlexContainer>

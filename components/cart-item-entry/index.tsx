@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   accent,
@@ -6,18 +5,7 @@ import {
   secondaryLight,
 } from '../../styles/styleConstants';
 import NumberInput from '../number-input';
-
-const Entry = styled.div`
-  flex: 0 1 100%;
-  padding: 15px 5px;
-  font-size: 0.9em;
-  margin: 10px 0;
-  border-bottom: 1px solid #c1c1c1;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import { FlexContainer } from '../shared-components/containers';
 
 const DeleteButton = styled.button`
   flex: 0 1 30px;
@@ -56,14 +44,35 @@ const index: React.FC<compInterface> = ({
   handleChange,
 }) => {
   return (
-    <Entry>
+    <FlexContainer
+      justify='space-between'
+      align='center'
+      m='10px 0'
+      p='15px 5px'
+      style={{
+        fontSize: '0.9em',
+        flex: '0 1 100%',
+        borderBottom: '1px solid #c1c1c1',
+        color: 'inherit',
+      }}
+    >
       <img src={imgSrc} width='75px' height='75px' />
-      <span style={{ flex: '0 1 35%', cursor: 'default' }}>{title}</span>
+      <span
+        style={{
+          flex: '0 1 35%',
+          cursor: 'default',
+          color: 'inherit',
+          padding: '3px 0',
+        }}
+      >
+        {title}
+      </span>
       <span
         style={{
           flex: '0 1 10%',
           margin: '0 5px',
           textAlign: 'center',
+          color: 'inherit',
         }}
       >
         <NumberInput value={qty} id={id} handleChange={handleChange} />
@@ -74,6 +83,7 @@ const index: React.FC<compInterface> = ({
           margin: '0 5px',
           textAlign: 'center',
           cursor: 'default',
+          color: 'inherit',
         }}
       >
         {price}$
@@ -84,6 +94,7 @@ const index: React.FC<compInterface> = ({
           margin: '0 5px',
           textAlign: 'center',
           cursor: 'default',
+          color: 'inherit',
         }}
       >
         {(price * qty).toFixed(2)}$
@@ -94,7 +105,7 @@ const index: React.FC<compInterface> = ({
       >
         X
       </DeleteButton>
-    </Entry>
+    </FlexContainer>
   );
 };
 

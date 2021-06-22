@@ -1,25 +1,43 @@
+import { useEffect } from 'react';
+import { ViewInterface } from '../../pages/cart';
 import useTranslation from 'next-translate/useTranslation';
-import {
-  FlexContainer,
-  FlexItem,
-  Container,
-} from '../../components/shared-components/containers';
+import styled from 'styled-components';
+// ----------------------- UI Imports -----------------------
 import RecieptHeader from '../../components/reciept-header';
 import RecieptFooter from '../../components/reciept-footer';
 import Heading from '../../components/heading';
 import DetialsEntry from '../../components/order-details-list-item';
+import RecieptEntry from '../../components/reciept-entry';
+import Button from '../../components/button';
+import {
+  Container,
+  FlexContainer,
+} from '../../components/shared-components/containers';
 import {
   boxShadow,
   dark,
+  onyx,
   secondaryLight,
-  space_3,
 } from '../../styles/styleConstants';
-import RecieptEntry from '../../components/reciept-entry';
 import data from '../cart-first-view/itemsData';
-import Button from '../../components/button';
-import { useEffect } from 'react';
+import itemsData from '../cart-first-view/itemsData';
 
-const index = ({ handleClick }) => {
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+  grid-template-areas: 'items data';
+  gap: 30px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      'items'
+      'data';
+  }
+`;
+
+const index: React.FC<ViewInterface> = ({ next, theme }) => {
   useEffect(() => {
     if (typeof window != undefined) {
       window.scrollTo(0, 0);
@@ -30,26 +48,28 @@ const index = ({ handleClick }) => {
 
   return (
     <>
-      <FlexContainer wrap='wrap' align='stretch' justify='space-between'>
-        <FlexItem
-          flex='1 1 50%'
-          minW='320px'
-          bg={secondaryLight}
-          style={{ boxShadow: boxShadow }}
+      <GridContainer className={theme}>
+        <Container
+          bg={theme === 'light' ? secondaryLight : onyx}
+          style={{ boxShadow: boxShadow, color: 'inherit', gridArea: 'items' }}
         >
           <Heading
             lvl='display'
             s='32px'
             style={{
-              padding: '10px 0 0 5px',
+              padding: '10px 5px',
             }}
           >
             {t`purchased-items`}
           </Heading>
           <Container>
-            <RecieptHeader bg={dark} color={secondaryLight} p='10px 5px' />
+            <RecieptHeader
+              bg={theme === 'light' ? dark : secondaryLight}
+              color={theme === 'light' ? secondaryLight : dark}
+              p='10px 5px'
+            />
             <Container
-              bg={secondaryLight}
+              bg={theme === 'light' ? secondaryLight : onyx}
               p='20px 0'
               style={{
                 maxHeight: '500px',
@@ -60,6 +80,7 @@ const index = ({ handleClick }) => {
               {data.length > 0
                 ? data.map(({ id, name, price, qty }) => (
                     <RecieptEntry
+                      theme={theme}
                       key={id}
                       name={name}
                       price={price}
@@ -69,38 +90,36 @@ const index = ({ handleClick }) => {
                 : null}
             </Container>
             <RecieptFooter
-              bg={dark}
-              color={secondaryLight}
+              bg={theme === 'light' ? dark : secondaryLight}
+              color={theme === 'light' ? secondaryLight : dark}
               p='10px 5px'
               text={t`shipping`}
               value={`10$`}
             />
             <RecieptFooter
-              bg={dark}
-              color={secondaryLight}
+              bg={theme === 'light' ? dark : secondaryLight}
+              color={theme === 'light' ? secondaryLight : dark}
               p='10px 5px'
               text={t`total`}
               value='351$'
             />
           </Container>
-        </FlexItem>
-        <FlexItem flex='0 0 25px' minW='25px' />
-        <FlexItem
-          flex='1 1 40%'
-          minW='320px'
-          bg={secondaryLight}
-          style={{ boxShadow: boxShadow }}
+        </Container>
+
+        <Container
+          bg={theme === 'light' ? secondaryLight : onyx}
+          style={{ boxShadow: boxShadow, color: 'inherit', gridArea: 'data' }}
         >
           <Heading
             lvl='display'
             s='32px'
             style={{
-              padding: '10px 0 0 5px',
+              padding: '10px 5px',
             }}
           >
             {t`order-details`}
           </Heading>
-          <Container>
+          <Container style={{ color: 'inherit' }}>
             <ul
               style={{
                 listStyle: 'none',
@@ -108,6 +127,7 @@ const index = ({ handleClick }) => {
                 fontSize: '0.9em',
                 maxHeight: '500px',
                 overflowY: 'auto',
+                color: 'inherit',
               }}
             >
               <DetialsEntry fieldName='name' value='john doe' />
@@ -126,19 +146,12 @@ const index = ({ handleClick }) => {
               />
             </ul>
           </Container>
-        </FlexItem>
-        <div
-          style={{
-            flex: '1 1 100%',
-            marginTop: space_3,
-            display: 'flex',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <Button w='150px' handleClick={handleClick}>
-            {t`next`}
-          </Button>
-        </div>
+        </Container>
+      </GridContainer>
+      <FlexContainer justify='flex-end' m='30px 0 0 0'>
+        <Button w='150px' handleClick={next}>
+          {t`next`}
+        </Button>
       </FlexContainer>
     </>
   );

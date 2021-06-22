@@ -5,7 +5,7 @@ const isMobile = createSlice({
   name: 'isMobile',
   initialState: { smallScreen: false },
   reducers: {
-    detectMobile(state, { payload }: PayloadAction<boolean>) {
+    detectMobile: (state, { payload }: PayloadAction<boolean>) => {
       state.smallScreen = payload;
     },
   },

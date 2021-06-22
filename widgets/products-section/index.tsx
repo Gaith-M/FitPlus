@@ -2,17 +2,18 @@
 import Searchbar from '../../components/searchbar';
 import ProductCard from '../../components/product-card';
 import Heading from '../../components/heading';
-import { Container } from '../../components/shared-components/containers';
 
 // Fake Data
 import { ProductsFD } from '../../products-fake-data/PFD';
 import useTranslation from 'next-translate/useTranslation';
+import { Container } from '../../components/shared-components/containers';
 
-const index = () => {
+const index = ({ theme }) => {
   const { t } = useTranslation('common');
+
   return (
-    <Container>
-      <Heading lvl={2}>{t`section-titles.shop`}</Heading>
+    <Container className={theme}>
+      <Heading color='inherit' lvl={2}>{t`section-titles.shop`}</Heading>
       <Searchbar w='80%' m='30px auto' />
 
       <Container>

@@ -9,11 +9,11 @@ import {
 const StyledButton = styled.button`
   display: block;
   border: none;
-  border-radius: 2px;
   cursor: pointer;
   text-transform: capitalize;
   transition: 0.3s;
   outline: none;
+  border-radius: ${({ noRad }) => (noRad ? '0px' : '2px')};
   width: ${({ w }) => (w ? w : 'auto')};
   padding: ${({ p }) => (p ? p : '10px 20px')};
   margin: ${({ m }) => (m ? m : '0 0 0 0')};
@@ -36,12 +36,12 @@ interface buttonInterface {
   p?: string;
   bg?: string;
   color?: string;
-  children: React.ReactChild;
   noShadow?: boolean;
   flex?: string;
   m?: string;
   fontSize?: string;
   handleClick?: () => void;
+  noRad?: boolean;
 }
 
 const index: React.FC<buttonInterface> = ({
@@ -55,6 +55,7 @@ const index: React.FC<buttonInterface> = ({
   m,
   fontSize,
   handleClick,
+  noRad,
 }) => {
   return flex ? (
     <FlexButton
@@ -67,6 +68,7 @@ const index: React.FC<buttonInterface> = ({
       m={m}
       fontSize={fontSize}
       onClick={handleClick}
+      noRad={noRad}
     >
       {children}
     </FlexButton>
@@ -80,6 +82,7 @@ const index: React.FC<buttonInterface> = ({
       noShadow={noShadow}
       fontSize={fontSize}
       onClick={handleClick}
+      noRad={noRad}
     >
       {children}
     </StyledButton>

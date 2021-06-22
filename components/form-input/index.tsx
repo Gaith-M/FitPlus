@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { light, space_1 } from '../../styles/styleConstants';
 
@@ -26,15 +25,14 @@ const FlexItemInput = styled(BaseInput)`
 `;
 
 interface compInterface {
-  flex?: string;
   w?: string;
-  placeholder: string;
-  inputName: string;
-  value: string;
   p?: string;
-  bg?: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   style?: {};
+  flex?: string;
+  value: string;
+  inputName: string;
+  placeholder: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const index: React.FC<compInterface> = ({
@@ -49,20 +47,20 @@ const index: React.FC<compInterface> = ({
   return flex ? (
     <FlexItemInput
       f={flex}
-      name={inputName}
+      style={style}
       value={value}
+      name={inputName}
       onChange={handleChange}
       placeholder={placeholder}
-      style={style}
     />
   ) : (
     <FluidInput
       w={w}
-      name={inputName}
+      style={style}
       value={value}
+      name={inputName}
       onChange={handleChange}
       placeholder={placeholder}
-      style={style}
     />
   );
 };

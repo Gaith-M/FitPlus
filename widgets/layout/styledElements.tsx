@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledContainer = styled.div`
+const StyledLayout: React.FC = styled.div`
   max-width: 1200px;
   width: 88%;
-  margin: 0 auto 70px;
+  margin: 0 auto;
+  background-color: inherit;
 
   @media (max-width: 1100px) {
     width: 90%;
@@ -21,3 +22,5 @@ export const StyledContainer = styled.div`
     width: 98%;
   }
 `;
+
+export default StyledLayout;

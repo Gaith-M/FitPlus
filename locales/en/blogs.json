@@ -1,7 +1,11 @@
 {
     "blogs": "blogs",
-    "about-author": "about the author",
+    "aboutAuthor": "about the author",
     "sortBy": "sort by",
     "newest": "newest",
-    "mostViewed": "most viewed"
+    "mostViewed": "most viewed",
+    "moreFrom": "more from ",
+    "moreBlogs": "more blogs",
+    "by": "by",
+    "DOP": "Date Of Publish"
 }

@@ -1,7 +1,16 @@
+import { themeSelector } from '../redux/reducers/theme-slice';
+import { useAppSelector } from '../redux/hooks';
 import useTranslation from 'next-translate/useTranslation';
 import Meta from '../components/Meta';
 // -------------------UI Imports-------------------
-import { space_max, space_2, dark } from '../styles/styleConstants';
+import {
+  space_max,
+  space_2,
+  dark,
+  secondaryLight,
+  raisinBlack,
+  light,
+} from '../styles/styleConstants';
 import Heading from '../components/heading';
 import Paragraph from '../components/paragraph';
 import Button from '../components/button';
@@ -11,14 +20,21 @@ import { Container } from '../components/shared-components/containers';
 
 export const About = () => {
   const { t } = useTranslation('about');
+  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   return (
     <>
       <Meta title='Fit+ About' />
-      <Container m={`${space_max} 0`}>
-        <main>
+      <Container m={`${space_max} 0 0`} p={`0 0 ${space_max} 0`}>
+        <main className={theme}>
           <Heading lvl={1}>{t`whoWeAre`}</Heading>
 
-          <AboutCard title={t`modernGyms`} imgSrc='/gym_photo.jpg'>
+          {/* add color prop */}
+          <AboutCard
+            title={t`modernGyms`}
+            imgSrc='/gym_photo.jpg'
+            bg={theme === 'light' ? secondaryLight : raisinBlack}
+            color={theme === 'light' ? dark : light}
+          >
             <Paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -44,7 +60,12 @@ export const About = () => {
             </Paragraph>
           </AboutCard>
 
-          <AboutCard title={t`proStaff`} imgSrc='/staff.jpg'>
+          <AboutCard
+            title={t`proStaff`}
+            imgSrc='/staff.jpg'
+            bg={theme === 'light' ? secondaryLight : raisinBlack}
+            color={theme === 'light' ? dark : light}
+          >
             <Paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -68,10 +89,19 @@ export const About = () => {
             </Paragraph>
           </AboutCard>
 
-          <AboutCard title={t`locations`} imgSrc='/map.jpg'>
+          <AboutCard
+            title={t`locations`}
+            imgSrc='/map.jpg'
+            bg={theme === 'light' ? secondaryLight : raisinBlack}
+            color={theme === 'light' ? dark : light}
+          >
             <Paragraph>
               <address
-                style={{ color: dark, lineHeight: 2.5, margin: `${space_2} 0` }}
+                style={{
+                  color: 'inherit',
+                  lineHeight: 2.5,
+                  margin: `${space_2} 0`,
+                }}
               >
                 some country - some city - some place - some street <br />
                 some country - some city - some place - some street <br />

@@ -8,9 +8,12 @@ import Searchbar from '../components/searchbar';
 import ProductCard from '../components/product-card';
 import SearchOptions from '../widgets/shop-search-option';
 import { ProductsFD } from '../products-fake-data/PFD';
+import { useAppSelector } from '../redux/hooks';
+import { themeSelector } from '../redux/reducers/theme-slice';
 
 const shop = () => {
   const { t } = useTranslation('shop');
+  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
 
   const [inStock, setInStock] = useState(false);
   const [discounted, setDiscounted] = useState(false);
@@ -25,7 +28,11 @@ const shop = () => {
   };
 
   return (
-    <Container m={`${space_max} 0`}>
+    <Container
+      m={`${space_max} 0 0`}
+      p={`0 0 ${space_max} 0`}
+      className={theme}
+    >
       <Heading lvl={1}>{t`shop`}</Heading>
 
       <Container p='10px'>
@@ -59,7 +66,7 @@ const shop = () => {
           }}
         >
           {ProductsFD.map((elem) => (
-            <ProductCard productDetails={elem} />
+            <ProductCard productDetails={elem} key={elem.id} />
           ))}
         </div>
       </Container>

@@ -1,17 +1,25 @@
 import { useState } from 'react';
-import useTranslation from 'next-translate/useTranslation';
 import Meta from '../components/Meta';
+import useTranslation from 'next-translate/useTranslation';
+import { useAppSelector } from '../redux/hooks';
+import { themeSelector } from '../redux/reducers/theme-slice';
 // -----------------UI Imports-----------------
 import { space_max } from '../styles/styleConstants';
+import { Container } from '../components/shared-components/containers';
 import Heading from '../components/heading';
 import Stepper from '../components/cart-stepper';
 import FirstView from '../widgets/cart-first-view';
 import SecondView from '../widgets/cart-second-view';
 import ThirdView from '../widgets/cart-third-view';
 import Thankyou from '../widgets/cart-thank-you-view';
-import { Container } from '../components/shared-components/containers';
+
+export interface ViewInterface {
+  next: () => void;
+  theme: string;
+}
 
 const cart = () => {
+  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const { t } = useTranslation('cart');
   const [step, setStep] = useState(0);
 
@@ -28,13 +36,13 @@ const cart = () => {
   let currentView = (current) => {
     switch (current) {
       case 0:
-        return <FirstView handleClick={nextStep} />;
+        return <FirstView theme={theme} next={nextStep} />;
       case 1:
-        return <SecondView next={nextStep} />;
+        return <SecondView theme={theme} next={nextStep} />;
       case 2:
-        return <ThirdView handleClick={nextStep} />;
+        return <ThirdView theme={theme} next={nextStep} />;
       case 3:
-        return <Thankyou />;
+        return <Thankyou theme={theme} />;
       default:
         return null;
     }
@@ -57,9 +65,13 @@ const cart = () => {
     <>
       <Meta title='Fit+ Cart' />
 
-      <Container m={`${space_max} 0`}>
+      <Container
+        m={`${space_max} 0 0`}
+        p={`0 0 ${space_max} 0`}
+        className={theme}
+      >
         {step > 2 ? null : <Heading lvl={1}>{currentHeading(step)}</Heading>}
-        {step > 2 ? null : <Stepper current={step} />}
+        {step > 2 ? null : <Stepper current={step} theme={theme} />}
 
         {currentView(step)}
 

@@ -6,12 +6,14 @@ import { FlexContainer } from '../../components/shared-components/containers';
 import {
   accent,
   boxShadow,
+  dark,
+  onyx,
   secondaryLight,
   space_2,
   space_5,
 } from '../../styles/styleConstants';
 
-const index = () => {
+const index = ({ theme }) => {
   useEffect(() => {
     if (typeof window != undefined) {
       window.scrollTo(0, 0);
@@ -26,7 +28,7 @@ const index = () => {
       p={`${space_2} 0`}
       style={{
         minHeight: '70vh',
-        backgroundColor: secondaryLight,
+        backgroundColor: theme === 'light' ? secondaryLight : onyx,
         backgroundImage: 'url(/accent_checkmark_half_opacity.png)',
         backgroundPosition: 'center',
         backgroundSize: '400px 300px',
@@ -34,7 +36,7 @@ const index = () => {
         boxShadow: boxShadow,
       }}
     >
-      <div>
+      <div style={{ color: theme === 'light' ? dark : secondaryLight }}>
         <Heading lvl='display' color={accent} style={{ textAlign: 'center' }}>
           Thank You
         </Heading>

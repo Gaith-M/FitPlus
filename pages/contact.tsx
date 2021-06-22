@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+import { useAppSelector } from '../redux/hooks';
+import { themeSelector } from '../redux/reducers/theme-slice';
+// -----------------------UI Imports-----------------------
 import Heading from '../components/heading';
 import Button from '../components/button';
 import FlexInput from '../components/form-input';
@@ -8,28 +13,30 @@ import {
 } from '../components/shared-components/containers';
 import {
   boxShadow,
+  dark,
   light,
+  onyx,
   secondaryLight,
   space_1,
   space_2,
   space_max,
 } from '../styles/styleConstants';
-import { useState } from 'react';
-import useTranslation from 'next-translate/useTranslation';
 
 const TextArea = styled.textarea`
   resize: none;
   flex: 1 1 100%;
   margin: 5px;
   padding: 5px;
-  background-color: #f1f1f1;
   border: none;
   min-height: 100px;
   min-width: 300px;
   outline: none;
+  background-color: ${light};
+  color: ${({ color }) => color};
 `;
 
 const contact = () => {
+  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const { t } = useTranslation('contact');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -53,44 +60,48 @@ const contact = () => {
   };
 
   return (
-    <Container m={`${space_max} 0`}>
+    <Container
+      m={`${space_max} 0 0`}
+      p={`0 0 ${space_max} 0`}
+      className={theme}
+    >
       <Heading lvl={1}>{t`contactUs`}</Heading>
       <FlexContainer
         wrap='wrap'
         p={`${space_1} ${space_1}`}
-        bg={secondaryLight}
+        bg={theme === 'light' ? secondaryLight : onyx}
         style={{ boxShadow: boxShadow }}
       >
         <FlexInput
-          bg={light}
           inputName='firstName'
+          flex='1 1 45%'
           value={firstName}
           placeholder={t`f-name`}
-          flex='1 1 45%'
           handleChange={handleChange}
+          style={{ color: theme === 'light' ? dark : light }}
         />
         <FlexInput
-          bg={light}
           inputName='lastName'
           value={lastName}
           placeholder={t`l-name`}
           flex='1 1 45%'
+          style={{ color: theme === 'light' ? dark : light }}
           handleChange={handleChange}
         />
         <FlexInput
-          bg={light}
           inputName='email'
           value={email}
           placeholder={t`email`}
           flex='1 1 45%'
+          style={{ color: theme === 'light' ? dark : light }}
           handleChange={handleChange}
         />
         <FlexInput
-          bg={light}
           inputName='phone'
           value={phone}
           placeholder={t`phone`}
           flex='1 1 45%'
+          style={{ color: theme === 'light' ? dark : light }}
           handleChange={handleChange}
         />
 
@@ -99,6 +110,7 @@ const contact = () => {
           value={message}
           placeholder={t`message`}
           onChange={handleChange}
+          color={theme === 'light' ? dark : light}
         />
 
         <div

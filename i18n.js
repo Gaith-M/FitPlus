@@ -9,7 +9,7 @@ module.exports = {
     '/cart': ['cart'],
     '/contact': ['contact'],
     '/blogs': ['blogs'],
-    '/blogs/[title]': ['blogs'],
+    '/blogs/[slug]': ['blogs'],
     '/shop': ['shop'],
   },
 };

@@ -7,11 +7,11 @@ import {
 } from '../../styles/styleConstants';
 
 const StyledParagraph = styled.div`
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ size }) => (size ? size : '1em')};
   line-height: ${lineHeight};
   letter-spacing: ${letterSpacing};
-  margin: ${({ m }) => (m ? `${m} 0` : `${space_1} 0`)};
+  margin: ${({ m }) => (m ? `${m}` : `${space_1} 0`)};
 `;
 
 interface CompInterface {

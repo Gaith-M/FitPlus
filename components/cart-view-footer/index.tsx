@@ -14,13 +14,18 @@ const index: React.FC<CartFooterInterface> = ({ text, value }) => {
         textTransform: 'capitalize',
         fontSize: '0.9em',
         fontWeight: 'bold',
+        color: 'inherit',
       }}
     >
       <span style={{ flex: '0 1 75px' }} />
       <span style={{ flex: '0 1 35%' }} />
       <span style={{ flex: '0 1 10%' }} />
-      <span style={{ flex: '0 1 10%', textAlign: 'center' }}>{text}</span>
-      <span style={{ flex: '0 1 10%', textAlign: 'center' }}>{value}$</span>
+      <span style={{ flex: '0 1 10%', textAlign: 'center', color: 'inherit' }}>
+        {text}
+      </span>
+      <span style={{ flex: '0 1 10%', textAlign: 'center', color: 'inherit' }}>
+        {value}$
+      </span>
       <span style={{ flex: '0 1 30px' }} />
     </FlexContainer>
   );

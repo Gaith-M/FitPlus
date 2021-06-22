@@ -1,28 +1,36 @@
 import styled from 'styled-components';
 import {
-  secondaryLight,
   boxShadow,
   space_1,
   space_2,
+  light,
+  onyx,
+  dark,
+  accent,
 } from '../../styles/styleConstants';
-import Image from 'next/image';
 import Link from 'next/Link';
-import Button from '../button';
-import truncateText from '../../utilities/truncateText';
-import getFormatedDate from '../../utilities/getFormatedDate';
+import { urlFor } from '../../lib/sanity';
 import Paragraph from '../paragraph';
+import useTranslation from 'next-translate/useTranslation';
 
 // Title must be between 36 and 60 characters
 
 interface blogCardInterface {
-  src: string;
-  title: string;
-  author: string;
-  content: string;
+  blog: {
+    author: { localeName: string; name: string; slug: string };
+    category: string;
+    preview: string;
+    dateOfPublish: string;
+    image: { alt: string; asset: {} };
+    slug: string;
+    title: string;
+  };
+  theme: string;
 }
 
 const StyledBlogCard = styled.div`
-  background-color: ${secondaryLight};
+  background-color: ${({ theme }) => (theme === 'light' ? light : onyx)};
+  color: ${({ theme }) => (theme === 'light' ? dark : light)};
   box-shadow: ${boxShadow};
   flex: 1 1 45%;
   max-width: 500px;
@@ -34,40 +42,59 @@ const StyledBlogCard = styled.div`
   justify-content: space-between;
 `;
 
-const index: React.FC<blogCardInterface> = ({
-  src,
-  title,
-  author,
-  content,
-}) => {
+const index: React.FC<blogCardInterface> = ({ blog, theme }) => {
+  const { t } = useTranslation('blogs');
   return (
-    <StyledBlogCard>
+    <StyledBlogCard theme={theme}>
       <img
         width='100%'
         height='300px'
         style={{ display: 'inline-block', marginBottom: 10 }}
-        src={src}
+        src={urlFor(blog.image).url()}
       />
-      <h3 style={{ textTransform: 'capitalize', marginBottom: 10 }}>{title}</h3>
-      <h4 style={{ textTransform: 'capitalize', marginBottom: 5 }}>
-        By {author}
+      <h3
+        style={{
+          textTransform: 'capitalize',
+          marginBottom: 10,
+          color: 'inherit',
+        }}
+      >
+        {blog.title}
+      </h3>
+      <h4
+        style={{
+          textTransform: 'capitalize',
+          marginBottom: 5,
+          color: 'inherit',
+        }}
+      >
+        {t`by`}{' '}
+        <a
+          href={`/authors/${blog.author.slug}`}
+          style={{ marginBottom: 10, color: accent }}
+        >
+          {blog.author.name}
+        </a>
       </h4>
       <p
         style={{
           fontWeight: 'bold',
           fontSize: '0.7em',
           marginBottom: 15,
-          padding: '0 3px',
+          color: 'inherit',
         }}
       >
-        Published On: {getFormatedDate('D-M-Y', '/')}
+        {t`DOP`} {blog.dateOfPublish}
       </p>
-      <Paragraph m='20px'>{truncateText(content)}</Paragraph>
-      <Button>
-        <Link href='#'>
-          <a style={{ color: '#fafafa' }}>Read More</a>
-        </Link>
-      </Button>
+      <Paragraph>
+        {blog.preview.length > 300
+          ? blog.preview.slice(0, 300) + '.......'
+          : blog.preview}
+      </Paragraph>
+
+      <Link href={`/blogs/${blog.slug}`}>
+        <a className='blogLinkButton'>Read More</a>
+      </Link>
     </StyledBlogCard>
   );
 };

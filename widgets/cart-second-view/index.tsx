@@ -1,28 +1,23 @@
+import useTranslation from 'next-translate/useTranslation';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { ViewInterface } from '../../pages/cart';
+// ------------------------- UI Imports -------------------------
+import { FlexContainer } from '../../components/shared-components/containers';
 import {
   space_2,
   space_1,
   secondaryLight,
   boxShadow,
   space_3,
+  onyx,
+  light,
+  dark,
 } from '../../styles/styleConstants';
 import Input from '../../components/form-input';
 import Heading from '../../components/heading';
 import Button from '../../components/button';
-import useTranslation from 'next-translate/useTranslation';
 
-const Container = styled.div`
-  padding: ${`${space_2} ${space_1}`};
-  background-color: ${secondaryLight};
-  box-shadow: ${boxShadow};
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const index = ({ next }) => {
+const index: React.FC<ViewInterface> = ({ theme, next }) => {
   useEffect(() => {
     if (typeof window != undefined) {
       window.scrollTo(0, 0);
@@ -74,7 +69,12 @@ const index = ({ next }) => {
       <Heading lvl='display' s='1.2em'>
         {t`user-details`}
       </Heading>
-      <div style={{ flex: '1 1 45%', margin: `0 ${space_1}` }}>
+      <div
+        style={{
+          flex: '1 1 45%',
+          margin: `0 ${space_1}`,
+        }}
+      >
         <Input
           placeholder={t`first-name`}
           inputName='firstName'
@@ -155,11 +155,21 @@ const index = ({ next }) => {
 
   return (
     <>
-      <Container>
+      <FlexContainer
+        p={`${space_2} ${space_1}`}
+        wrap='wrap'
+        justify='space-between'
+        align='flex-start'
+        bg={theme === 'light' ? secondaryLight : onyx}
+        style={{
+          color: theme === 'light' ? dark : light,
+          boxShadow: boxShadow,
+        }}
+      >
         {userDetailsSection}
 
         {creditCardSection}
-      </Container>
+      </FlexContainer>
 
       <div
         style={{

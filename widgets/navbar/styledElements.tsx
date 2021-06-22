@@ -9,11 +9,13 @@ import {
   space_2,
 } from '../../styles/styleConstants';
 
-// Large Nav Elements
-export const StyledNavbarContainer = styled.div`
+// -----------------Large Nav Elements-----------------
+export const NavbarParentContainer = styled.div`
   width: 100%;
   height: 90px;
-  background-color: #fafafad6;
+  backdrop-filter: blur(2px) saturate(0.7);
+  background-color: ${({ className }) =>
+    className === 'navbarLight' ? '#fafafa85' : '#15151bab'};
   position: fixed;
   top: 0;
   z-index: 100;
@@ -31,6 +33,7 @@ export const StyledNavbar = styled.div`
   position: fixed;
   top: 0;
   z-index: 111;
+  color: inherit;
 
   display: flex;
   align-items: center;
@@ -63,30 +66,10 @@ export const StyledNav = styled.nav`
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
+  color: inherit;
 `;
 
-export const StyledUserSectionContainer = styled.span`
-  font-size: 2.2em;
-  display: flex;
-  flex: 0 1 110px;
-  justify-content: space-between;
-`;
-
-export const StyledLink = styled.a`
-  padding: 10px;
-  text-transform: capitalize;
-  text-decoration: none;
-  color: ${(props) => (props.active ? accent : dark)};
-  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
-  filter: drop-shadow(${dynamicShadow});
-  transition: 0.3s color ease-out;
-
-  &:hover {
-    color: ${accent};
-  }
-`;
-
-// Small Nav Elements
+// -----------------Small Nav Elements-----------------
 export const Overlay = styled.div`
   width: 100%;
   height: 100vh;
@@ -115,7 +98,7 @@ export const NavWrapper = styled.div`
   transform: ${({ open }) => `translateX(${open ? '0' : '-115%'})`};
 `;
 
-export const SmallNav = styled.nav`
+export const StyledSmallNav = styled.nav`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -125,7 +108,7 @@ export const SmallNav = styled.nav`
 
 export const SmallNavLink = styled.a`
   width: 100%;
-  margin: ${space_1} 0px;
+  margin: 5px 0 ${space_1} 0px;
   text-transform: capitalize;
   text-align: center;
   text-decoration: none;

@@ -15,7 +15,7 @@ const StyledH1: React.FC<headingInterface> = styled.h1`
   flex: 1 1 100%;
   font-weight: bold;
   text-transform: capitalize;
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
@@ -24,7 +24,7 @@ const StyledH2: React.FC<headingInterface> = styled.h2`
   flex: 1 1 100%;
   text-transform: capitalize;
   font-weight: bold;
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
@@ -34,7 +34,7 @@ const StyledH3: React.FC<headingInterface> = styled.h3`
   text-transform: capitalize;
   font-weight: bold;
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
 const StyledH4: React.FC<headingInterface> = styled.h4`
@@ -42,7 +42,7 @@ const StyledH4: React.FC<headingInterface> = styled.h4`
   flex: 1 1 100%;
   text-transform: capitalize;
   font-weight: bold;
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
@@ -52,7 +52,7 @@ const StyledH5: React.FC<headingInterface> = styled.h5`
   text-transform: capitalize;
   font-weight: bold;
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
 const StyledH6: React.FC<headingInterface> = styled.h5`
@@ -61,7 +61,7 @@ const StyledH6: React.FC<headingInterface> = styled.h5`
   text-transform: capitalize;
   font-weight: bold;
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
 
@@ -71,7 +71,7 @@ const StyledParagraph: React.FC<headingInterface> = styled.p`
   text-transform: capitalize;
   font-weight: bold;
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
-  color: ${({ color }) => (color ? color : dark)};
+  color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
 `;
 

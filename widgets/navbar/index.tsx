@@ -1,40 +1,41 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   detectMobile,
   isMobileSelector,
 } from '../../redux/reducers/isMobile-slice';
-import { LargeViewNav, SmallViewNav } from './views';
+import { SmallNav } from './smallNav';
+import { LargeNav } from './largeNav';
 
-const NavBar = () => {
-  const numberOfItemsInCart = useAppSelector((state) => state.cart.items)
-    .length;
+interface NavbarInterface {
+  className?: string;
+}
+
+const NavBar: React.FC<NavbarInterface> = ({ className }) => {
+  const numberOfItemsInCart = useAppSelector(
+    (state) => state.cart.items
+  ).length;
   const dispatch = useAppDispatch();
   const smallScreen = useAppSelector(isMobileSelector);
 
   // ----------Detect screen size--------------
-  let detectIsMobile = (isSmall) => {
-    dispatch(detectMobile(isSmall));
-  };
+  useLayoutEffect(() => {
+    dispatch(detectMobile(window.innerWidth < 900));
+  }, []);
 
+  // ----------Detect screen size on dynamic resize--------------
   useEffect(() => {
     let mql = window.matchMedia('(max-width: 900px)');
-    mql.addListener(({ matches }) => {
-      detectIsMobile(matches);
+    mql.addEventListener('change', ({ matches }) => {
+      dispatch(detectMobile(matches));
     });
   }, []);
   // -------------------------------------
 
-  useEffect(() => {
-    if (window.innerWidth < 900) {
-      detectIsMobile(true);
-    }
-  }, []);
-
   return smallScreen ? (
-    <SmallViewNav numberOfItemsInCart={numberOfItemsInCart} />
+    <SmallNav numberOfItemsInCart={numberOfItemsInCart} className={className} />
   ) : (
-    <LargeViewNav numberOfItemsInCart={numberOfItemsInCart} />
+    <LargeNav numberOfItemsInCart={numberOfItemsInCart} className={className} />
   );
 };
 

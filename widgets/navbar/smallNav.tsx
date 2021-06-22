@@ -1,114 +1,34 @@
 // ---------------Logic Imports---------------
 import { useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import Link from 'next/Link';
 import useTranslation from 'next-translate/useTranslation';
+import Link from 'next/Link';
 // ---------------UI Imports---------------
-import UserIcon from '../../components/svgs/UserIcon';
 import StyledBadge from '../../components/badge';
 import LogoIcon from '../../components/svgs/LogoIcon';
 import MenuIcon from '../../components/menu-icon';
-import Popup from 'reactjs-popup';
-import { CartIcon } from '../../components/svgs/CartIcon';
 import { dark } from '../../styles/styleConstants';
 import {
-  StyledNavbar,
-  StyledLink,
-  StyledNavbarContainer,
-  StyledNav,
-  StyledUserSectionContainer,
   Overlay,
-  SmallNav,
+  StyledSmallNav,
   SmallNavLink,
   NavWrapper,
 } from './styledElements';
+import { FlexContainer } from '../../components/shared-components/containers';
+import { useAppDispatch } from '../../redux/hooks';
+import { toggleTheme } from '../../redux/reducers/theme-slice';
 
 interface NavInterface {
   numberOfItemsInCart: number;
+  className: string;
 }
 
-export const LargeViewNav: React.FC<NavInterface> = ({
+export const SmallNav: React.FC<NavInterface> = ({
   numberOfItemsInCart,
+  className,
 }) => {
-  const { pathname } = useRouter();
   const { t } = useTranslation('common');
-  return (
-    <StyledNavbarContainer>
-      <StyledNavbar>
-        <LogoIcon w='90' />
-        <StyledNav>
-          <Link passHref href='/'>
-            <StyledLink active={pathname === '/'}>{t`navbar.home`}</StyledLink>
-          </Link>
-          <Link passHref href='/blogs'>
-            <StyledLink
-              active={pathname === '/blogs'}
-            >{t`navbar.blog`}</StyledLink>
-          </Link>
-          <Link passHref href='/shop'>
-            <StyledLink
-              active={pathname === '/shop'}
-            >{t`navbar.shop`}</StyledLink>
-          </Link>
-          <Link passHref href='/about'>
-            <StyledLink
-              active={pathname === '/about'}
-            >{t`navbar.about`}</StyledLink>
-          </Link>
-          <Link passHref href='/contact'>
-            <StyledLink
-              active={pathname === '/contact'}
-            >{t`navbar.contact`}</StyledLink>
-          </Link>
-        </StyledNav>
-
-        <StyledUserSectionContainer>
-          <Popup
-            className='userActions'
-            on='hover'
-            trigger={() => (
-              <button
-                style={{
-                  border: 'none',
-                  fontSize: '1em',
-                  backgroundColor: 'transparent',
-                  cursor: 'pointer',
-                }}
-              >
-                <UserIcon color={dark} />
-              </button>
-            )}
-          >
-            <Link passHref href='/login'>
-              <StyledLink>login</StyledLink>
-            </Link>
-            <Link passHref href='/sign-up'>
-              <StyledLink>sign up</StyledLink>
-            </Link>
-          </Popup>
-
-          <StyledBadge
-            xOffset='24px'
-            yOffset='-5px'
-            count={numberOfItemsInCart}
-          >
-            <Link href='/cart'>
-              <a>
-                <CartIcon color={dark} />
-              </a>
-            </Link>
-          </StyledBadge>
-        </StyledUserSectionContainer>
-      </StyledNavbar>
-    </StyledNavbarContainer>
-  );
-};
-
-export const SmallViewNav: React.FC<NavInterface> = ({
-  numberOfItemsInCart,
-}) => {
-  const { t, lang } = useTranslation('common');
   const [toggle, setToggle] = useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -121,11 +41,44 @@ export const SmallViewNav: React.FC<NavInterface> = ({
           display: 'flex',
           padding: '0 10px',
           justifyContent: 'space-between',
-          backgroundColor: '#ebebebcf',
+          backgroundColor:
+            className === 'navbarLight' ? '#f1f1f18a' : '#15151bde',
         }}
       >
         <LogoIcon w='100' h='60' />
-        <MenuIcon h='5px' color={dark} onClick={() => setToggle(true)} />
+        <FlexContainer
+          justify='space-between'
+          align='center'
+          style={{ flex: '0 0 100px' }}
+        >
+          <MenuIcon
+            h='5px'
+            color={className === 'navbarLight' ? dark : '#8c8c8c'}
+            onClick={() => setToggle(true)}
+          />
+          <button
+            style={{
+              padding: 3,
+              height: 35,
+              width: 35,
+              backgroundColor: className === 'navbarLight' ? '#fafafa' : '#333',
+              borderRadius: 4,
+              border: 'none',
+              outline: 'none',
+              cursor: 'pointer',
+              boxShadow: 'rgb(148 148 148 / 65%) 0px 0px 9px 0px',
+              backdropFilter: 'blur(2px) saturate(0.3)',
+            }}
+            onClick={() =>
+              dispatch(toggleTheme(className === 'navbarLight' ? false : true))
+            }
+          >
+            <img
+              style={{ maxWidth: '100%' }}
+              src={className === 'navbarLight' ? '/sun.png' : '/darkIcon.png'}
+            />
+          </button>
+        </FlexContainer>
       </div>
       <Overlay open={toggle} onClick={() => setToggle(false)} />
       <NavWrapper open={toggle}>
@@ -133,7 +86,7 @@ export const SmallViewNav: React.FC<NavInterface> = ({
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
-            margin: '15px 0',
+            margin: '5px 0',
           }}
         >
           <span
@@ -149,7 +102,7 @@ export const SmallViewNav: React.FC<NavInterface> = ({
             X
           </span>
         </div>
-        <SmallNav>
+        <StyledSmallNav>
           <Link href='/user' passHref>
             <SmallNavLink className='smallNavLink'>
               <span className='linkTextContainer'>{t`navbar.user`}</span>
@@ -193,7 +146,7 @@ export const SmallViewNav: React.FC<NavInterface> = ({
               <span className='linkTextContainer'>{t`navbar.about`}</span>
             </SmallNavLink>
           </Link>
-        </SmallNav>
+        </StyledSmallNav>
       </NavWrapper>
     </>
   );

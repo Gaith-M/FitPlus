@@ -1,8 +1,5 @@
 import Image from 'next/image';
-import {
-  FlexItem,
-  FlexContainer,
-} from '../../components/shared-components/containers';
+import { FlexContainer } from '../../components/shared-components/containers';
 import styles from './styles.module.scss';
 
 interface CompInterface {
@@ -13,13 +10,14 @@ interface CompInterface {
 
 const index: React.FC<CompInterface> = ({ imgs, imgSrc, setImgSrc }) => {
   return (
-    <FlexItem flex='0 0 320px' minW='320px' m='0 auto'>
+    <FlexContainer flexDirection='column' w='320px' m='0 auto'>
       <div
         style={{
           height: 320,
           width: 320,
           backgroundImage: `url(${imgSrc})`,
           backgroundSize: 'cover',
+          marginBottom: 15,
         }}
       />
 
@@ -36,7 +34,7 @@ const index: React.FC<CompInterface> = ({ imgs, imgSrc, setImgSrc }) => {
           />
         ))}
       </FlexContainer>
-    </FlexItem>
+    </FlexContainer>
   );
 };
 
