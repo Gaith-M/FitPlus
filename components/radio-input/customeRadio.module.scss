@@ -1,6 +1,8 @@
 .radioContainer {
+  width: 140px;
+  margin-bottom: 5px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   font-size: 0.8em;
   user-select: none;
@@ -11,7 +13,7 @@
     margin-right: 20px;
   }
 
-  &:hover span {
+  label:hover span:last-child {
     background-color: #bfbfbf;
   }
 

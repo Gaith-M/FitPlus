@@ -1,220 +1,391 @@
 // --------------------------Logic Imports--------------------------
-import { useState } from 'react';
-import { useAppSelector } from '../../redux/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { themeSelector } from '../../redux/reducers/theme-slice';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { PortableText } from '../../lib/sanity';
+import ProductCard from '../../components/product-card';
+import useTranslation from 'next-translate/useTranslation';
 // --------------------------UI Imports--------------------------
-import styled from 'styled-components';
 import Heading from '../../components/heading';
 import Button from '../../components/button';
-import QtyManagment from '../../components/product-qty-counter';
 import ImgsPanel from '../../widgets/product-image-preview';
-import ColorOption from '../../components/color-option';
 import Select from 'react-select';
 import {
   Container,
   FlexContainer,
 } from '../../components/shared-components/containers';
+import { accent, space_max } from '../../styles/styleConstants';
+import { sanityClient } from '../../lib/sanity';
 import {
-  boxShadow,
-  dark,
-  light,
-  onyx,
-  secondaryLight,
-  space_max,
-} from '../../styles/styleConstants';
+  itemQuery,
+  similiarProductsQuery,
+  similiarSupplementsQuery,
+} from '../../queries';
+import { useRouter } from 'next/router';
+import { itemInterface } from '../../interfaces/products';
+import styles from './styles.module.scss';
+import { addToCart } from '../../redux/reducers/cart-slice';
+import {
+  setProductLoadingState,
+  setSimiliarProducts,
+} from '../../redux/reducers/shop-slice';
+import 'react-toastify/dist/ReactToastify.min.css';
+import notify from '../../shared utility/notify';
+import {
+  addItemToWishlist,
+  removeItemFromWishlist,
+} from '../../redux/reducers/user-slice';
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: 320px minmax(320px, 1fr);
-  gap: 30px;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-`;
+interface ComponentInterface {
+  data: itemInterface;
+}
 
 // ----------------------------------------------------
 
-const index = () => {
-  const product = {
-    id: '312319',
-    title: 'Meister Weightlift golves',
-    price: 20.99,
-    imgs: [
-      {
-        src: '/gloves_red.jpg',
-        alt: 'red meister weightlift gloves',
-      },
-      {
-        src: '/gloves_orange.jpg',
-        alt: 'orange meister weightlift gloves',
-      },
-      {
-        src: '/gloves_blue.jpg',
-        alt: 'blue meister weightlift gloves',
-      },
-    ],
-    sizes: [
-      { value: 's', label: 'S' },
-      { value: 'm', label: 'M' },
-      { value: 'l', label: 'L' },
-      { value: 'xl', label: 'XL' },
-    ],
-    colors: [
-      {
-        colorName: 'cardinalRed',
-        value: '#c11f3a',
-      },
-      {
-        colorName: 'summerOrange',
-        value: '#f59922',
-      },
-      {
-        colorName: 'icyBlue',
-        value: '#72dbdf',
-      },
-      {
-        colorName: 'militaryGreen',
-        value: '#347b2d',
-      },
-    ],
-    weight: 0.3,
-    description: `
-        Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-        nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum.Lorem ipsum
-        dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident
-    `,
-    material: 'strudy fabric and treated leather',
-  };
+const index = ({ data }: ComponentInterface) => {
+  const { t } = useTranslation('shop');
+  const dispatch = useAppDispatch();
+  const { isFallback, locale } = useRouter();
+  const wishlist: string[] = useAppSelector(({ user }) => user.wishlist);
+  const similiarProducts: {
+    name: string;
+    slug: string;
+    id: string;
+    images: { alt: string; image: { asset: string } }[];
+  }[] = useAppSelector(({ shop }) => shop.similiarProducts);
+  let similiarProductsElements =
+    similiarProducts.length > 0 &&
+    similiarProducts.filter((product) => {
+      if (product.name !== data.name) {
+        return product;
+      }
+    });
 
-  // The following props are common across all products
-  const { id, imgs, description, title, price, weight } = product;
+  const [selectedColor, setSelectedColor] = useState<null | {
+    label: string;
+    value: string;
+  }>(null);
+  const [selectedSize, setSelectedSize] = useState<null | {
+    label: string;
+    value: string;
+  }>(null);
+  const [selectedFlavor, setSelectedFlavor] = useState<null | {
+    label: string;
+    value: string;
+  }>(null);
 
-  const [imgSrc, setImgSrc] = useState(imgs[0].src);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [selectedSize, setSelectedSize] = useState('');
-  const [qty, setQty] = useState(0);
+  const [amount, setAmount] = useState(1);
   const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
 
-  const addToCart = () => {
-    return {
-      id,
-      selectedSize,
-      selectedColor,
-      qty,
-    };
+  const handleColorSelect = (option: { label: string; value: string }) => {
+    setSelectedColor(option);
   };
+  const handleFlavorSelect = (option: { label: string; value: string }) => {
+    setSelectedFlavor(option);
+  };
+  const handleSizeSelect = (option: { label: string; value: string }) => {
+    setSelectedSize(option);
+  };
+
+  const increment = () => {
+    setAmount(amount + 1);
+  };
+  const decrement = () => {
+    if (amount <= 0) return;
+    setAmount(amount - 1);
+  };
+
+  const addItemToCart = () => {
+    if (data.productInfo.avaliableSizes && !selectedSize) {
+      notify('warning', t`selectSize`);
+      return;
+    }
+    if (data.flavors && !selectedFlavor) {
+      notify('warning', t`selectFlavor`);
+      return;
+    }
+    if (data.colors && !selectedColor) {
+      notify('warning', t`selectColor`);
+      return;
+    }
+    if (amount < 1) {
+      notify('warning', t`invalidQuantity`);
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        item: {
+          name: data.name,
+          id: data.id,
+          color: selectedColor?.value,
+          size: selectedSize?.value,
+          flavor: selectedFlavor?.value,
+          price: data.price.usd.discountPrice
+            ? data.price.usd.discountPrice
+            : data.price.usd.originalPrice,
+        },
+        quantity: amount,
+      })
+    );
+    notify('success', t`addedToCart`);
+    setSelectedColor(null);
+    setSelectedSize(null);
+    setSelectedFlavor(null);
+    setAmount(1);
+  };
+
+  const fetchSimiliarProducts = async () => {
+    dispatch(setSimiliarProducts([]));
+    let type;
+    if (data.type === 'foodAndSupplements') {
+      type = data.category.includes('weight gain')
+        ? 'weight gain'
+        : 'weight loss';
+    } else {
+      type = data.category.includes('men') ? 'men' : 'women';
+    }
+
+    try {
+      const products = await sanityClient.fetch(
+        data.type === 'foodAndSupplements'
+          ? similiarSupplementsQuery
+          : similiarProductsQuery,
+        {
+          lang: locale,
+          type,
+        }
+      );
+      dispatch(setProductLoadingState(true));
+      dispatch(setSimiliarProducts(products));
+      dispatch(setProductLoadingState(false));
+    } catch (err) {
+      console.log('Error: ', err);
+    }
+  };
+
+  useEffect(() => {
+    if (isFallback) return;
+    fetchSimiliarProducts();
+  }, [locale, isFallback]);
+
+  // =======================
+  // =======================
+  // Wishlist Logic
+  // =======================
+  // =======================
+  const addToWishlist = () => {
+    notify('success', t`addedToWishlist`);
+    dispatch(addItemToWishlist(data.id));
+  };
+
+  const removeFromWishlist = () => {
+    notify('success', t`removeFromWishlist`);
+    dispatch(removeItemFromWishlist(data.id));
+  };
+
+  // if page isn't ready on server
+  if (isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container m={`${space_max} 0 0`} p='0 0 80px 0' className={theme}>
-      <Heading lvl={1}>{title}</Heading>
+      <Heading lvl={1} m='0 0 20px 0'>
+        {data.name}
+      </Heading>
 
-      <GridContainer
+      <p
         style={{
-          backgroundColor: theme === 'light' ? secondaryLight : onyx,
-          color: theme === 'light' ? dark : light,
-          boxShadow: boxShadow,
-          padding: 5,
+          fontWeight: 'bold',
+          fontSize: '1.5em',
+          marginBottom: '40px',
+          color: 'inherit',
         }}
       >
-        <ImgsPanel imgs={imgs} imgSrc={imgSrc} setImgSrc={setImgSrc} />
+        {t`quickView.by`}{' '}
+        <span style={{ color: accent }}>{data.vendor.title}</span>
+      </p>
 
-        <Container p='0 20px 20px' style={{ color: 'inherit' }}>
-          <ul style={{ padding: '30px 0', color: 'inherit' }}>
-            <li className='productListItem'>
-              <span>Name</span>: {title}
-            </li>
+      <div
+        className={`${styles.gridContainer} ${
+          theme === 'light' ? 'light' : 'dark'
+        }`}
+      >
+        <ImgsPanel imgsArray={data.images} />
 
-            <li className='productListItem'>
-              <span>price</span>: {price}$
-            </li>
+        <Container
+          p='0 20px 20px'
+          style={{ color: 'inherit' }}
+          className={styles.ProductInfoContainer}
+        >
+          {/* Sizes */}
+          {data.productInfo.avaliableSizes && (
+            <FlexContainer align='center' style={{ color: 'inherit' }}>
+              <span className={styles.spanStyle}>{t`quickView.sizes`}</span>{' '}
+              <Select
+                className={styles.selectElement}
+                options={data.productInfo.avaliableSizes.map((s) => ({
+                  value: s.size,
+                  label: s.size,
+                }))}
+                onChange={handleSizeSelect}
+                placeholder={t`select`}
+                value={selectedSize}
+                isSearchable={true}
+                autoFocus={false}
+              />
+            </FlexContainer>
+          )}
 
-            <li className='productListItem'>
-              <span>weight</span>: {weight}kg ({(weight * 2.205).toFixed(2)}{' '}
-              pound)
-            </li>
+          {/* Colors */}
+          {data.colors && (
+            <FlexContainer align='center' style={{ color: 'inherit' }}>
+              <span className={styles.spanStyle}>{t`quickView.colors`}</span>{' '}
+              <Select
+                className={styles.selectElement}
+                options={data.colors.map((color) => ({
+                  value: color,
+                  label: color,
+                }))}
+                onChange={handleColorSelect}
+                placeholder={t`select`}
+                value={selectedColor}
+                isSearchable={true}
+                autoFocus={false}
+              />
+            </FlexContainer>
+          )}
+          {/* Flavors */}
+          {data.flavors && (
+            <FlexContainer align='center' style={{ color: 'inherit' }}>
+              <span className={styles.spanStyle}>{t`quickView.flavors`}</span>{' '}
+              <Select
+                className={styles.selectElement}
+                options={data.flavors.map((flavor) => ({
+                  value: flavor,
+                  label: flavor,
+                }))}
+                onChange={handleFlavorSelect}
+                placeholder={t`select`}
+                value={selectedFlavor}
+                isSearchable={true}
+                autoFocus={false}
+              />
+            </FlexContainer>
+          )}
 
-            {/* if material exist */}
-            {product?.material && (
-              <li className='productListItem'>
-                <span>material</span>: {product.material}
-              </li>
-            )}
+          {data.material && (
+            <p>
+              <strong
+                style={{ color: 'inherit' }}
+              >{t`quickView.material`}</strong>{' '}
+              {data.material}
+            </p>
+          )}
+          {data.type === 'foodAndSupplements' && (
+            <p>
+              <strong
+                style={{ color: 'inherit' }}
+              >{t`quickView.weight`}</strong>{' '}
+              {data.info.weightDetails.weight}{' '}
+              {data.info.weightDetails.unitName}
+            </p>
+          )}
+          {data.type === 'product' && (
+            <p>
+              <strong
+                style={{ color: 'inherit' }}
+              >{t`quickView.weight`}</strong>{' '}
+              {data.productInfo.weight.weight} {data.productInfo.weight.unit}
+            </p>
+          )}
 
-            {/* If Sizes Exists */}
-            {product?.sizes && (
-              <li className='productListItem'>
-                <FlexContainer align='center' style={{ color: 'inherit' }}>
-                  <span style={{ fontWeight: 'bold', color: 'inherit' }}>
-                    sizes
-                  </span>
-                  :{' '}
-                  <Select
-                    className='sizeSelect'
-                    options={product.sizes}
-                    placeholder='Select Size'
-                    onChange={({ value }) => setSelectedSize(value)}
-                    isSearchable={true}
-                    autoFocus={false}
-                  />
-                </FlexContainer>
-              </li>
-            )}
+          {/* If type is supplement */}
+          {data.type === 'foodAndSupplements' && (
+            <p>
+              <strong
+                style={{ color: 'inherit' }}
+              >{t`quickView.servings`}</strong>{' '}
+              {data.info.servingDetails.servings}{' '}
+              {data.info.servingDetails.unitName}
+            </p>
+          )}
 
-            {/* If Colors Exist */}
-            {product?.colors && (
-              <li className='productListItem'>
-                <FlexContainer align='center' style={{ color: 'inherit' }}>
-                  <span style={{ fontWeight: 'bold', color: 'inherit' }}>
-                    colors
-                  </span>
-                  :{' '}
-                  <FlexContainer align='center' m='0 10px'>
-                    {product.colors.map(({ colorName, value }) => (
-                      <ColorOption
-                        color={value}
-                        value={colorName}
-                        isChecked={colorName === selectedColor}
-                        handleChange={({ target }) =>
-                          setSelectedColor(target.value)
-                        }
-                        key={colorName}
-                      />
-                    ))}
-                  </FlexContainer>
-                </FlexContainer>
-              </li>
-            )}
+          <PortableText blocks={data.description} className={styles.textData} />
 
-            <li className='productListItem'>
-              <span>description</span>: {description}
-            </li>
-            <li className='productListItem'>
-              <FlexContainer align='center' style={{ color: 'inherit' }}>
-                <span style={{ fontWeight: 'bold', color: 'inherit' }}>
-                  quantity
-                </span>
-                : <QtyManagment setQty={setQty} qty={qty} />
-              </FlexContainer>
-            </li>
-          </ul>
-          <Button w='100%' handleClick={() => console.log(addToCart())}>
-            Add to cart
+          <p className={styles.priceContainer}>
+            <span className={styles.spanStyle}>{t`price`}</span>
+            <span
+              className={
+                data.price.usd?.discountPrice ? styles.oldPrice : styles.price
+              }
+            >
+              {data.price.usd.originalPrice}$
+            </span>{' '}
+            {data.price.usd?.discountPrice ? (
+              <span className={styles.price}>
+                {data.price.usd.discountPrice}$
+              </span>
+            ) : null}
+          </p>
+
+          <div className={styles.amountContainer}>
+            <button
+              onClick={decrement}
+              className={theme === 'light' ? 'dark' : 'light'}
+            >
+              -
+            </button>
+            <span
+              style={{
+                color: theme === 'light' ? 'var(--dark)' : 'var(--light)',
+              }}
+            >
+              {amount}
+            </span>
+            <button
+              onClick={increment}
+              className={theme === 'light' ? 'dark' : 'light'}
+            >
+              +
+            </button>
+          </div>
+
+          <Button w='100%' m='20px 0' handleClick={addItemToCart}>
+            {t`addToCart`}
           </Button>
+
+          {wishlist.findIndex((id) => id === data.id) < 0 ? (
+            <Button w='100%' m='20px 0' handleClick={addToWishlist}>
+              {t`addToWishlist`}
+            </Button>
+          ) : (
+            <Button w='100%' m='20px 0' handleClick={removeFromWishlist}>
+              {t`removeFromWishlist`}
+            </Button>
+          )}
         </Container>
-      </GridContainer>
+      </div>
+
+      {similiarProducts && (
+        <>
+          <Heading lvl='display' m='40px 0 20px'>{t`similiarProducts`}</Heading>
+
+          <div className={styles.similiarProductsGrid}>
+            {similiarProductsElements.length > 0 ? (
+              similiarProductsElements.map((product) => (
+                <ProductCard data={product} key={product.id} />
+              ))
+            ) : (
+              <div className={styles.noSimiliarProducts}>
+                {t`noSimiliarProducts`}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </Container>
   );
 };
@@ -223,14 +394,24 @@ export default index;
 
 // ----------------------------------------------------
 export const getStaticPaths: GetStaticPaths = async () => {
+  const slugs = await sanityClient.fetch(
+    '*[_type in ["product", "foodAndSupplements"]]{"slug": slug.current}'
+  );
+
+  let paths = slugs.map((slug) => ({ params: { slug: slug.slug } }));
   return {
-    paths: [],
+    paths,
     fallback: true,
   };
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const data: itemInterface = await sanityClient.fetch(itemQuery, {
+    slug: params.slug,
+    lang: locale,
+  });
+
   return {
-    props: {},
+    props: { data },
   };
 };

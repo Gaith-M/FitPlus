@@ -1,0 +1,91 @@
+.container {
+  padding: 10px;
+  margin-bottom: 30px;
+  box-shadow: 5px 3px 11px 2px #4a4a4aab;
+  color: inherit;
+}
+
+.wishlistItemsCard {
+  width: 260px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: var(--light);
+  padding: 10px;
+  box-shadow: var(--boxShadowVal);
+}
+
+.wishlistItemsCard img {
+  width: 200px;
+  height: 200px;
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 5px;
+  box-shadow: 5px 3px 11px 2px #4a4a4aab;
+}
+
+.link {
+  display: block;
+  margin: 15px 0;
+  transition: 0.3s ease-in-out;
+  color: inherit;
+}
+.link:hover {
+  color: var(--cardinal);
+}
+
+.userDetailsInput {
+  position: relative;
+  flex: 1 1 45%;
+  min-width: 300pxs;
+  margin: 10px 20px;
+}
+
+.userDetailsInput button {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-size: 100%;
+  background-color: transparent;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.userDetailsInput input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid #999;
+  background-color: rgb(156, 172, 182);
+  color: var(--raisinBlack);
+  outline: none;
+}
+
+.userDetailsInput input:read-only {
+  background-color: var(--secondaryLight);
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.userDetailsInput span {
+  position: absolute;
+  left: -999999999999999999;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  user-select: none;
+}
+
+.buttonsContainer {
+  flex: 1 100%;
+  order: 1;
+  margin: 20px;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -9,6 +9,10 @@ import author from './author';
 import localeTitle from './localeTitle';
 import localeContent from './localeContent';
 import localeBlogSummary from './localeBlogSummary';
+import price from './price';
+import vendor from './vendor';
+import foodAndSupplements from './foodAndSupplements';
+import product from './product';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -23,5 +27,9 @@ export default createSchema({
     localeTitle,
     localeContent,
     localeBlogSummary,
+    price,
+    vendor,
+    foodAndSupplements,
+    product,
   ]),
 });

@@ -1,11 +1,40 @@
-/* Chrome, Safari, Edge, Opera */
-.generalStyles {
-  width: 100%;
+.labelStyles {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 15px;
+}
+
+.arrowsContainer {
+  display: inline-flex;
+  flex-direction: column;
+  width: 30px;
+}
+
+.button {
   margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  width: 15px;
+  height: 15px;
+}
+
+.button svg {
+  transition: 0.1s ease-in-out;
+}
+
+.button:hover svg {
+  stroke: var(--cardinal);
+}
+
+.inputStyles {
+  width: 40px;
   outline: none;
   border: 2px solid transparent;
   background-color: transparent;
   text-align: center;
+  font-size: 0.9em;
   color: inherit;
   transition: 0.3s ease-out;
 }

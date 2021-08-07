@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
-import { useState, useEffect } from 'react';
-import { ViewInterface } from '../../pages/cart';
+import { useEffect } from 'react';
 // ------------------------- UI Imports -------------------------
+import styles from './styles.module.scss';
 import { FlexContainer } from '../../components/shared-components/containers';
 import {
   space_2,
@@ -16,65 +16,72 @@ import {
 import Input from '../../components/form-input';
 import Heading from '../../components/heading';
 import Button from '../../components/button';
+import 'react-toastify/dist/ReactToastify.min.css';
+import notify from '../../shared utility/notify';
+import { useAppSelector } from '../../redux/hooks';
 
-const index: React.FC<ViewInterface> = ({ theme, next }) => {
+interface PropsInterface {
+  theme: string;
+  fName: string | null;
+  LName: string | null;
+  address: string | null;
+  phone: string | null;
+  email: string | null;
+  cardNumber: string | null;
+  CVC: string | null;
+  deliveryDate: string | null;
+  next: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const index = ({
+  theme,
+  next,
+  handleChange,
+  fName,
+  LName,
+  address,
+  phone,
+  email,
+  cardNumber,
+  CVC,
+  deliveryDate,
+}: PropsInterface) => {
   useEffect(() => {
     if (typeof window != undefined) {
       window.scrollTo(0, 0);
     }
   }, []);
   const { t } = useTranslation('cart');
-  const [fName, setFName] = useState('');
-  const [LName, setLName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [CVC, setCVC] = useState('');
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'firstName':
-        return setFName(value);
-      case 'lastName':
-        return setLName(value);
-      case 'address':
-        return setAddress(value);
-      case 'phone':
-        return setPhone(value);
-      case 'email':
-        return setEmail(value);
-      case 'cardNumber':
-        return setCardNumber(value);
-      case 'CVC':
-        return setCVC(value);
-      default:
-        return null;
-    }
-  };
+  let user = useAppSelector(({ user }) => user.user);
 
   const nextView = () => {
-    // verify data.. if any fail show a warning
-    let procced = user
-      ? cardNumber && CVC
-      : fName && LName && address && phone && email && cardNumber && CVC;
+    // verify data
+    if (!user) {
+      if (!fName) return notify('warning', t`cartErrors.firstNameErr`);
+      if (!LName) return notify('warning', t`cartErrors.lastNameErr`);
+      if (!email) return notify('warning', t`cartErrors.emailErr`);
+      if (!phone) return notify('warning', t`cartErrors.phoneNumberErr`);
+      if (!address) return notify('warning', t`cartErrors.addressErr`);
+      if (!cardNumber) return notify('warning', t`cartErrors.cardNumberErr`);
+      if (!CVC) return notify('warning', t`cartErrors.cardCVCErr`);
+    }
+    if (user) {
+      if (!cardNumber) return notify('warning', t`cartErrors.cardNumberErr`);
+      if (!CVC) return notify('warning', t`cartErrors.cardCVCErr`);
+    }
+    if (!deliveryDate) return notify('warning', t`cartErrors.deliveryDateErr`);
 
-    if (procced) return next();
+    next();
   };
 
-  let user = true;
-
-  let userDetailsSection = user ? (
+  let userDetailsSection = (
     <>
       <Heading lvl='display' s='1.2em'>
         {t`user-details`}
       </Heading>
-      <div
-        style={{
-          flex: '1 1 45%',
-          margin: `0 ${space_1}`,
-        }}
-      >
+      <div className={styles.pane}>
         <Input
           placeholder={t`first-name`}
           inputName='firstName'
@@ -98,7 +105,7 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
           w='100%'
         />
       </div>
-      <div style={{ flex: '1 1 45%', margin: `0 ${space_1}` }}>
+      <div className={styles.pane}>
         <Input
           placeholder={t`phone`}
           inputName='phone'
@@ -114,17 +121,9 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
           w='100%'
         />
       </div>{' '}
-      <span
-        style={{
-          flex: '1 1 100%',
-          display: 'inline-block',
-          padding: 1,
-          margin: '50px 0',
-          backgroundColor: '#49494a9c',
-        }}
-      />{' '}
+      <span className={styles.divider} />{' '}
     </>
-  ) : null;
+  );
 
   let creditCardSection = (
     <>
@@ -132,7 +131,7 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
         {t`credit-card-details`}
       </Heading>
 
-      <div style={{ flex: '1 1 45%', margin: `0 ${space_1}` }}>
+      <div className={styles.pane}>
         <Input
           placeholder={t`credit-card-number`}
           inputName='cardNumber'
@@ -141,7 +140,7 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
           w='100%'
         />
       </div>
-      <div style={{ flex: '1 1 45%', margin: `0 ${space_1}` }}>
+      <div className={styles.pane}>
         <Input
           placeholder={t`CVC`}
           inputName='CVC'
@@ -169,6 +168,19 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
         {userDetailsSection}
 
         {creditCardSection}
+
+        <span className={styles.divider} />
+        <div className={styles.pane}>
+          <Heading lvl='display' s='1.2em'>
+            {t`deliveryDate`}
+          </Heading>
+          <input
+            type='date'
+            name='deliveryDate'
+            className={styles.dateInput}
+            onChange={handleChange}
+          />
+        </div>
       </FlexContainer>
 
       <div

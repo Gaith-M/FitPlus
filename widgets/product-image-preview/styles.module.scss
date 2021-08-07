@@ -1,5 +1,21 @@
-.previewImage {
-  border-radius: 4px;
-  cursor: pointer;
-  transform: 0.3s ease-out border;
+.toggleButtonContainer {
+  width: 30px;
+  position: absolute;
+  background-color: transparent;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+}
+
+.toggleButtonContainer:hover {
+  background-color: rgba(165, 165, 165, 0.296);
+}
+
+.imageToggleButton {
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
 }

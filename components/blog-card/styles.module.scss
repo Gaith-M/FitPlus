@@ -1,0 +1,48 @@
+.blogCard {
+  box-shadow: var(--boxShadowVal);
+  flex: 1 1 45%;
+  max-width: 500px;
+  min-width: 320px;
+  padding: 10px 20px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.blogCard h3,
+.blogCard h4 {
+  text-transform: capitalize;
+  line-height: 1.4;
+  margin-bottom: 5px;
+  color: inherit;
+}
+
+.blogCard h4 {
+  margin-bottom: 10px;
+}
+
+.blogLinkButton {
+  display: block;
+  border: none;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: 0.3s;
+  outline: none;
+  border-radius: 2px;
+  width: 100%;
+  padding: 10px 20px;
+  margin: 0;
+  box-shadow: 5px 3px 11px 2px #4a4a4aab;
+  background-color: var(--cardinal);
+  color: var(--light);
+  font-size: 1em;
+  text-align: center;
+}
+
+.blogCard p {
+  font-weight: bold;
+  font-size: 0.7em;
+  margin-bottom: 15px;
+  color: inherit;
+}

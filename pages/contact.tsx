@@ -13,7 +13,6 @@ import {
 } from '../components/shared-components/containers';
 import {
   boxShadow,
-  dark,
   light,
   onyx,
   secondaryLight,
@@ -21,6 +20,8 @@ import {
   space_2,
   space_max,
 } from '../styles/styleConstants';
+import notify from '../shared utility/notify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const TextArea = styled.textarea`
   resize: none;
@@ -38,11 +39,14 @@ const TextArea = styled.textarea`
 const contact = () => {
   const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const { t } = useTranslation('contact');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
+  const { user } = useAppSelector(({ user }) => user);
+  const [firstName, setFirstName] = useState<string>(
+    user ? user.firstName : ''
+  );
+  const [lastName, setLastName] = useState<string>(user ? user.lastName : '');
+  const [email, setEmail] = useState<string>(user ? user.email : '');
+  const [phone, setPhone] = useState<string>(user ? user.phone : '');
+  const [message, setMessage] = useState<string>('');
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -55,8 +59,40 @@ const contact = () => {
       case 'phone':
         return setPhone(value);
       case 'message':
+        if (value.length > 500)
+          return notify('warning', t`errors.messageLimit`, 'textAreaWarning');
         return setMessage(value);
     }
+  };
+
+  const handleSubmit = () => {
+    if (!firstName) {
+      return notify('warning', t`errors.firstName`);
+    }
+    if (!lastName) {
+      return notify('warning', t`errors.lastName`);
+    }
+    if (!email) {
+      return notify('warning', t`errors.email`);
+    }
+    if (!phone) {
+      return notify('warning', t`errors.phone`);
+    }
+    if (!message) {
+      return notify('warning', t`errors.message`);
+    }
+
+    // send to back end
+
+    // notify user according to response
+    notify('success', t`messageSentSuccess`);
+
+    // clear fields
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhone('');
+    setMessage('');
   };
 
   return (
@@ -78,14 +114,14 @@ const contact = () => {
           value={firstName}
           placeholder={t`f-name`}
           handleChange={handleChange}
-          style={{ color: theme === 'light' ? dark : light }}
+          style={{ color: 'inherit' }}
         />
         <FlexInput
           inputName='lastName'
           value={lastName}
           placeholder={t`l-name`}
           flex='1 1 45%'
-          style={{ color: theme === 'light' ? dark : light }}
+          style={{ color: 'inherit' }}
           handleChange={handleChange}
         />
         <FlexInput
@@ -93,7 +129,7 @@ const contact = () => {
           value={email}
           placeholder={t`email`}
           flex='1 1 45%'
-          style={{ color: theme === 'light' ? dark : light }}
+          style={{ color: 'inherit' }}
           handleChange={handleChange}
         />
         <FlexInput
@@ -101,7 +137,7 @@ const contact = () => {
           value={phone}
           placeholder={t`phone`}
           flex='1 1 45%'
-          style={{ color: theme === 'light' ? dark : light }}
+          style={{ color: 'inherit' }}
           handleChange={handleChange}
         />
 
@@ -110,7 +146,7 @@ const contact = () => {
           value={message}
           placeholder={t`message`}
           onChange={handleChange}
-          color={theme === 'light' ? dark : light}
+          color='inherit'
         />
 
         <div
@@ -121,12 +157,7 @@ const contact = () => {
             justifyContent: 'flex-end',
           }}
         >
-          <Button
-            w='150px'
-            handleClick={() =>
-              console.log(firstName, lastName, email, phone, message)
-            }
-          >
+          <Button w='150px' handleClick={handleSubmit}>
             {t`submit`}
           </Button>
         </div>

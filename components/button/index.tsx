@@ -42,6 +42,8 @@ interface buttonInterface {
   fontSize?: string;
   handleClick?: () => void;
   noRad?: boolean;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 const index: React.FC<buttonInterface> = ({
@@ -56,6 +58,7 @@ const index: React.FC<buttonInterface> = ({
   fontSize,
   handleClick,
   noRad,
+  style,
 }) => {
   return flex ? (
     <FlexButton
@@ -69,6 +72,7 @@ const index: React.FC<buttonInterface> = ({
       fontSize={fontSize}
       onClick={handleClick}
       noRad={noRad}
+      style={style}
     >
       {children}
     </FlexButton>
@@ -83,6 +87,7 @@ const index: React.FC<buttonInterface> = ({
       fontSize={fontSize}
       onClick={handleClick}
       noRad={noRad}
+      style={style}
     >
       {children}
     </StyledButton>

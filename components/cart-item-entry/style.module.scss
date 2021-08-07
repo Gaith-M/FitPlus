@@ -1,0 +1,54 @@
+.mainContainer {
+  margin: 5px 0 25px;
+  padding: 5px;
+  font-size: 0.9em;
+  border-bottom: 1px solid #c1c1c1;
+  color: inherit;
+  text-transform: capitalize;
+  color: inherit;
+}
+
+.mainContainer * {
+  color: inherit;
+}
+
+.nameAndButtonContainer {
+  display: flex;
+  padding: 5px 0 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nameAndButtonContainer span {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.mainContainer > ul {
+  list-style: disc;
+  padding: 5px 0 15px;
+  margin: 0 20px;
+}
+
+.mainContainer > ul li {
+  padding: 0 0 10px;
+  font-size: 1.1em;
+  cursor: default;
+}
+
+.deleteButton {
+  background-color: var(--cardinal);
+  color: var(--secondaryLight);
+  width: 35px;
+  border: none;
+  padding: 5px 0;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+  outline: none;
+  flex: 0 1 30px;
+}
+.deleteButton:hover {
+  background-color: var(--accentHover);
+}

@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import { ViewInterface } from '../../pages/cart';
 import useTranslation from 'next-translate/useTranslation';
-import styled from 'styled-components';
 // ----------------------- UI Imports -----------------------
 import RecieptHeader from '../../components/reciept-header';
 import RecieptFooter from '../../components/reciept-footer';
@@ -19,25 +17,32 @@ import {
   onyx,
   secondaryLight,
 } from '../../styles/styleConstants';
-import data from '../cart-first-view/itemsData';
-import itemsData from '../cart-first-view/itemsData';
+import { itemInCartInterface } from '../../interfaces/cart';
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
-  grid-template-areas: 'items data';
-  gap: 30px;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-
-    grid-template-areas:
-      'items'
-      'data';
-  }
-`;
-
-const index: React.FC<ViewInterface> = ({ next, theme }) => {
+interface PropsInterface {
+  items: itemInCartInterface[];
+  theme: string;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  deliveryDate: string;
+  next: () => void;
+  previous: () => void;
+  clearCart: () => void;
+}
+const index: React.FC<PropsInterface> = ({
+  next,
+  previous,
+  theme,
+  items,
+  name,
+  address,
+  email,
+  phone,
+  deliveryDate,
+  clearCart,
+}) => {
   useEffect(() => {
     if (typeof window != undefined) {
       window.scrollTo(0, 0);
@@ -48,76 +53,84 @@ const index: React.FC<ViewInterface> = ({ next, theme }) => {
 
   return (
     <>
-      <GridContainer className={theme}>
+      <div className={theme}>
         <Container
           bg={theme === 'light' ? secondaryLight : onyx}
-          style={{ boxShadow: boxShadow, color: 'inherit', gridArea: 'items' }}
+          style={{ boxShadow: boxShadow, color: 'inherit' }}
         >
-          <Heading
-            lvl='display'
-            s='32px'
-            style={{
-              padding: '10px 5px',
-            }}
-          >
-            {t`purchased-items`}
-          </Heading>
-          <Container>
-            <RecieptHeader
-              bg={theme === 'light' ? dark : secondaryLight}
-              color={theme === 'light' ? secondaryLight : dark}
-              p='10px 5px'
-            />
+          <Container style={{ color: 'inherit' }}>
             <Container
               bg={theme === 'light' ? secondaryLight : onyx}
               p='20px 0'
               style={{
-                maxHeight: '500px',
-                overflowY: 'auto',
                 fontSize: '0.9em',
+                color: 'inherit',
               }}
             >
-              {data.length > 0
-                ? data.map(({ id, name, price, qty }) => (
-                    <RecieptEntry
-                      theme={theme}
-                      key={id}
-                      name={name}
-                      price={price}
-                      qty={qty}
-                    />
-                  ))
-                : null}
+              <Heading lvl='display' style={{ padding: '5px' }} s='1.7em'>
+                {t`itemsPurchesed`}
+              </Heading>
+              <RecieptHeader
+                bg={theme === 'light' ? dark : '#272525'}
+                color={secondaryLight}
+                p='15px 5px'
+              />
+              {items.map(
+                ({
+                  item: { name, price, id, flavor, size, color },
+                  quantity,
+                }) => (
+                  <RecieptEntry
+                    name={name}
+                    price={price}
+                    qty={quantity}
+                    theme={theme}
+                    key={`${id}${flavor}${size}${color}`}
+                  />
+                )
+              )}
             </Container>
             <RecieptFooter
-              bg={theme === 'light' ? dark : secondaryLight}
-              color={theme === 'light' ? secondaryLight : dark}
-              p='10px 5px'
+              bg={theme === 'light' ? dark : '#272525'}
+              color={secondaryLight}
+              text={t`price`}
+              value={`${items
+                .reduce(
+                  (acc, { item, quantity }) => item.price * quantity + acc,
+                  0
+                )
+                .toFixed(2)}$`}
+            />
+            <RecieptFooter
+              bg={theme === 'light' ? dark : '#272525'}
+              color={secondaryLight}
               text={t`shipping`}
               value={`10$`}
             />
             <RecieptFooter
-              bg={theme === 'light' ? dark : secondaryLight}
-              color={theme === 'light' ? secondaryLight : dark}
-              p='10px 5px'
+              bg={theme === 'light' ? dark : '#272525'}
+              color={secondaryLight}
               text={t`total`}
-              value='351$'
+              value={`${items
+                .reduce(
+                  (acc, { item, quantity }) => item.price * quantity + acc,
+                  10
+                )
+                .toFixed(2)}$`}
             />
           </Container>
         </Container>
 
         <Container
           bg={theme === 'light' ? secondaryLight : onyx}
-          style={{ boxShadow: boxShadow, color: 'inherit', gridArea: 'data' }}
+          style={{
+            boxShadow: boxShadow,
+            color: 'inherit',
+            margin: '40px 0 0 0',
+          }}
         >
-          <Heading
-            lvl='display'
-            s='32px'
-            style={{
-              padding: '10px 5px',
-            }}
-          >
-            {t`order-details`}
+          <Heading lvl='display' style={{ padding: '5px' }} s='1.7em'>
+            {t`user-details`}
           </Heading>
           <Container style={{ color: 'inherit' }}>
             <ul
@@ -130,27 +143,32 @@ const index: React.FC<ViewInterface> = ({ next, theme }) => {
                 color: 'inherit',
               }}
             >
-              <DetialsEntry fieldName='name' value='john doe' />
-              <DetialsEntry
-                fieldName='address'
-                value='Nowhere city- some street - house number 333'
-              />
-              <DetialsEntry fieldName={t`phone`} value='231-123-1111' />
-              <DetialsEntry fieldName={t`email`} value='johnDoe@cmail.com' />
-              <DetialsEntry fieldName={t`order-date`} value='23 - 3 - 2021' />
+              <DetialsEntry fieldName={t`name`} value={name} />
+              <DetialsEntry fieldName={t`address`} value={address} />
+              <DetialsEntry fieldName={t`phone`} value={phone} />
+              <DetialsEntry fieldName={t`email`} value={email} />
               <DetialsEntry fieldName={t`order-number`} value='312513' />
-              <DetialsEntry fieldName={t`type-of-delivery`} value='standard' />
-              <DetialsEntry
-                fieldName={t`delivery-date`}
-                value='25 - 3 - 2039'
-              />
+              <DetialsEntry fieldName={t`delivery-date`} value={deliveryDate} />
             </ul>
           </Container>
         </Container>
-      </GridContainer>
-      <FlexContainer justify='flex-end' m='30px 0 0 0'>
-        <Button w='150px' handleClick={next}>
-          {t`next`}
+      </div>
+
+      <FlexContainer justify='space-between' m='30px 0 0 0'>
+        {/* On click submit info to backend */}
+        {/* add a spinner to the button while the data is being processed */}
+        <Button w='150px' style={{ flex: '0 0 150px' }} handleClick={previous}>
+          {t`back`}
+        </Button>
+        <Button
+          w='150px'
+          style={{ flex: '0 0 150px' }}
+          handleClick={() => {
+            clearCart();
+            next();
+          }}
+        >
+          {t`confirm`}
         </Button>
       </FlexContainer>
     </>

@@ -1,57 +1,31 @@
 // --------------------Logic--------------------
-import React, { useState } from 'react';
-import { addToCart } from '../../redux/reducers/cart-slice';
+import useTranslation from 'next-translate/useTranslation';
+import { urlFor } from '../../lib/sanity';
 import Link from 'next/Link';
 // --------------------UI Imports--------------------
-import Image from 'next/image';
 import Button from '../button';
-import Paragraph from '../paragraph';
-import StyledQTYButton from './styledElements';
 import { boxShadow, secondaryLight } from '../../styles/styleConstants';
-import { Container, FlexContainer } from '../shared-components/containers';
-import { useAppDispatch } from '../../redux/hooks';
-import useTranslation from 'next-translate/useTranslation';
+import { Container } from '../shared-components/containers';
 // --------------------Component's Interface--------------------
-interface ProductCardProductDetailsInterface {
-  id: string;
-  title: string;
-  imgDetails: { imgSrc: string; alt: string };
-  price: number;
-}
-interface ProductCardInterface {
-  productDetails: ProductCardProductDetailsInterface;
+import { itemInterface } from '../../interfaces/products';
+
+interface CompInterface {
+  data:
+    | itemInterface
+    | {
+        name: string;
+        slug: string;
+        id: string;
+        images: { alt: string; image: { asset: string } }[];
+      };
+  quickView?: (id: string) => void;
 }
 
-const index: React.FC<ProductCardInterface> = ({
-  productDetails: {
-    id,
-    title,
-    price,
-    imgDetails: { imgSrc, alt },
-  },
+const index: React.FC<CompInterface> = ({
+  data: { id, slug, images },
+  quickView,
 }) => {
-  const { t } = useTranslation('common');
-  const [count, setCount] = useState(0);
-  const increment = () => setCount(count + 1);
-  const decrement = () => {
-    if (count === 0) return;
-    setCount(count - 1);
-  };
-
-  const dispatch = useAppDispatch();
-  const sendToCart = () => {
-    if (count <= 0) return;
-    dispatch(
-      addToCart({
-        qty: count,
-        id: id,
-        title: title,
-        price: price,
-        imgSrc: imgSrc,
-      })
-    );
-    setCount(0);
-  };
+  const { t } = useTranslation('shop');
   return (
     <Container
       w='220px'
@@ -61,32 +35,28 @@ const index: React.FC<ProductCardInterface> = ({
         boxShadow: boxShadow,
       }}
     >
-      <Image src={imgSrc} alt={alt} width={200} height={200} />
-      <Paragraph m='10px'>{price}$</Paragraph>
-      <Link href={`http://localhost:3000/products/${id}`}>
+      <img
+        src={urlFor(images[0].image.asset).url()}
+        alt={images[0].alt}
+        width={200}
+        height={200}
+      />
+      <Link href={`http://localhost:3000/products/${slug}`}>
         <a>
           <Button w='100%' noShadow>
-            {t`buttons.view`}
+            {t`quickView.view`}
           </Button>
         </a>
       </Link>
-      <FlexContainer m='5px 0' align='center'>
-        <StyledQTYButton onClick={decrement}>-</StyledQTYButton>
-        <span
-          style={{
-            flex: '1 1 30%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {count}
-        </span>
-        <StyledQTYButton onClick={increment}>+</StyledQTYButton>
-      </FlexContainer>
-      <Button w='100%' noShadow handleClick={sendToCart}>
-        {t`buttons.addToCart`}
-      </Button>
+
+      {quickView && (
+        <Button
+          w='100%'
+          noShadow
+          handleClick={() => quickView(id)}
+          m='10px 0 0 0'
+        >{t`quickView.quickView`}</Button>
+      )}
     </Container>
   );
 };

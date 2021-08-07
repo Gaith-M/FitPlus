@@ -9,13 +9,11 @@ import LogoIcon from '../../components/svgs/LogoIcon';
 import Switch from '../../components/switch-button';
 import Popup from 'reactjs-popup';
 import { CartIcon } from '../../components/svgs/CartIcon';
-import { accent, dark, light } from '../../styles/styleConstants';
-import {
-  StyledNavbar,
-  NavbarParentContainer,
-  StyledNav,
-} from './styledElements';
-import { FlexItem } from '../../components/shared-components/containers';
+import { dark, light } from '../../styles/styleConstants';
+import { NavbarParentContainer } from './styledElements';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { removeUser } from '../../redux/reducers/user-slice';
+import styles from './largeNavStyles.module.scss';
 
 interface NavInterface {
   numberOfItemsInCart: number;
@@ -29,68 +27,54 @@ export const LargeNav: React.FC<NavInterface> = ({
   const { pathname } = useRouter();
   const { t } = useTranslation('common');
 
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(({ user }) => user);
+  const router = useRouter();
+
   return (
     <NavbarParentContainer className={className}>
-      <StyledNavbar>
+      <div className={styles.largeNavContainer}>
         <LogoIcon w='90' />
-        <StyledNav>
+        <nav className={styles.largeNav}>
           <Link href='/'>
             <a
-              className='largeNavLink'
-              style={{
-                fontWeight: pathname === '/' ? 'bold' : 'normal',
-                color: pathname === '/' ? accent : 'inherit',
-              }}
+              className={`${styles.largeNavLink} ${
+                pathname === '/' && styles.largeNavSelected
+              } `}
             >{t`navbar.home`}</a>
           </Link>
           <Link href='/blogs'>
             <a
-              className='largeNavLink'
-              style={{
-                fontWeight: pathname === '/blogs' ? 'bold' : 'normal',
-                color: pathname === '/blogs' ? accent : 'inherit',
-              }}
+              className={`${styles.largeNavLink} ${
+                pathname === '/blogs' && styles.largeNavSelected
+              }`}
             >{t`navbar.blog`}</a>
           </Link>
           <Link href='/shop'>
             <a
-              className='largeNavLink'
-              style={{
-                fontWeight: pathname === '/shop' ? 'bold' : 'normal',
-                color: pathname === '/shop' ? accent : 'inherit',
-              }}
+              className={`${styles.largeNavLink} && ${
+                pathname === '/shop' && styles.largeNavSelected
+              }`}
             >{t`navbar.shop`}</a>
           </Link>
           <Link href='/contact'>
             <a
-              className='largeNavLink'
-              style={{
-                fontWeight: pathname === '/contact' ? 'bold' : 'normal',
-                color: pathname === '/contact' ? accent : 'inherit',
-              }}
+              className={`${styles.largeNavLink} && ${
+                pathname === '/contact' && styles.largeNavSelected
+              }`}
             >{t`navbar.contact`}</a>
           </Link>
           <Link href='/about'>
             <a
-              className='largeNavLink'
-              style={{
-                fontWeight: pathname === '/about' ? 'bold' : 'normal',
-                color: pathname === '/about' ? accent : 'inherit',
-              }}
+              className={`${styles.largeNavLink} && ${
+                pathname === '/about' && styles.largeNavSelected
+              }`}
             >{t`navbar.about`}</a>
           </Link>
-        </StyledNav>
+        </nav>
 
         {/* User Related Section */}
-        <FlexItem
-          minW='110px'
-          flex='0 1 110px'
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: '2.2em',
-          }}
-        >
+        <div className={styles.userLinksContainer}>
           <Popup
             className='userActions'
             on='hover'
@@ -108,12 +92,31 @@ export const LargeNav: React.FC<NavInterface> = ({
               </button>
             )}
           >
-            <Link href='/login'>
-              <a className='userActionsLinks'>login</a>
-            </Link>
-            <Link href='/sign-up'>
-              <a className='userActionsLinks'>sign up</a>
-            </Link>
+            {user ? (
+              <>
+                <Link href={`/user-details`}>
+                  <a className='userActionsLinks'>{user.username}</a>
+                </Link>
+                <button
+                  className={styles.logoutButton}
+                  onClick={() => {
+                    dispatch(removeUser());
+                    router.reload();
+                  }}
+                >
+                  {t`navbar.logout`}
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href='/login'>
+                  <a className='userActionsLinks'>{t`navbar.login`}</a>
+                </Link>
+                <Link href='/sign-up'>
+                  <a className='userActionsLinks'>{t`navbar.signup`}</a>
+                </Link>
+              </>
+            )}
             <Switch />
           </Popup>
 
@@ -128,8 +131,8 @@ export const LargeNav: React.FC<NavInterface> = ({
               </a>
             </Link>
           </StyledBadge>
-        </FlexItem>
-      </StyledNavbar>
+        </div>
+      </div>
     </NavbarParentContainer>
   );
 };

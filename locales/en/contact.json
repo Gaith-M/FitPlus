@@ -5,5 +5,15 @@
     "email": "Email",
     "phone": "Phone",
     "message": "message",
-    "submit": "submit"
+    "submit": "submit",
+    "messageSentSuccess": "Message Sent Successfully",
+    "errors": {
+        "firstName": "please, enter your first name",
+        "lastName": "please, enter your last name",
+        "email": "please, enter your email",
+        "phone": "please, enter your phone",
+        "message": "please, enter your phone",
+        "messageLimit": "Message shouldn't exceed 500 characters",
+        "messageSentFail": "Message Was Not Sent"
+    }
 }

@@ -1,0 +1,11 @@
+.address {
+  color: inherit;
+  line-height: 2.8;
+  margin: 10px 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .blogCard h3 {
+    text-align: center;
+  }
+}

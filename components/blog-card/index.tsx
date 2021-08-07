@@ -1,17 +1,8 @@
-import styled from 'styled-components';
-import {
-  boxShadow,
-  space_1,
-  space_2,
-  light,
-  onyx,
-  dark,
-  accent,
-} from '../../styles/styleConstants';
 import Link from 'next/Link';
-import { urlFor } from '../../lib/sanity';
 import Paragraph from '../paragraph';
 import useTranslation from 'next-translate/useTranslation';
+import { urlFor } from '../../lib/sanity';
+import styles from './styles.module.scss';
 
 // Title must be between 36 and 60 characters
 
@@ -28,62 +19,30 @@ interface blogCardInterface {
   theme: string;
 }
 
-const StyledBlogCard = styled.div`
-  background-color: ${({ theme }) => (theme === 'light' ? light : onyx)};
-  color: ${({ theme }) => (theme === 'light' ? dark : light)};
-  box-shadow: ${boxShadow};
-  flex: 1 1 45%;
-  max-width: 500px;
-  min-width: 320px;
-  padding: ${`${space_1} ${space_2}`};
-  margin: ${space_2};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
 const index: React.FC<blogCardInterface> = ({ blog, theme }) => {
   const { t } = useTranslation('blogs');
   return (
-    <StyledBlogCard theme={theme}>
+    <div
+      style={{
+        backgroundColor: theme === 'light' ? 'var(--light)' : 'var(--onyx)',
+        color: theme === 'light' ? 'var(--dark)' : 'var(--light)',
+      }}
+      className={styles.blogCard}
+    >
       <img
         width='100%'
         height='300px'
         style={{ display: 'inline-block', marginBottom: 10 }}
         src={urlFor(blog.image).url()}
       />
-      <h3
-        style={{
-          textTransform: 'capitalize',
-          marginBottom: 10,
-          color: 'inherit',
-        }}
-      >
-        {blog.title}
-      </h3>
-      <h4
-        style={{
-          textTransform: 'capitalize',
-          marginBottom: 5,
-          color: 'inherit',
-        }}
-      >
+      <h3>{blog.title}</h3>
+      <h4>
         {t`by`}{' '}
-        <a
-          href={`/authors/${blog.author.slug}`}
-          style={{ marginBottom: 10, color: accent }}
-        >
+        <a href={`/authors/${blog.author.slug}`} style={{ color: 'inherit' }}>
           {blog.author.name}
         </a>
       </h4>
-      <p
-        style={{
-          fontWeight: 'bold',
-          fontSize: '0.7em',
-          marginBottom: 15,
-          color: 'inherit',
-        }}
-      >
+      <p>
         {t`DOP`} {blog.dateOfPublish}
       </p>
       <Paragraph>
@@ -93,9 +52,9 @@ const index: React.FC<blogCardInterface> = ({ blog, theme }) => {
       </Paragraph>
 
       <Link href={`/blogs/${blog.slug}`}>
-        <a className='blogLinkButton'>Read More</a>
+        <a className={styles.blogLinkButton}>{t`readMore`}</a>
       </Link>
-    </StyledBlogCard>
+    </div>
   );
 };
 

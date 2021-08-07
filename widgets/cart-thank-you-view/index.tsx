@@ -1,7 +1,7 @@
 import Link from 'next/Link';
-import { useEffect } from 'react';
 import Button from '../../components/button';
 import Heading from '../../components/heading';
+import { useEffect } from 'react';
 import { FlexContainer } from '../../components/shared-components/containers';
 import {
   accent,
@@ -12,6 +12,7 @@ import {
   space_2,
   space_5,
 } from '../../styles/styleConstants';
+import useTranslation from 'next-translate/useTranslation';
 
 const index = ({ theme }) => {
   useEffect(() => {
@@ -19,7 +20,7 @@ const index = ({ theme }) => {
       window.scrollTo(0, 0);
     }
   }, []);
-
+  const { t } = useTranslation('cart');
   return (
     <FlexContainer
       justify='center'
@@ -38,21 +39,21 @@ const index = ({ theme }) => {
     >
       <div style={{ color: theme === 'light' ? dark : secondaryLight }}>
         <Heading lvl='display' color={accent} style={{ textAlign: 'center' }}>
-          Thank You
+          {t`thankYou`}
         </Heading>
         <Heading lvl='display' s='1.8em' style={{ textAlign: 'center' }}>
-          Your order has been submitted successfully
+          {t`orderSubmited`}
         </Heading>
         <Heading
           lvl='display'
           s='1.2em'
           style={{ textAlign: 'center', marginBottom: space_5 }}
         >
-          You order ID is <span style={{ color: accent }}>2312938</span>
+          {t`orderId`} <span style={{ color: accent }}>2312938</span>
         </Heading>
 
         <FlexContainer justify='space-evenly' align='center' wrap='wrap'>
-          <Button m='15px 0'>
+          <Button m='10px'>
             <Link href='/'>
               <a
                 style={{
@@ -61,11 +62,11 @@ const index = ({ theme }) => {
                   width: '280px',
                 }}
               >
-                Continue Shopping
+                {t`continueShopping`}
               </a>
             </Link>
           </Button>
-          <Button m='10px 0'>
+          <Button m='10px'>
             <Link href='/blogs'>
               <a
                 style={{
@@ -74,7 +75,7 @@ const index = ({ theme }) => {
                   width: '280px',
                 }}
               >
-                Blogs
+                {t`blogs`}
               </a>
             </Link>
           </Button>

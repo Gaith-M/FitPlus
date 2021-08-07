@@ -1,0 +1,50 @@
+.smallNavParentContainer {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+  display: flex;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggleThemeButton {
+  padding: 3px;
+  height: 35px;
+  width: 35px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: rgb(148 148 148 / 65%) 0px 0px 9px 0px;
+  backdrop-filter: blur(2px) saturate(0.3);
+}
+
+.closeButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.navCloseButton {
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 22px;
+  transition: 0.3s;
+  cursor: default;
+}
+.navCloseButton:hover {
+  color: #999;
+}
+
+.linkTextContainer {
+  position: relative;
+  top: 10px;
+}

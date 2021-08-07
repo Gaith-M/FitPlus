@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
 import { light, space_1 } from '../../styles/styleConstants';
 
@@ -27,11 +28,12 @@ const FlexItemInput = styled(BaseInput)`
 interface compInterface {
   w?: string;
   p?: string;
-  style?: {};
+  style?: CSSProperties;
   flex?: string;
   value: string;
   inputName: string;
   placeholder: string;
+  type?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -43,6 +45,7 @@ const index: React.FC<compInterface> = ({
   placeholder,
   handleChange,
   style,
+  type = 'text',
 }) => {
   return flex ? (
     <FlexItemInput
@@ -52,6 +55,7 @@ const index: React.FC<compInterface> = ({
       name={inputName}
       onChange={handleChange}
       placeholder={placeholder}
+      type={type}
     />
   ) : (
     <FluidInput
@@ -61,6 +65,7 @@ const index: React.FC<compInterface> = ({
       name={inputName}
       onChange={handleChange}
       placeholder={placeholder}
+      type={type}
     />
   );
 };

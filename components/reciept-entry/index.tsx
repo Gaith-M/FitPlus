@@ -46,7 +46,7 @@ const index = ({ name, price, qty, theme }) => {
           textAlign: 'center',
         }}
       >
-        {price * qty}$
+        {(price * qty).toFixed(2)}$
       </span>
     </FlexContainer>
   );

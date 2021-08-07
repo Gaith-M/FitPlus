@@ -1,40 +1,66 @@
-import Image from 'next/image';
-import { FlexContainer } from '../../components/shared-components/containers';
+import { useState } from 'react';
+import { Container } from '../../components/shared-components/containers';
+import { urlFor } from '../../lib/sanity';
+import { ChevronRight, ChevronLeft } from 'react-feather';
 import styles from './styles.module.scss';
 
 interface CompInterface {
-  imgs: { src: string; alt: string }[];
-  imgSrc: string;
-  setImgSrc: (string) => void;
+  imgsArray: { alt: string; image: { asset: {} } }[];
 }
 
-const index: React.FC<CompInterface> = ({ imgs, imgSrc, setImgSrc }) => {
-  return (
-    <FlexContainer flexDirection='column' w='320px' m='0 auto'>
-      <div
-        style={{
-          height: 320,
-          width: 320,
-          backgroundImage: `url(${imgSrc})`,
-          backgroundSize: 'cover',
-          marginBottom: 15,
-        }}
-      />
+const index: React.FC<CompInterface> = ({ imgsArray }: CompInterface) => {
+  let [index, setIndex] = useState(0);
 
-      <FlexContainer justify='space-between'>
-        {imgs.map(({ src, alt }) => (
-          <Image
-            onClick={({ target }) => setImgSrc(target.src)}
-            className={styles.previewImage}
-            width='100px'
-            height='100px'
-            src={src}
-            key={src}
-            alt={alt}
+  const nextImage = () => {
+    if (imgsArray.length === 1) return;
+    if (index >= imgsArray.length - 1) {
+      setIndex(0);
+    } else {
+      setIndex(index + 1);
+    }
+  };
+
+  const previousImage = () => {
+    if (imgsArray.length === 1) return;
+    if (index <= 0) {
+      setIndex(imgsArray.length - 1);
+    } else {
+      setIndex(index - 1);
+    }
+  };
+
+  return (
+    <Container w='100%' m='0 auto' style={{ maxWidth: '450px' }}>
+      <Container style={{ position: 'relative' }}>
+        <div
+          className={styles.toggleButtonContainer}
+          style={{
+            right: 0,
+          }}
+        >
+          <button className={styles.imageToggleButton} onClick={previousImage}>
+            <ChevronRight color='#545454c6' size='48' />
+          </button>
+        </div>
+        <div style={{ width: '100%' }}>
+          <img
+            src={urlFor(imgsArray[index].image).url()}
+            alt={imgsArray[index].alt}
+            style={{ maxWidth: '100%' }}
           />
-        ))}
-      </FlexContainer>
-    </FlexContainer>
+        </div>
+        <div
+          className={styles.toggleButtonContainer}
+          style={{
+            left: 0,
+          }}
+        >
+          <button className={styles.imageToggleButton} onClick={nextImage}>
+            <ChevronLeft color='#545454c6' size='48' />
+          </button>
+        </div>
+      </Container>
+    </Container>
   );
 };
 

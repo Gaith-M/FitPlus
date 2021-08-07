@@ -6,6 +6,39 @@
   color: #49494aff;
 }
 
+/* ------------------------------------------ */
+/* --------------Themes Colors-------------- */
+/* ------------------------------------------ */
+:root {
+  --davysGray: #49494a;
+  --light: #fafafa;
+  --secondaryLight: #f1f1f1;
+  --cardinal: #c11f3a;
+  --cardinalHover: #fb4361;
+  --accentHover: #fb4361;
+  --raisinBlack: #15151b;
+  --onyx: #1b1b1f;
+  --boxShadowVal: 5px 3px 11px 2px #4a4a4aab;
+}
+
+.light {
+  background-color: var(--light);
+  color: var(--davysGray);
+}
+
+.dark {
+  background-color: var(--raisinBlack);
+  color: var(--light);
+}
+
+.navbarLight {
+  color: var(--davysGray);
+}
+
+.navbarDark {
+  color: var(--light);
+}
+
 body {
   background-color: #f1f1f1;
   overflow-x: hidden;
@@ -13,31 +46,6 @@ body {
 
 a {
   text-decoration: none;
-}
-
-.relatedBlogs {
-  display: block;
-  text-transform: capitalize;
-  padding: 0 0 20px 0;
-  color: inherit;
-}
-
-.blogLinkButton {
-  display: block;
-  border: none;
-  cursor: pointer;
-  text-transform: capitalize;
-  transition: 0.3s;
-  outline: none;
-  border-radius: 2px;
-  width: 100%;
-  padding: 10px 20px;
-  margin: 0;
-  box-shadow: 5px 3px 11px 2px #4a4a4aab;
-  background-color: var(--cardinal);
-  color: var(--light);
-  font-size: 1em;
-  text-align: center;
 }
 
 .SEOHeading {
@@ -48,87 +56,9 @@ a {
   top: -999999999px;
 }
 
-.userDetailsInput {
-  position: relative;
-  flex: 1 1 45%;
-  min-width: 300pxs;
-  margin: 10px 20px;
-}
-
-.userDetailsInput button {
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  background-size: 100%;
-  background-color: transparent;
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  cursor: pointer;
-  border: none;
-  outline: none;
-}
-
-.userDetailsInput input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 2px;
-  border: 1px solid #999;
-  background-color: rgb(156, 172, 182);
-  color: var(--light);
-  outline: none;
-}
-
-.userDetailsInput input:read-only {
-  background-color: var(--secondaryLight);
-  border: 1px solid transparent;
-  color: var(--raisinBlack);
-  cursor: pointer;
-}
-
-.userDetailsInput span {
-  position: absolute;
-  left: -999999999999999999;
-  height: 0;
-  width: 0;
-  opacity: 0;
-  user-select: none;
-}
-
-/* --------------Themes Colors-------------- */
-:root {
-  /* light theme colors */
-  --davysGray: #49494a;
-  --light: #fafafa;
-  --secondaryLight: #f1f1f1;
-  --cardinal: #c11f3a;
-  --cardinalHover: #fb4361;
-  /* dark theme colors */
-  --raisinBlack: #15151b;
-  --onyx: #1b1b1f;
-}
-
-.light {
-  background-color: var(--light);
-  color: var(--davysGray);
-}
-
-.navbarLight {
-  color: var(--davysGray);
-}
-
-.dark {
-  background-color: var(--raisinBlack);
-  color: var(--light);
-}
-
-.navbarDark {
-  color: var(--light);
-}
-
-/* --------------------------------- */
-
+/* ---------------------------------------------------------------------- */
 /* --------------Remove Handlers from input type number----------------- */
+/* ---------------------------------------------------------------------- */
 
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
@@ -141,8 +71,8 @@ input[type='number'][type='number'] {
 }
 
 /* -------------------------------------------------------------------- */
-
-/* --------------Custome Popup----------------- */
+/* ----------------------------Custome Popup--------------------------- */
+/* -------------------------------------------------------------------- */
 .searchOption-content {
   background-color: rgba(255, 255, 255, 0.9) !important;
   width: 90% !important;
@@ -178,8 +108,8 @@ input[type='number'][type='number'] {
   color: var(--cardinal);
 }
 /* ------------------------------------------- */
-
 /* --------------Custome Select----------------- */
+/* ------------------------------------------- */
 .css-1pahdxg-control {
   border-color: hsl(0, 0%, 80%) !important;
   box-shadow: none !important;
@@ -189,9 +119,10 @@ input[type='number'][type='number'] {
   width: 200px !important;
   margin: 0 10px;
 }
-/* ----------------------------------------------- */
 
+/* ----------------------------------------------- */
 /* --------------Custome Scrollbar----------------- */
+/* ----------------------------------------------- */
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -215,8 +146,8 @@ input[type='number'][type='number'] {
 }
 
 /* ------------------------------------------------------ */
-
 /* --------------Carousel Styles Override----------------- */
+/* ------------------------------------------------------ */
 .control-dots > .dot {
   transform: scale(1.6);
   opacity: 0.5 !important;
@@ -246,24 +177,24 @@ input[type='number'][type='number'] {
   top: 35%;
   left: 10%;
 }
-/* -------------------------------- */
 
-/* ---------------Burgermenu Icon----------------- */
+/* small nav */
 .menuContainer:hover .iconBar {
   background-color: #c11f3a !important;
 }
-/* -------------------------------- */
 
-/* ---------------Small Nav Styles----------------- */
-.navCloseButton:hover {
-  color: #999;
+/* ----------------------------------------------------- */
+/* --------------Containers--------------- */
+/* --------------------------------------------------- */
+.gridContainer {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 96%;
+  color: inherit;
+  margin: 50px auto;
 }
-
-.linkTextContainer {
-  position: relative;
-  top: 10px;
-}
-/* -------------------------------- */
 
 /* ---------------product list item----------------- */
 .productListItem {
@@ -318,16 +249,7 @@ li a:hover {
   margin: 40px 0;
 }
 
-.largeNavLink {
-  padding: 10px;
-  text-transform: capitalize;
-  text-decoration: none;
-  transition: color 0.3s ease-out;
-}
-
-.largeNavLink:hover {
-  color: #c11f3a;
-}
+/* Shop & Blogs No Results Container */
 
 @media (max-width: 870px) {
   .slide_contianer {
@@ -403,12 +325,35 @@ li a:hover {
   margin: 0 20px 10px;
 }
 
-a.addtionalBlogs {
-  transition: 0.3s ease-in-out;
-  display: block;
-  margin: 10px;
+.autoComplete-container {
+  width: 100%;
+  min-width: 270px;
+  color: inherit;
+  position: absolute;
+  top: 39px;
 }
 
-a.addtionalBlogs:hover {
-  color: #c11f3a;
+.autoComplete-item {
+  width: 100%;
+  background-color: rgb(241 241 241 / 65%);
+  color: inherit;
+  padding: 10px;
+  cursor: default;
+  transition: background 0.2s ease-in-out;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+.autoComplete-item:hover {
+  background-color: rgb(211 211 211 / 55%);
+}
+
+/* ------------------------------------------------- */
+/* ------------------Toast Styles------------------ */
+/* ----------------------------------------------- */
+.toastWarning {
+  background: rgba(255, 190, 70, 0.802) !important;
+}
+.toastSuccess {
+  background: rgba(99, 253, 117, 0.802) !important;
 }

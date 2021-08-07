@@ -1,0 +1,93 @@
+.largeNavContainer {
+  max-width: 1200px;
+  width: 88%;
+  height: 90px;
+  margin: 0 auto;
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  z-index: 111;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.largeNav {
+  display: flex;
+  align-items: center;
+  flex: 0 1 50%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  color: inherit;
+}
+
+.userLinksContainer {
+  display: flex;
+  min-width: 110px;
+  flex: 0 1 110px;
+  justify-content: space-between;
+  font-size: 2.2em;
+}
+
+.largeNavLink {
+  padding: 10px;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: inherit;
+}
+
+.largeNavLink:hover {
+  color: var(--cardinal);
+}
+
+.largeNavSelected {
+  font-weight: bold;
+  color: var(--cardinal);
+}
+
+.logoutButton {
+  background-color: transparent;
+  border: none;
+  margin: 5px 0 15px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  color: var(--cardinal);
+}
+
+// Media Queries
+
+@media screen and (max-width: 1100px) {
+  .largeNavContainer {
+    left: 5%;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .largeNavContainer {
+    left: 4%;
+    width: 92%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .largeNavContainer {
+    left: 3%;
+    width: 94%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .largeNavContainer {
+    left: 2%;
+    width: 96%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .largeNavContainer {
+    left: 1%;
+    width: 98%;
+  }
+}

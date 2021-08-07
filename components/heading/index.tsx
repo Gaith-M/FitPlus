@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
 import { dark, space_4 } from '../../styles/styleConstants';
 
@@ -82,7 +83,7 @@ interface compInterface {
   CN?: string;
   s?: string;
   color?: string;
-  style?: {};
+  style?: CSSProperties;
 }
 
 const index: React.FC<compInterface> = ({

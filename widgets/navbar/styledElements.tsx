@@ -24,51 +24,6 @@ export const NavbarParentContainer = styled.div`
   align-items: center;
 `;
 
-export const StyledNavbar = styled.div`
-  max-width: 1200px;
-  width: 88%;
-  height: 90px;
-  margin: 0 auto;
-  padding: 15px 0;
-  position: fixed;
-  top: 0;
-  z-index: 111;
-  color: inherit;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media (max-width: 1100px) {
-    left: 5%;
-    width: 90%;
-  }
-  @media (max-width: 1000px) {
-    left: 4%;
-    width: 92%;
-  }
-  @media (max-width: 800px) {
-    left: 3%;
-    width: 94%;
-  }
-  @media (max-width: 600px) {
-    left: 2%;
-    width: 96%;
-  }
-  @media (max-width: 500px) {
-    left: 1%;
-    width: 98%;
-  }
-`;
-
-export const StyledNav = styled.nav`
-  flex: 0 1 50%;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  color: inherit;
-`;
-
 // -----------------Small Nav Elements-----------------
 export const Overlay = styled.div`
   width: 100%;
@@ -91,8 +46,9 @@ export const NavWrapper = styled.div`
   z-index: 9999;
   height: 100vh;
   width: 240px;
-  padding: ${`${space_1} ${space_2}`};
   transition: 0.3s;
+  overflow-y: scroll;
+  padding: ${`${space_1} ${space_2}`};
   box-shadow: ${boxShadow};
   background-color: ${light};
   transform: ${({ open }) => `translateX(${open ? '0' : '-115%'})`};

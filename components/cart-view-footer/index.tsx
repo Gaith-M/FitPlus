@@ -8,7 +8,7 @@ interface CartFooterInterface {
 const index: React.FC<CartFooterInterface> = ({ text, value }) => {
   return (
     <FlexContainer
-      justify='space-between'
+      justify='flex-end'
       p='20px 5px'
       style={{
         textTransform: 'capitalize',
@@ -17,16 +17,12 @@ const index: React.FC<CartFooterInterface> = ({ text, value }) => {
         color: 'inherit',
       }}
     >
-      <span style={{ flex: '0 1 75px' }} />
-      <span style={{ flex: '0 1 35%' }} />
-      <span style={{ flex: '0 1 10%' }} />
-      <span style={{ flex: '0 1 10%', textAlign: 'center', color: 'inherit' }}>
+      <span style={{ margin: '0 10px', textAlign: 'center', color: 'inherit' }}>
         {text}
       </span>
-      <span style={{ flex: '0 1 10%', textAlign: 'center', color: 'inherit' }}>
+      <span style={{ margin: '0 10px', textAlign: 'center', color: 'inherit' }}>
         {value}$
       </span>
-      <span style={{ flex: '0 1 30px' }} />
     </FlexContainer>
   );
 };

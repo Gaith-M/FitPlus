@@ -1,111 +1,84 @@
-import styled from 'styled-components';
-import {
-  accent,
-  accentHover,
-  secondaryLight,
-} from '../../styles/styleConstants';
+import useTranslation from 'next-translate/useTranslation';
 import NumberInput from '../number-input';
-import { FlexContainer } from '../shared-components/containers';
-
-const DeleteButton = styled.button`
-  flex: 0 1 30px;
-  border: none;
-  padding: 5px 0;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease-out;
-  background-color: ${accent};
-  color: ${secondaryLight};
-  outline: none;
-
-  &:hover {
-    background-color: ${accentHover};
-  }
-`;
+import styles from './style.module.scss';
 
 interface compInterface {
-  imgSrc: string;
   title: string;
-  qty: number;
+  quantity: number;
   price: number;
   id: string;
+  color?: string;
+  flavor?: string;
+  size?: string;
   handleDelete: (id: string) => void;
-  handleChange: (id: string, qty: number) => void;
+  handleChange: (
+    id: string,
+    color: string,
+    size: string,
+    flavor: string,
+    quantity: number
+  ) => void;
 }
 
 const index: React.FC<compInterface> = ({
-  imgSrc,
   title,
-  qty,
+  quantity,
   price,
   id,
+  color,
+  flavor,
+  size,
   handleDelete,
   handleChange,
 }) => {
+  const { t } = useTranslation('cart');
   return (
-    <FlexContainer
-      justify='space-between'
-      align='center'
-      m='10px 0'
-      p='15px 5px'
-      style={{
-        fontSize: '0.9em',
-        flex: '0 1 100%',
-        borderBottom: '1px solid #c1c1c1',
-        color: 'inherit',
-      }}
-    >
-      <img src={imgSrc} width='75px' height='75px' />
-      <span
-        style={{
-          flex: '0 1 35%',
-          cursor: 'default',
-          color: 'inherit',
-          padding: '3px 0',
-        }}
-      >
-        {title}
-      </span>
-      <span
-        style={{
-          flex: '0 1 10%',
-          margin: '0 5px',
-          textAlign: 'center',
-          color: 'inherit',
-        }}
-      >
-        <NumberInput value={qty} id={id} handleChange={handleChange} />
-      </span>
-      <span
-        style={{
-          flex: '0 1 10%',
-          margin: '0 5px',
-          textAlign: 'center',
-          cursor: 'default',
-          color: 'inherit',
-        }}
-      >
-        {price}$
-      </span>
-      <span
-        style={{
-          flex: '0 1 10%',
-          margin: '0 5px',
-          textAlign: 'center',
-          cursor: 'default',
-          color: 'inherit',
-        }}
-      >
-        {(price * qty).toFixed(2)}$
-      </span>
-      <DeleteButton
-        style={{ flex: '0 1 30px' }}
-        onClick={() => handleDelete(id)}
-      >
-        X
-      </DeleteButton>
-    </FlexContainer>
+    <div className={styles.mainContainer}>
+      <div className={styles.nameAndButtonContainer}>
+        <span>{title}</span>
+
+        <button
+          className={styles.deleteButton}
+          onClick={() => handleDelete(id)}
+        >
+          X
+        </button>
+      </div>
+      <ul>
+        {color && (
+          <li>
+            {t`color`}: {color}
+          </li>
+        )}
+        {flavor && (
+          <li>
+            {t`flavor`}: {flavor}
+          </li>
+        )}
+        {size && (
+          <li>
+            {t`size`}: {size}
+          </li>
+        )}
+        <li>
+          {t`quantity`}:
+          <NumberInput
+            quantity={quantity}
+            id={id}
+            handleChange={handleChange}
+            color={color}
+            flavor={flavor}
+            size={size}
+          />
+        </li>
+        <li>
+          {t`price`}: {price} $
+        </li>
+        <li>
+          {t`total`}: {(price * quantity).toFixed(2)} $
+        </li>
+      </ul>
+    </div>
   );
 };
 

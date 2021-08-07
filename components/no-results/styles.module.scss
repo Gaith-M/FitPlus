@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  text-align: center;
+  margin: 100px auto;
+  font-size: 1.8em;
+  color: inherit;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.buttonContainer button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}

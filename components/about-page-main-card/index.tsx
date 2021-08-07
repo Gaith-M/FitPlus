@@ -1,28 +1,29 @@
 import Heading from '../heading';
 import { Container } from '../shared-components/containers';
-import { space_4, space_2, boxShadow, dark } from '../../styles/styleConstants';
 
 interface compInterface {
   title: string;
   imgSrc: string;
   children: any;
-  bg?: string;
-  color?: string;
+  className: string;
 }
 
 const index: React.FC<compInterface> = ({
   title,
   imgSrc,
   children,
-  bg,
-  color,
+  className,
 }) => {
   return (
     <Container
-      p={space_2}
-      m={`${space_2} auto ${space_4}`}
-      bg={bg}
-      style={{ boxShadow: boxShadow, color: color || dark }}
+      p='20px'
+      m='15px auto 30px'
+      bg='inherit'
+      style={{
+        boxShadow: 'var(--boxShadowVal)',
+        color: 'inherit',
+      }}
+      className={className}
     >
       {/* The card's image */}
       <div
@@ -30,7 +31,7 @@ const index: React.FC<compInterface> = ({
           width: '100%',
           height: '400px',
           backgroundImage: `url(${imgSrc})`,
-          marginBottom: space_2,
+          marginBottom: '20px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

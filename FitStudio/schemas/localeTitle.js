@@ -1,5 +1,5 @@
 export default {
-  name: 'localeTitle',
+  name: 'localizedTitles',
   type: 'object',
   fields: [
     {

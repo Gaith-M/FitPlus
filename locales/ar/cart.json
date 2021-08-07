@@ -3,6 +3,9 @@
     "name": "الاسم",
     "quantity": "الكمية",
     "price": "السعر",
+    "color": "اللون",
+    "size": "السعر",
+    "flavor": "النكهة",
     "total": "الاجمالي",
     "next": "التالي",
     "payment-details": "معلومات الدفع",
@@ -25,5 +28,25 @@
     "type-of-delivery": "نوع التوصيل",
     "delivery-date": "تاريخ التوصيل",
     "purchased-items": "المشتريات",
-    "order-details": "معلومات الطلب"
+    "order-details": "معلومات الطلب",
+    "deliveryDate": "اختر موعد التوصيل",
+    "orderDetailsAndConfirmation": "التأكيد و معلومات الطلب",
+    "itemsPurchesed": "المشتريات",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "thankYou": "!شكراً لك",
+    "orderSubmited": "تم نأكيد الطلب بنجاح",
+    "orderId": "رقم طلبك هو",
+    "blogs": "المقالات",
+    "continueShopping": "المتجر",
+    "cartErrors": {
+        "firstNameErr": "الرجاء ادخال الاسم",
+        "lastNameErr": "الرجاء ادخال الكنية",
+        "emailErr": "الرجاء ادخال البريد الالكتروني",
+        "phoneNumberErr": "الرجاء ادخال رقم الهاتف",
+        "addressErr": "الرجاء ادخال العنوان",
+        "cardNumberErr": "الرجاء ادخال رقم بطاقة الائتمان",
+        "cardCVCErr": "الرجاء ادخال رمز البطاقة",
+        "deliveryDateErr": "الرجاء ادخال موعد التوصيل"
+    }
 }

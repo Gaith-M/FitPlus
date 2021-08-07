@@ -12,7 +12,7 @@ export default {
     {
       name: 'localeTitle',
       title: 'Localized Titles',
-      type: 'localeTitle',
+      type: 'localizedTitles',
       validation: (Rule) => Rule.required(),
     },
     {

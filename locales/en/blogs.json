@@ -7,5 +7,11 @@
     "moreFrom": "more from ",
     "moreBlogs": "more blogs",
     "by": "by",
-    "DOP": "Date Of Publish"
+    "DOP": "Date Of Publish",
+    "search": "Search",
+    "readMore": "Read More",
+    "next": "Next",
+    "previous": "Previous",
+    "addToFavorite": "Add To Favorite",
+    "removeFromFavorite": "Remove From Favorite"
 }

@@ -1,13 +1,9 @@
 // -----------------Logic Imports-----------------
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import useTranslation from 'next-translate/useTranslation';
-import {
-  updateQty,
-  cartSelector,
-  removeFromCart,
-} from '../../redux/reducers/cart-slice';
+import { updateQty, removeFromCart } from '../../redux/reducers/cart-slice';
+import { itemInCartInterface } from '../../interfaces/cart';
 // -----------------UI Imports-----------------
-import CartHeader from '../../components/cart-view-header';
 import CartFooter from '../../components/cart-view-footer';
 import Entry from '../../components/cart-item-entry';
 import Button from '../../components/button';
@@ -23,16 +19,27 @@ import {
   Container,
   FlexContainer,
 } from '../../components/shared-components/containers';
-import { ViewInterface } from '../../pages/cart';
 
-const index: React.FC<ViewInterface> = ({ theme, next }) => {
+interface PropsInterface {
+  next: () => void;
+  theme: string;
+  items?: itemInCartInterface[];
+}
+
+const index: React.FC<PropsInterface> = ({ theme, next, items }) => {
   const { t } = useTranslation('cart');
+
   const dispatch = useAppDispatch();
-  const { items } = useAppSelector(cartSelector);
+
   const handleDelete = (id: string) => dispatch(removeFromCart(id));
-  const handleQtyChange = (id: string, qty: number) =>
-    dispatch(updateQty({ id, qty }));
-  // if cart has items => show them / if not => show empty cart background
+
+  const handleQtyChange = (
+    id: string,
+    color: string,
+    size: string,
+    flavor: string,
+    quantity: number
+  ) => dispatch(updateQty({ id, color, size, flavor, quantity }));
   return items.length > 0 ? (
     <>
       <Container
@@ -41,24 +48,32 @@ const index: React.FC<ViewInterface> = ({ theme, next }) => {
         style={{ boxShadow: boxShadow }}
         className={theme}
       >
-        <CartHeader />
-        {items.map(({ imgSrc, title, qty, price, id }) => (
-          <Entry
-            imgSrc={imgSrc}
-            title={title}
-            qty={qty}
-            price={price}
-            id={id}
-            key={id}
-            handleDelete={handleDelete}
-            handleChange={handleQtyChange}
-          />
-        ))}
+        {items.map(
+          ({ item: { id, name, color, flavor, size, price }, quantity }) => (
+            <Entry
+              title={name}
+              quantity={quantity}
+              price={price}
+              color={color}
+              size={size}
+              flavor={flavor}
+              id={id}
+              key={id + size + color + flavor}
+              handleDelete={handleDelete}
+              handleChange={handleQtyChange}
+            />
+          )
+        )}
 
         <CartFooter
-          value={items
-            .reduce((acc, { qty, price }) => acc + price * qty, 0)
-            .toFixed(2)}
+          value={
+            +items
+              .reduce(
+                (acc, { item, quantity }) => acc + item.price * quantity,
+                0
+              )
+              .toFixed(2)
+          }
           text={t`total`}
         />
       </Container>

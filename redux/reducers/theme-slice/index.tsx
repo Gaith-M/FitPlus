@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
-// true = light theme
-// false = dark theme
 const themeSlice = createSlice({
   name: 'theme',
   initialState: true,

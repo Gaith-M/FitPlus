@@ -13,9 +13,11 @@ import {
   SmallNavLink,
   NavWrapper,
 } from './styledElements';
-import { FlexContainer } from '../../components/shared-components/containers';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleTheme } from '../../redux/reducers/theme-slice';
+import router, { useRouter } from 'next/router';
+import styles from './smallNavStyles.module.scss';
+import { removeUser } from '../../redux/reducers/user-slice';
 
 interface NavInterface {
   numberOfItemsInCart: number;
@@ -28,29 +30,44 @@ export const SmallNav: React.FC<NavInterface> = ({
 }) => {
   const { t } = useTranslation('common');
   const [toggle, setToggle] = useState(false);
+  const { locale } = useRouter();
+  const { user } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
+
+  const paths = [
+    { name: 'home', url: '/' },
+    { name: 'blogs', url: '/blogs' },
+    { name: 'shop', url: '/shop' },
+    { name: 'contact', url: '/contact' },
+    { name: 'about', url: '/about' },
+  ];
+
+  const getLinkName = (str: string) => {
+    switch (str) {
+      case 'home':
+        return t`navbar.home`;
+      case 'blogs':
+        return t`navbar.blog`;
+      case 'shop':
+        return t`navbar.shop`;
+      case 'contact':
+        return t`navbar.contact`;
+      case 'about':
+        return t`navbar.about`;
+    }
+  };
 
   return (
     <>
       <div
+        className={styles.smallNavParentContainer}
         style={{
-          position: 'fixed',
-          top: 0,
-          zIndex: 99,
-          width: '100%',
-          display: 'flex',
-          padding: '0 10px',
-          justifyContent: 'space-between',
           backgroundColor:
             className === 'navbarLight' ? '#f1f1f18a' : '#15151bde',
         }}
       >
         <LogoIcon w='100' h='60' />
-        <FlexContainer
-          justify='space-between'
-          align='center'
-          style={{ flex: '0 0 100px' }}
-        >
+        <div className={styles.flexContainer} style={{ flex: '0 0 100px' }}>
           <MenuIcon
             h='5px'
             color={className === 'navbarLight' ? dark : '#8c8c8c'}
@@ -58,17 +75,9 @@ export const SmallNav: React.FC<NavInterface> = ({
           />
           <button
             style={{
-              padding: 3,
-              height: 35,
-              width: 35,
               backgroundColor: className === 'navbarLight' ? '#fafafa' : '#333',
-              borderRadius: 4,
-              border: 'none',
-              outline: 'none',
-              cursor: 'pointer',
-              boxShadow: 'rgb(148 148 148 / 65%) 0px 0px 9px 0px',
-              backdropFilter: 'blur(2px) saturate(0.3)',
             }}
+            className={styles.toggleThemeButton}
             onClick={() =>
               dispatch(toggleTheme(className === 'navbarLight' ? false : true))
             }
@@ -78,42 +87,78 @@ export const SmallNav: React.FC<NavInterface> = ({
               src={className === 'navbarLight' ? '/sun.png' : '/darkIcon.png'}
             />
           </button>
-        </FlexContainer>
+        </div>
       </div>
       <Overlay open={toggle} onClick={() => setToggle(false)} />
       <NavWrapper open={toggle}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            margin: '5px 0',
-          }}
-        >
+        <div className={styles.closeButtonContainer}>
           <span
-            style={{
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: 22,
-              transition: '0.3s',
-            }}
-            className='navCloseButton'
+            className={styles.navCloseButton}
             onClick={() => setToggle(false)}
           >
             X
           </span>
         </div>
         <StyledSmallNav>
-          <Link href='/user' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.user`}</span>
-            </SmallNavLink>
-          </Link>
+          {user ? (
+            <>
+              <Link href={`/user-details`} passHref>
+                <SmallNavLink
+                  className='smallNavLink'
+                  onClick={() => setToggle(false)}
+                >
+                  <span className={styles.linkTextContainer}>
+                    {user.username}
+                  </span>
+                </SmallNavLink>
+              </Link>
+              <Link href={`/`} passHref>
+                <SmallNavLink
+                  className='smallNavLink'
+                  onClick={() => {
+                    dispatch(removeUser());
+                    router.reload();
+                  }}
+                >
+                  <span
+                    className={styles.linkTextContainer}
+                  >{t`navbar.logout`}</span>
+                </SmallNavLink>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href={`/login`} passHref>
+                <SmallNavLink
+                  className='smallNavLink'
+                  onClick={() => setToggle(false)}
+                >
+                  <span
+                    className={styles.linkTextContainer}
+                  >{t`navbar.login`}</span>
+                </SmallNavLink>
+              </Link>
+              <Link href={`/sign-up`} passHref>
+                <SmallNavLink
+                  className='smallNavLink'
+                  onClick={() => setToggle(false)}
+                >
+                  <span
+                    className={styles.linkTextContainer}
+                  >{t`navbar.signup`}</span>
+                </SmallNavLink>
+              </Link>
+            </>
+          )}
           <Link href='/cart' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>
+            <SmallNavLink
+              className='smallNavLink'
+              onClick={() => setToggle(false)}
+            >
+              <span className={styles.linkTextContainer}>
                 <StyledBadge
                   count={numberOfItemsInCart}
-                  xOffset='35px'
+                  xOffset={locale === 'en' ? '35px' : '85px'}
                   yOffset='-10px'
                 >
                   {t`navbar.cart`}
@@ -121,31 +166,16 @@ export const SmallNav: React.FC<NavInterface> = ({
               </span>
             </SmallNavLink>
           </Link>
-          <Link href='/' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.home`}</span>
-            </SmallNavLink>
-          </Link>
-          <Link href='/blogs' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.blog`}</span>
-            </SmallNavLink>
-          </Link>
-          <Link href='/shop' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.shop`}</span>
-            </SmallNavLink>
-          </Link>
-          <Link href='/contact' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.contact`}</span>
-            </SmallNavLink>
-          </Link>
-          <Link href='/about' passHref>
-            <SmallNavLink className='smallNavLink'>
-              <span className='linkTextContainer'>{t`navbar.about`}</span>
-            </SmallNavLink>
-          </Link>
+          {/* Main Pages Links */}
+          {paths.map((path) => (
+            <Link href={path.url} passHref key={path.name}>
+              <SmallNavLink onClick={() => setToggle(false)}>
+                <span className={styles.linkTextContainer}>
+                  {getLinkName(path.name)}
+                </span>
+              </SmallNavLink>
+            </Link>
+          ))}
         </StyledSmallNav>
       </NavWrapper>
     </>

@@ -9,23 +9,19 @@ import Button from '../../components/button';
 import { FlexContainer } from '../../components/shared-components/containers';
 
 // ---Select Element Options--- will be used until the backend can provide them
-const options = [
-  { value: 'all', label: 'all' },
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 interface CompInterface {
   startPrice: number | string;
   maxPrice: number | string;
-  inStock: boolean;
   discounted: boolean;
+  categories: {}[];
+  selectedOption: { label: string; value: string };
+  selectPlaceholder: string
   handleSelectChange: (string) => void;
   setStartPrice: (number) => void;
   setMaxPrice: (number) => void;
-  setInStock: (boolean) => void;
   setDiscounted: (boolean) => void;
+  handleClick: () => void;
 }
 
 const index: React.FC<CompInterface> = ({
@@ -34,10 +30,12 @@ const index: React.FC<CompInterface> = ({
   setMaxPrice,
   startPrice,
   maxPrice,
-  inStock,
-  setInStock,
   discounted,
   setDiscounted,
+  categories,
+  handleClick,
+  selectedOption,
+  selectPlaceholder
 }) => {
   const { t, lang } = useTranslation('shop');
 
@@ -53,12 +51,13 @@ const index: React.FC<CompInterface> = ({
         )}
       >
         <Select
-          options={options}
-          placeholder='Select Category'
+          options={categories}
+          placeholder={selectPlaceholder}
           onChange={handleSelectChange}
           isSearchable={true}
           autoFocus={false}
           className='CustomSelect'
+          value={selectedOption}
         />
         <label
           style={{
@@ -76,27 +75,17 @@ const index: React.FC<CompInterface> = ({
             type='number'
             placeholder={t`start-price`}
             value={startPrice}
-            onChange={({ target: { value } }) =>
-              +value > 0 ? setStartPrice(+value) : null
-            }
+            onChange={({ target: { value } }) => setStartPrice(+value)}
           />
           <input
             className={styles.priceInput}
             type='number'
             placeholder={t`max-price`}
             value={maxPrice}
-            onChange={({ target: { value } }) =>
-              +value > 0 ? setMaxPrice(+value) : null
-            }
+            onChange={({ target: { value } }) => setMaxPrice(+value)}
           />
         </label>
         <div dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-          <CustomeCheckbox
-            text={t`in-stock`}
-            name='in stock'
-            value={inStock}
-            handleChange={({ target: { checked } }) => setInStock(checked)}
-          />
           <span style={{ display: 'inline-block', width: '10px' }} />
           <CustomeCheckbox
             text={t`discounted`}
@@ -109,7 +98,7 @@ const index: React.FC<CompInterface> = ({
           m='4px 0'
           justify={lang === 'ar' ? 'flex-start' : 'flex-end'}
         >
-          <Button>{t`search`}</Button>
+          <Button handleClick={handleClick}>{t`search`}</Button>
         </FlexContainer>
       </Popup>
     </>

@@ -1,9 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppSelector } from '../redux/hooks';
 import { themeSelector } from '../redux/reducers/theme-slice';
-import { sanityClient } from '../lib/sanity';
-import { storeBlogs } from '../redux/reducers/blogs-slice';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 // --------------------Components--------------------
 import CustomeCarousel from '../components/customeCarousel';
 import ProductsSection from '../widgets/products-section';
@@ -14,35 +10,8 @@ import Meta from '../components/Meta';
 import { Container } from '../components/shared-components/containers';
 import { space_max } from '../styles/styleConstants';
 
-const blogsQuery = `
-*[_type == "blog"][0 .. 6]{
-  author->{
-  name,
-  "localeName": localizedName[$lang],
-  "slug": slug.current,
-  },
-  "title": localeTitle[$lang],
-  "preview": preview[$lang],
-  "image": {"alt": image.alt, "asset": image.asset},
-  "slug": slug.current,
-  dateOfPublish,
-  category,
-}
-`;
-
 const Home: React.FC = () => {
   const currentTheme = useAppSelector(themeSelector) ? 'light' : 'dark';
-  const dispatch = useAppDispatch();
-  const { locale } = useRouter();
-
-  useEffect(() => {
-    const fetchBlogs = async (currentLocale: string) => {
-      let blogs = await sanityClient.fetch(blogsQuery, { lang: currentLocale });
-      dispatch(storeBlogs(blogs));
-    };
-    fetchBlogs(locale);
-  }, [locale]);
-
   return (
     <>
       <Meta

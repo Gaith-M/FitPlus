@@ -3,13 +3,17 @@ import cartReducer from './reducers/cart-slice';
 import isMobileReducer from './reducers/isMobile-slice';
 import themeReducer from './reducers/theme-slice';
 import blogsReducer from './reducers/blogs-slice';
+import shopReducer from './reducers/shop-slice';
+import userReducer from './reducers/user-slice';
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     isMobile: isMobileReducer,
     theme: themeReducer,
-    blogs: blogsReducer
+    blogs: blogsReducer,
+    shop: shopReducer,
+    user: userReducer,
   },
 });
 

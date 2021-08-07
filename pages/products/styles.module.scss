@@ -1,0 +1,122 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 360px minmax(360px, 1fr);
+  gap: 30px;
+  box-shadow: var(--boxShadowVal);
+  padding: 35px 5px;
+}
+
+.similiarProductsGrid {
+  display: grid;
+  margin: 20px 0;
+  grid-template-columns: repeat(auto-fill, 240px);
+  gap: 20px;
+  width: 96%;
+  color: inherit;
+  margin: 50px auto;
+}
+
+.spanStyle {
+  font-weight: bold;
+  color: inherit;
+  margin: 15px 0px;
+  min-width: 55px;
+  color: inherit;
+  flex: 1 1 20%;
+  max-width: 72px;
+}
+
+.selectElement {
+  width: 100%;
+  min-width: 120px;
+  margin: 0 12px;
+  flex: 1 1 80%;
+}
+
+.ProductInfoContainer h2 {
+  margin: 40px 0 20px;
+}
+
+.ProductInfoContainer ul {
+  padding: 0;
+  margin: 10px 15px 30px;
+}
+
+.ProductInfoContainer p,
+.ProductInfoContainer ul li {
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  font-size: 0.9em;
+  word-spacing: 3px;
+  margin: 9px 0;
+  color: inherit;
+}
+
+.ProductInfoContainer ul li::before {
+  content: '\2022';
+  color: #c11f3a;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin: 0 1em;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+.price {
+  color: #c11f3a;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin: 20px;
+}
+
+.oldPrice {
+  color: inherit;
+  text-decoration: line-through;
+}
+
+.amountContainer span {
+  display: inline-block;
+  min-width: 50px;
+  text-align: center;
+  margin: 20px;
+}
+.amountContainer button {
+  padding: 10px 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
+
+.textData,
+.textData * {
+  color: inherit;
+}
+
+.textData ul {
+  margin: 10px 5px 20px;
+}
+
+.noSimiliarProducts {
+  padding: 50px 0 30px;
+  text-align: center;
+  color: inherit;
+}
+
+@media screen and (max-width: 800px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+  .amountContainer {
+    text-align: center;
+  }
+
+  .similiarProductsGrid {
+    justify-content: center;
+  }
+}

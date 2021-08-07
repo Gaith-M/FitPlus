@@ -1,15 +1,23 @@
 import Link from 'next/Link';
 import useTranslation from 'next-translate/useTranslation';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { themeSelector } from '../../redux/reducers/theme-slice';
 import { useRouter } from 'next/router';
 import { sanityClient, urlFor, PortableText } from '../../lib/sanity';
+import {
+  addBlogToFavorite,
+  removeBlogFromFavorite,
+} from '../../redux/reducers/user-slice';
+import { blogQuery, relatedBlogsQuery } from '../../queries';
 // ------------------- UI Imports -------------------
 import Meta from '../../components/Meta';
 import Heading from '../../components/heading';
 import { Container } from '../../components/shared-components/containers';
 import { accent, space_max } from '../../styles/styleConstants';
+import { Heart } from 'react-feather';
+import Loader from '../../components/loader';
+import styles from '../../styles/blogPage.module.scss';
 
 interface DataInterface {
   author: {
@@ -34,58 +42,45 @@ interface PropsInterface {
   relatedBlogs: { title: string; slug: string }[];
 }
 
-const dataQuery = `
-  *[_type == 'blog' && slug.current == $slug][0]{
-    author->{
-    name,
-    "localeName": localizedName[$lang],
-    "slug": slug.current,
-    "about": about[$lang],
-    "moreFromAuthor": *[_type=='blog' && references(^._id)]{
-      "title": localeTitle[$lang],
-      "slug": slug.current
-    }},
-    "title": localeTitle[$lang],
-    "content": content[$lang],
-    "slug": slug.current,
-    dateOfPublish,
-    image,
-    category,
-    _id
-  }
-`;
-
-// Make this based on views or publich date (like latest 10)
-const relatedBlogsQuery = `
-  *[_type == 'blog' && category == $category]{
-    "title": localeTitle[$lang],
-    "slug": slug.current
-  }
-`;
-
 const index = ({ data, relatedBlogs }: PropsInterface) => {
   const { isFallback } = useRouter();
-
   if (isFallback) {
     return (
       <Container m={`${space_max} 0 0`} p='0 0 80px 0'>
-        {/* put a loader here */}
-        Loading..
+        <Loader />
       </Container>
     );
   }
-
   const { content, title } = data;
   const { t } = useTranslation(`blogs`);
   const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const moreFromTheAuthorTitles = data.author.moreFromAuthor.map(
     ({ title }) => title
   );
+
+  // =========================
+  // =========================
+  // Get Related Blog
+  // =========================
+  // =========================
   const relatedBlogsArray = relatedBlogs.filter(({ title, slug }) => {
     if (slug !== data.slug && !moreFromTheAuthorTitles.includes(title)) {
       return { title, slug };
     }
   });
+
+  // =========================
+  // =========================
+  // Like Logic
+  // =========================
+  // =========================
+  const dispatch = useAppDispatch();
+  const addToFavorite = () => dispatch(addBlogToFavorite(data._id));
+  const removeFromFavorite = () => dispatch(removeBlogFromFavorite(data._id));
+  const isFavorite =
+    useAppSelector(({ user }) => user.favoriteBlogs).findIndex(
+      (id) => id === data._id
+    ) > -1;
 
   return (
     <>
@@ -95,6 +90,23 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
           <Heading lvl={1}>{title}</Heading>
 
           <img src={urlFor(data?.image).url()} alt={data?.image.alt} />
+
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.likeButton}
+              onClick={() =>
+                isFavorite ? removeFromFavorite() : addToFavorite()
+              }
+            >
+              <span style={{ margin: '0 10px' }}>
+                {isFavorite ? t`removeFromFavorite` : t`addToFavorite`}
+              </span>
+              <Heart
+                className={isFavorite ? styles.liked : ''}
+                style={{ stroke: theme === 'light' ? '#333' : '#f1f1f1' }}
+              />
+            </button>
+          </div>
 
           <PortableText blocks={content} className={`content ${theme}`} />
 
@@ -117,7 +129,7 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
             if (slug !== data.slug) {
               return (
                 <Link href={`${slug}`} key={title}>
-                  <a className='addtionalBlogs'>{title}</a>
+                  <a className={styles.addtionalBlogs}>{title}</a>
                 </Link>
               );
             }
@@ -131,7 +143,7 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
             </Heading>
             {relatedBlogsArray.map(({ title, slug }) => (
               <Link href={`${slug}`} key={title}>
-                <a className='addtionalBlogs'>{title}</a>
+                <a className={styles.addtionalBlogs}>{title}</a>
               </Link>
             ))}
           </Container>
@@ -160,7 +172,7 @@ export const getStaticProps: GetStaticProps = async ({
   params: { slug },
   locale,
 }) => {
-  const data: DataInterface = await sanityClient.fetch(dataQuery, {
+  const data: DataInterface = await sanityClient.fetch(blogQuery, {
     slug,
     lang: locale,
   });

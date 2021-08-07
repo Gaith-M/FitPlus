@@ -5,13 +5,13 @@ export default {
     {
       name: 'en',
       title: 'English',
-      type: 'string',
+      type: 'text',
       validation: (Rule) => Rule.min(300).max(400),
     },
     {
       name: 'ar',
       title: 'Arabic',
-      type: 'string',
+      type: 'text',
       validation: (Rule) => Rule.min(300).max(400),
     },
   ],

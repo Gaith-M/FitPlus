@@ -1,0 +1,19 @@
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 40px 0;
+  padding: 20px 0;
+  font-weight: bold;
+  color: inherit;
+}
+.card {
+  background-color: inherit;
+  padding: 10px 5px;
+  min-width: 250px;
+  margin: 20px auto;
+  flex: 0 0 30%;
+  box-shadow: 5px 3px 11px 2px #4a4a4aab;
+  text-align: center;
+}

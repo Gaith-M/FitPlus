@@ -2,21 +2,15 @@ import { themeSelector } from '../redux/reducers/theme-slice';
 import { useAppSelector } from '../redux/hooks';
 import useTranslation from 'next-translate/useTranslation';
 import Meta from '../components/Meta';
+import Link from 'next/Link';
 // -------------------UI Imports-------------------
-import {
-  space_max,
-  space_2,
-  dark,
-  secondaryLight,
-  raisinBlack,
-  light,
-} from '../styles/styleConstants';
+import AboutCard from '../components/about-page-main-card';
+import { Container } from '../components/shared-components/containers';
+import { space_max, space_2 } from '../styles/styleConstants';
 import Heading from '../components/heading';
 import Paragraph from '../components/paragraph';
 import Button from '../components/button';
-
-import AboutCard from '../components/about-page-main-card';
-import { Container } from '../components/shared-components/containers';
+import styles from '../styles/about.module.scss';
 
 export const About = () => {
   const { t } = useTranslation('about');
@@ -32,102 +26,34 @@ export const About = () => {
           <AboutCard
             title={t`modernGyms`}
             imgSrc='/gym_photo.jpg'
-            bg={theme === 'light' ? secondaryLight : raisinBlack}
-            color={theme === 'light' ? dark : light}
+            className={styles.blogCard}
           >
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est
-              laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est
-              laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Paragraph>
+            <Paragraph>{t`firstCardText`}</Paragraph>
           </AboutCard>
 
           <AboutCard
             title={t`proStaff`}
             imgSrc='/staff.jpg'
-            bg={theme === 'light' ? secondaryLight : raisinBlack}
-            color={theme === 'light' ? dark : light}
+            className={styles.blogCard}
           >
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est
-              laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est
-              laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit.
-            </Paragraph>
+            <Paragraph>{t`secondCardText`}</Paragraph>
           </AboutCard>
 
           <AboutCard
             title={t`locations`}
             imgSrc='/map.jpg'
-            bg={theme === 'light' ? secondaryLight : raisinBlack}
-            color={theme === 'light' ? dark : light}
+            className={styles.blogCard}
           >
             <Paragraph>
-              <address
-                style={{
-                  color: 'inherit',
-                  lineHeight: 2.5,
-                  margin: `${space_2} 0`,
-                }}
-              >
-                some country - some city - some place - some street <br />
-                some country - some city - some place - some street <br />
-                some country - some city - some place - some street
-              </address>
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-              ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia
-              deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia
-              deserunt mollit anim id est laborum.
+              <address className={styles.address}>{t`firstLocation`}</address>
+              <address className={styles.address}>{t`secondLocation`}</address>
+              <address className={styles.address}>{t`thirdLocation`}</address>
+              {t`thirdCardText`}
             </Paragraph>
-            <Button w='300px' p='20px 10px' m={`${space_2} auto`}>
-              {t`getInTouch`}
+            <Button w='300px' p='20px 10px' m='50px auto 30px'>
+              <Link href='/contact'>
+                <a style={{ color: '#f1f1f1' }}>{t`getInTouch`}</a>
+              </Link>
             </Button>
           </AboutCard>
         </main>

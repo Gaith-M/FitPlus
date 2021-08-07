@@ -6,7 +6,7 @@ interface containerInterface {
   p?: string;
   bg?: string;
   color?: string;
-  style?: {};
+  style?: React.CSSProperties;
   className?: string;
 }
 
@@ -26,12 +26,6 @@ interface flexContainerInterface extends containerInterface {
   flexDirection?: 'column' | 'row' | 'column-reverse' | 'row-reverse';
 }
 
-interface flexItemInterface extends containerInterface {
-  minW: string;
-  flex: string;
-  style?: {};
-}
-
 export const Container: React.FC<containerInterface> = styled.div`
   width: ${({ w }) => (w ? w : '100%')};
   margin: ${({ m }) => (m ? m : '0')};
@@ -48,9 +42,4 @@ export const FlexContainer: React.FC<flexContainerInterface> = styled(
   flex-wrap: ${({ wrap }) => (wrap === 'wrap' ? 'wrap' : 'no-wrap')};
   flex-direction: ${({ flexDirection }) =>
     flexDirection ? flexDirection : 'row'};
-`;
-
-export const FlexItem: React.FC<flexItemInterface> = styled(Container)`
-  min-width: ${({ minW }) => minW};
-  flex: ${({ flex }) => (flex ? flex : '1 1 100%')};
 `;

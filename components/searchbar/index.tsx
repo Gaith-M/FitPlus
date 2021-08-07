@@ -1,38 +1,50 @@
-import styled from 'styled-components';
-import Button from '../button';
-import { FlexContainer } from '../shared-components/containers';
-
-const StyledSearchBar = styled.input`
-  min-width: 270px;
-  width: 100%;
-  height: 39px;
-  padding: 0 10px;
-  border: none;
-  outline: none;
-  font-weight: bold;
-  background-color: #f1f1f1;
-`;
+import styles from './styles.module.scss';
+import { X } from 'react-feather';
+import { useRouter } from 'next/router';
 
 interface compInterface {
   w?: string;
   m?: string;
   handleClick?: () => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clear: () => void;
   text?: string;
+  value?: string;
+  refVal?: { current: HTMLInputElement };
 }
 
 const index: React.FC<compInterface> = ({
-  w = '60%',
-  m = '0 auto',
-  handleClick = () => console.log('test'),
+  handleClick,
+  handleChange,
   text,
+  value,
+  clear,
+  refVal,
 }) => {
+  const { locale } = useRouter();
   return (
-    <FlexContainer w={w} justify='center' align='center' m={m}>
-      <StyledSearchBar type='text' placeholder={text || 'search'} />
-      <Button noRad={false} w='100px' noShadow={true} handleClick={handleClick}>
-        {text || 'go'}
-      </Button>
-    </FlexContainer>
+    <div className={styles.container}>
+      <input
+        className={styles.input}
+        type='text'
+        placeholder={text || 'Search'}
+        onChange={handleChange}
+        value={value}
+        ref={refVal}
+      />
+      <button
+        className={`${styles.clearButton} ${
+          locale === 'en' ? styles.right : styles.left
+        }`}
+        onClick={clear}
+      >
+        <X
+          size='18px'
+          color='#4f4d49'
+          style={{ position: 'relative', top: 2 }}
+        />
+      </button>
+    </div>
   );
 };
 

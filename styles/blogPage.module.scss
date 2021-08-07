@@ -1,0 +1,51 @@
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 5px;
+  color: inherit;
+  margin: 10px 0 40px;
+}
+
+.buttonContainer:hover svg {
+  fill: var(--cardinal);
+  stroke: var(--cardinal);
+}
+
+.likeButton {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+  transition: 0.3s ease-in-out;
+}
+
+.likeButton span {
+  color: inherit;
+}
+
+.likeButton svg {
+  stroke-width: 2px;
+  width: 30px;
+  height: 30px;
+  transition: fill 0.3s ease-in-out;
+}
+
+.likeButton svg.liked {
+  fill: var(--cardinal);
+  stroke: var(--cardinal) !important;
+}
+
+.addtionalBlogs {
+  transition: 0.3s ease-in-out;
+  display: block;
+  margin: 10px;
+  color: inherit;
+}
+
+.addtionalBlogs:hover {
+  color: #c11f3a;
+}

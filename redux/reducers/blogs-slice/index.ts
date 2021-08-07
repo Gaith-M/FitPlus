@@ -10,15 +10,26 @@ interface BlogInterface {
   title: string;
 }
 
-const initialState: BlogInterface[] | [] = [];
+const initialState: {
+  blogs: BlogInterface[] | [];
+  isLoading: boolean;
+} = {
+  blogs: [],
+  isLoading: false,
+};
 
 const blogsSlice = createSlice({
   name: 'blogs',
   initialState,
   reducers: {
-    storeBlogs: (state, { payload }) => (state = payload),
+    storeBlogs(state, { payload }) {
+      state.blogs = payload;
+    },
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload;
+    },
   },
 });
 
 export default blogsSlice.reducer;
-export const { storeBlogs } = blogsSlice.actions;
+export const { storeBlogs, setLoading } = blogsSlice.actions;
