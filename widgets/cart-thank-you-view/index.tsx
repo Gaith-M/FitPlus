@@ -30,7 +30,7 @@ const index = ({ theme }) => {
       style={{
         minHeight: '70vh',
         backgroundColor: theme === 'light' ? secondaryLight : onyx,
-        backgroundImage: 'url(/accent_checkmark_half_opacity.png)',
+        backgroundImage: 'url(/accent_checkmark_half_opacity.webp)',
         backgroundPosition: 'center',
         backgroundSize: '400px 300px',
         backgroundRepeat: 'no-repeat',
@@ -54,7 +54,7 @@ const index = ({ theme }) => {
 
         <FlexContainer justify='space-evenly' align='center' wrap='wrap'>
           <Button m='10px'>
-            <Link href='/'>
+            <Link href='/shop'>
               <a
                 style={{
                   color: secondaryLight,

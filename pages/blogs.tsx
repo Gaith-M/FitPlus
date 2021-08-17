@@ -9,8 +9,6 @@ import { blogsQuery } from '../queries';
 import { fetchBlogs } from '../shared utility/fetchBlogs';
 
 // -------------------UI Imports-------------------
-import { space_max } from '../styles/styleConstants';
-import { Container } from '../components/shared-components/containers';
 import Heading from '../components/heading';
 import Searchbar from '../components/searchbar';
 import BlogCard from '../components/blog-card';
@@ -84,7 +82,6 @@ const blogs = () => {
   let totalPages = Math.ceil(totalBlogs / resultsPerPage);
 
   useEffect(() => {
-    if (blogs.length > 0) return;
     fetchBlogs(blogsQuery, { lang: locale }, dispatch);
   }, [locale]);
 
@@ -103,12 +100,8 @@ const blogs = () => {
 
   return (
     <>
-      <Meta title='Fit+ Blogs' />
-      <Container
-        m={`${space_max} 0 0`}
-        p={`0 0 ${space_max} 0`}
-        className={theme}
-      >
+      <Meta title={t`blogsTitle`} />
+      <div style={{ color: 'inherit', paddingBottom: 100 }}>
         <Heading lvl={1}>{t`blogs`}</Heading>
 
         {!isLoading && (
@@ -128,16 +121,14 @@ const blogs = () => {
               {showSearchResults ? (
                 searchResults.length > 0 ? (
                   searchResults.map((blog) => (
-                    <BlogCard blog={blog} theme={theme} key={blog.title} />
+                    <BlogCard blog={blog} key={blog.title} />
                   ))
                 ) : (
                   <NoResults handleClick={clearSearch} />
                 )
               ) : null}
               {!showSearchResults &&
-                blogs.map((blog) => (
-                  <BlogCard blog={blog} theme={theme} key={blog.title} />
-                ))}
+                blogs.map((blog) => <BlogCard blog={blog} key={blog.title} />)}
             </main>
             <div
               style={{
@@ -175,7 +166,7 @@ const blogs = () => {
             </div>
           </>
         )}
-      </Container>
+      </div>
     </>
   );
 };

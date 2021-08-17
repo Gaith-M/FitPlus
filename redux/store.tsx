@@ -5,6 +5,7 @@ import themeReducer from './reducers/theme-slice';
 import blogsReducer from './reducers/blogs-slice';
 import shopReducer from './reducers/shop-slice';
 import userReducer from './reducers/user-slice';
+import langReducer from './reducers/lang-slice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     blogs: blogsReducer,
     shop: shopReducer,
     user: userReducer,
+    langState: langReducer,
   },
 });
 

@@ -5,15 +5,13 @@ import router from 'next/router';
 import notify from '../shared utility/notify';
 import Link from 'next/Link';
 import useTranslation from 'next-translate/useTranslation';
-import {
-  Container,
-  FlexContainer,
-} from '../components/shared-components/containers';
+import { FlexContainer } from '../components/shared-components/containers';
 import { accent, boxShadow, secondaryLight } from '../styles/styleConstants';
 import Heading from '../components/heading';
 import Input from '../components/form-input';
 import Button from '../components/button';
 import Paragraph from '../components/paragraph';
+import Meta from '../components/Meta';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const login = () => {
@@ -50,8 +48,6 @@ const login = () => {
         lastName: null,
         address: null,
         phone: null,
-        likedProducts: null,
-        favoriteBlogs: null,
       })
     );
     dispatch(setLoading(false));
@@ -60,14 +56,15 @@ const login = () => {
 
   return (
     <>
-      <Container
-        m={'120px auto 0'}
-        w='320px'
-        p='25px 5px 15px 5px'
+      <Meta title={t`loginTitle`} />
+      <div
         style={{
+          margin: '120px auto 0',
+          width: '320px',
+          padding: '25px 5px 15px 5px',
           height: '470px',
           boxShadow: boxShadow,
-          background: 'url(/auth_bg_90OPC.jpg)',
+          background: 'url(/auth_bg_90OPC.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           position: 'relative',
@@ -116,7 +113,7 @@ const login = () => {
             <a style={{ color: accent, fontWeight: 'bold' }}>{t`signUp`}</a>
           </Link>
         </Paragraph>
-      </Container>
+      </div>
       <div style={{ paddingBottom: 100 }} />
     </>
   );

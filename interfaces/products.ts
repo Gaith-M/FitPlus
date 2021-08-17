@@ -3,6 +3,7 @@ export interface itemInterface {
   type: string;
   name: string;
   description: {}[];
+  seoDescription: string;
   slug: string;
   images: { alt: string; image: { asset: {} } }[];
   flavors: string[] | null;

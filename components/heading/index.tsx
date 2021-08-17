@@ -19,6 +19,13 @@ const StyledH1: React.FC<headingInterface> = styled.h1`
   color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
+
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 const StyledH2: React.FC<headingInterface> = styled.h2`
   width: 100%;
@@ -28,6 +35,13 @@ const StyledH2: React.FC<headingInterface> = styled.h2`
   color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
+
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 const StyledH3: React.FC<headingInterface> = styled.h3`
   width: 100%;
@@ -37,6 +51,13 @@ const StyledH3: React.FC<headingInterface> = styled.h3`
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
+
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 const StyledH4: React.FC<headingInterface> = styled.h4`
   width: 100%;
@@ -46,6 +67,13 @@ const StyledH4: React.FC<headingInterface> = styled.h4`
   color: ${({ color }) => (color ? color : 'inherit')};
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   font-size: ${({ s }) => (s ? s : '48px')};
+
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 const StyledH5: React.FC<headingInterface> = styled.h5`
   width: 100%;
@@ -55,6 +83,12 @@ const StyledH5: React.FC<headingInterface> = styled.h5`
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 const StyledH6: React.FC<headingInterface> = styled.h5`
   width: 100%;
@@ -64,6 +98,12 @@ const StyledH6: React.FC<headingInterface> = styled.h5`
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 
 const StyledParagraph: React.FC<headingInterface> = styled.p`
@@ -74,6 +114,12 @@ const StyledParagraph: React.FC<headingInterface> = styled.p`
   margin: ${({ m }) => (m ? m : `0 0 ${space_4} 0`)};
   color: ${({ color }) => (color ? color : 'inherit')};
   font-size: ${({ s }) => (s ? s : '48px')};
+  @media screen and (max-width: 700px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 570px) {
+    font-size: 28px;
+  }
 `;
 
 interface compInterface {

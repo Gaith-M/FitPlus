@@ -12,12 +12,12 @@ const Switch = () => {
       <div className={styles.switchContainer}>
         <div className={styles.switchCheck}>
           <span>
-            <img src='/lightIcon.png' />
+            <img src='/lightIcon.webp' />
           </span>
         </div>
         <div className={styles.switchUncheck}>
           <span>
-            <img src='/darkIcon.png' />
+            <img src='/darkIcon.webp' />
           </span>
         </div>
       </div>

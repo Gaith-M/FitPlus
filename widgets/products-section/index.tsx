@@ -4,7 +4,6 @@ import { itemsQuery } from '../../queries';
 import { addToCart } from '../../redux/reducers/cart-slice';
 import { itemInterface } from '../../interfaces/products';
 
-import { Container } from '../../components/shared-components/containers';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -20,7 +19,7 @@ import Loader from '../../components/loader';
 import 'react-toastify/dist/ReactToastify.min.css';
 import notify from '../../shared utility/notify';
 
-const index = ({ theme }) => {
+const index = () => {
   const { t } = useTranslation('shop');
   const { locale } = useRouter();
   const dispatch = useAppDispatch();
@@ -72,7 +71,11 @@ const index = ({ theme }) => {
       return;
     }
     if (selectedProduct.productInfo.avaliableSizes && !selectedSize) {
-      notify('success', t`selectSize`);
+      notify('warning', t`selectSize`);
+      return;
+    }
+    if (amount < 1) {
+      notify('warning', t`invalidQuantity`);
       return;
     }
     setAmount(1);
@@ -115,15 +118,14 @@ const index = ({ theme }) => {
     // only fetch from server when:
     // products don't exist in store
     // the locale changes
-    if (products.length > 0) return;
     fetchProducts();
-  }, []);
+  }, [locale]);
 
   return (
-    <Container className={theme}>
+    <div style={{ color: 'inherit' }}>
       <Heading color='inherit' lvl={2}>{t`shop`}</Heading>
 
-      <Container>
+      <div style={{ color: 'inherit' }}>
         {isLoading ? (
           <Loader />
         ) : (
@@ -142,7 +144,7 @@ const index = ({ theme }) => {
             ))}
           </div>
         )}
-      </Container>
+      </div>
 
       {selectedProduct?.name && (
         <QuickPreview
@@ -158,7 +160,7 @@ const index = ({ theme }) => {
           amount={amount}
         />
       )}
-    </Container>
+    </div>
   );
 };
 

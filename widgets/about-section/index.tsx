@@ -2,18 +2,13 @@ import Heading from '../../components/heading';
 import Button from '../../components/button';
 import Paragraph from '../../components/paragraph';
 import Image from 'next/image';
-import { Container } from '../../components/shared-components/containers';
 import useTranslation from 'next-translate/useTranslation';
 import styles from './styles.module.scss';
 
-interface SectionInterface {
-  theme: string;
-}
-
-const index: React.FC<SectionInterface> = ({ theme }) => {
+const index: React.FC = () => {
   const { t } = useTranslation('common');
   return (
-    <Container className={theme}>
+    <div style={{ color: 'inherit' }}>
       <Heading lvl={2}>{t`section-titles.whyFit`}</Heading>
 
       <Paragraph>{t`about.firstParagraph`}</Paragraph>
@@ -27,7 +22,7 @@ const index: React.FC<SectionInterface> = ({ theme }) => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb.jpg' width={300} height={200} />
+          <Image src='/about_thumb.webp' width={300} height={200} />
           <Paragraph align='center'>{t`about.thirdCardText`}</Paragraph>
         </div>
 
@@ -37,7 +32,7 @@ const index: React.FC<SectionInterface> = ({ theme }) => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb_coach.jpg' width={300} height={200} />
+          <Image src='/about_thumb_coach.webp' width={300} height={200} />
           <Paragraph align='center'>{t`about.secondCardText`}</Paragraph>
         </div>
 
@@ -47,7 +42,7 @@ const index: React.FC<SectionInterface> = ({ theme }) => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb_doc.jpg' width={300} height={200} />
+          <Image src='/about_thumb_doc.webp' width={300} height={200} />
           <Paragraph align='center'>{t`about.firstCardText`}</Paragraph>
         </div>
       </div>
@@ -60,7 +55,7 @@ const index: React.FC<SectionInterface> = ({ theme }) => {
           {t`buttons.getInTouch`}
         </Button>
       </div>
-    </Container>
+    </div>
   );
 };
 

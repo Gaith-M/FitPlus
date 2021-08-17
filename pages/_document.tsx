@@ -32,10 +32,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <meta
-            name='description'
-            content='Hikes is the best website to find new adventures and the right gear to take on any challenge'
-          />
           <meta name='charset' content='UTF-8' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link

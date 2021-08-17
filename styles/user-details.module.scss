@@ -39,7 +39,7 @@
 .userDetailsInput {
   position: relative;
   flex: 1 1 45%;
-  min-width: 300pxs;
+  min-width: 300px;
   margin: 10px 20px;
 }
 
@@ -65,12 +65,11 @@
   background-color: rgb(156, 172, 182);
   color: var(--raisinBlack);
   outline: none;
-}
 
-.userDetailsInput input:read-only {
-  background-color: var(--secondaryLight);
-  border: 1px solid transparent;
-  cursor: default;
+  &:read-only {
+    border: 1px solid transparent;
+    cursor: default;
+  }
 }
 
 .userDetailsInput span {
@@ -88,4 +87,10 @@
   margin: 20px;
   display: flex;
   justify-content: flex-end;
+}
+
+.noResultsContainer {
+  padding: 70px;
+  text-align: center;
+  line-height: 1.7;
 }

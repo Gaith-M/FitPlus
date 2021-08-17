@@ -2,24 +2,13 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { useAppSelector } from '../redux/hooks';
-import { themeSelector } from '../redux/reducers/theme-slice';
 // -----------------------UI Imports-----------------------
 import Heading from '../components/heading';
 import Button from '../components/button';
 import FlexInput from '../components/form-input';
-import {
-  Container,
-  FlexContainer,
-} from '../components/shared-components/containers';
-import {
-  boxShadow,
-  light,
-  onyx,
-  secondaryLight,
-  space_1,
-  space_2,
-  space_max,
-} from '../styles/styleConstants';
+import { FlexContainer } from '../components/shared-components/containers';
+import { boxShadow, light, space_1, space_2 } from '../styles/styleConstants';
+import Meta from '../components/Meta'
 import notify from '../shared utility/notify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -37,7 +26,6 @@ const TextArea = styled.textarea`
 `;
 
 const contact = () => {
-  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const { t } = useTranslation('contact');
   const { user } = useAppSelector(({ user }) => user);
   const [firstName, setFirstName] = useState<string>(
@@ -96,18 +84,15 @@ const contact = () => {
   };
 
   return (
-    <Container
-      m={`${space_max} 0 0`}
-      p={`0 0 ${space_max} 0`}
-      className={theme}
-    >
+    <>
+    <Meta title={t`contactUsTitle`}/>
+    <div style={{ color: 'inherit', paddingBottom: 100 }}>
       <Heading lvl={1}>{t`contactUs`}</Heading>
       <FlexContainer
         wrap='wrap'
-        p={`${space_1} ${space_1}`}
-        bg={theme === 'light' ? secondaryLight : onyx}
+        p={`${space_1}`}
         style={{ boxShadow: boxShadow }}
-      >
+        >
         <FlexInput
           inputName='firstName'
           flex='1 1 45%'
@@ -134,12 +119,13 @@ const contact = () => {
         />
         <FlexInput
           inputName='phone'
+          type='number'
           value={phone}
           placeholder={t`phone`}
           flex='1 1 45%'
           style={{ color: 'inherit' }}
           handleChange={handleChange}
-        />
+          />
 
         <TextArea
           name='message'
@@ -147,7 +133,7 @@ const contact = () => {
           placeholder={t`message`}
           onChange={handleChange}
           color='inherit'
-        />
+          />
 
         <div
           style={{
@@ -162,7 +148,8 @@ const contact = () => {
           </Button>
         </div>
       </FlexContainer>
-    </Container>
+    </div>
+    </>
   );
 };
 

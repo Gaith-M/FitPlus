@@ -1,0 +1,32 @@
+.layout {
+  max-width: 1200px;
+  width: 88%;
+  margin: 100px auto 0;
+  background-color: inherit;
+  color: inherit;
+}
+@media (max-width: 1100px) {
+  .layout {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  .layout {
+    width: 92%;
+  }
+}
+@media (max-width: 800px) {
+  .layout {
+    width: 94%;
+  }
+}
+@media (max-width: 600px) {
+  .layout {
+    width: 96%;
+  }
+}
+@media (max-width: 500px) {
+  .layout {
+    width: 98%;
+  }
+}

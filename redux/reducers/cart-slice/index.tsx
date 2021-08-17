@@ -6,52 +6,7 @@ import CartState, {
 } from '../../../interfaces/cart';
 
 const initialState: CartState = {
-  items: [
-    {
-      item: {
-        name: 'Nike belt for weight lifting',
-        id: '35f78f0b-8938-412d-aae0-80937ee4a744',
-        color: 'Black',
-        flavor: null,
-        size: 'M',
-        price: 17.5,
-      },
-      quantity: 2,
-    },
-    {
-      item: {
-        name: 'Nike Women Sportswear shirt',
-        id: '21525631-2d64-48b7-b8a8-b7f7325bd5f1',
-        color: 'Fireberry',
-        flavor: null,
-        size: 'S',
-        price: 21.2,
-      },
-      quantity: 1,
-    },
-    {
-      item: {
-        name: 'Nike Women Sportswear shirt',
-        id: '21525631-2d64-48b7-b8a8-b7f7325bd5f1',
-        color: 'Hesta Gray',
-        flavor: null,
-        size: 'S',
-        price: 21.2,
-      },
-      quantity: 1,
-    },
-    {
-      item: {
-        name: 'Nitro Tech Performance',
-        id: '826ed67f-2d85-4afc-99b1-33ea42bc1720',
-        color: null,
-        flavor: 'chocolate',
-        size: null,
-        price: 899.99,
-      },
-      quantity: 1,
-    },
-  ],
+  items: [],
   points: 0,
   shipping: { type: 'standard', value: 0 },
 };

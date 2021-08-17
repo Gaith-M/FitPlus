@@ -16,16 +16,14 @@ interface blogCardInterface {
     slug: string;
     title: string;
   };
-  theme: string;
 }
 
-const index: React.FC<blogCardInterface> = ({ blog, theme }) => {
+const index: React.FC<blogCardInterface> = ({ blog }) => {
   const { t } = useTranslation('blogs');
   return (
     <div
       style={{
-        backgroundColor: theme === 'light' ? 'var(--light)' : 'var(--onyx)',
-        color: theme === 'light' ? 'var(--dark)' : 'var(--light)',
+        color: 'inherit',
       }}
       className={styles.blogCard}
     >

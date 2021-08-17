@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { themeSelector } from '../redux/reducers/theme-slice';
 import { sanityClient } from '../lib/sanity';
 import { useRouter } from 'next/router';
 import { itemsQuery } from '../queries';
@@ -19,7 +18,6 @@ import useTranslation from 'next-translate/useTranslation';
 const shop = () => {
   const { t } = useTranslation('shop');
   const { locale } = useRouter();
-  const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(({ shop }) => shop.isLoading);
   const products: itemInterface[] = useAppSelector(({ shop }) => shop.products);
@@ -43,8 +41,6 @@ const shop = () => {
   let totalPages = Math.ceil(totalProducts / resultsPerPage);
 
   useEffect(() => {
-    if (products.length > 0) return;
-
     const fetchProducts = async () => {
       try {
         dispatch(setProductLoadingState(true));
@@ -123,7 +119,11 @@ const shop = () => {
       return;
     }
     if (selectedProduct.productInfo.avaliableSizes && !selectedSize) {
-      notify('success', t`selectSize`);
+      notify('warning', t`selectSize`);
+      return;
+    }
+    if (amount < 1) {
+      notify('warning', t`invalidQuantity`);
       return;
     }
     setAmount(1);
@@ -279,7 +279,6 @@ const shop = () => {
   return (
     <ShopDisplay
       amount={amount}
-      theme={theme}
       isLoading={isLoading}
       handleSelectChange={handleSelectChange}
       category={category}

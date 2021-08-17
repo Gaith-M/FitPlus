@@ -15,7 +15,7 @@ import {
 } from './styledElements';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleTheme } from '../../redux/reducers/theme-slice';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import styles from './smallNavStyles.module.scss';
 import { removeUser } from '../../redux/reducers/user-slice';
 
@@ -30,7 +30,7 @@ export const SmallNav: React.FC<NavInterface> = ({
 }) => {
   const { t } = useTranslation('common');
   const [toggle, setToggle] = useState(false);
-  const { locale } = useRouter();
+  const { locale, asPath, push, reload } = useRouter();
   const { user } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
 
@@ -55,6 +55,10 @@ export const SmallNav: React.FC<NavInterface> = ({
       case 'about':
         return t`navbar.about`;
     }
+  };
+
+  const changeLocale = (lang: 'ar' | 'en') => {
+    push(asPath, asPath, { locale: lang, scroll: false });
   };
 
   return (
@@ -84,7 +88,7 @@ export const SmallNav: React.FC<NavInterface> = ({
           >
             <img
               style={{ maxWidth: '100%' }}
-              src={className === 'navbarLight' ? '/sun.png' : '/darkIcon.png'}
+              src={className === 'navbarLight' ? '/sun.webp' : '/darkIcon.webp'}
             />
           </button>
         </div>
@@ -98,6 +102,26 @@ export const SmallNav: React.FC<NavInterface> = ({
           >
             X
           </span>
+        </div>
+        <div className={styles.langButtonsContainer}>
+          <button
+            style={{
+              color: locale === 'en' ? 'var(--cardinal)' : 'var(--davysGray)',
+            }}
+            onClick={() => {
+              changeLocale('en');
+              setToggle(false);
+            }}
+          >{t`navbar.en`}</button>
+          <button
+            style={{
+              color: locale === 'ar' ? 'var(--cardinal)' : 'var(--davysGray)',
+            }}
+            onClick={() => {
+              changeLocale('ar');
+              setToggle(false);
+            }}
+          >{t`navbar.ar`}</button>
         </div>
         <StyledSmallNav>
           {user ? (
@@ -117,7 +141,7 @@ export const SmallNav: React.FC<NavInterface> = ({
                   className='smallNavLink'
                   onClick={() => {
                     dispatch(removeUser());
-                    router.reload();
+                    reload();
                   }}
                 >
                   <span

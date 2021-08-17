@@ -100,7 +100,7 @@ const index: React.FC<PropsInterface> = ({ theme, next, items }) => {
         color: theme === 'light' ? dark : light,
       }}
     >
-      <span style={{ fontSize: '3em', color: 'inherit' }}>Cart Is Empty</span>
+      <span style={{ fontSize: '3em', color: 'inherit' }}>{t`emptyCart`}</span>
     </FlexContainer>
   );
 };

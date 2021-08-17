@@ -168,6 +168,23 @@ export default {
       type: 'localeContent',
     },
     {
+      name: 'metaDescription',
+      title: 'Description for search engines',
+      type: 'object',
+      fields: [
+        {
+          name: 'ar',
+          title: 'Arabic',
+          type: 'string',
+        },
+        {
+          name: 'en',
+          title: 'English',
+          type: 'string',
+        },
+      ],
+    },
+    {
       name: 'price',
       title: 'Price',
       type: 'priceSchema',

@@ -48,3 +48,17 @@
   position: relative;
   top: 10px;
 }
+
+.langButtonsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px;
+}
+
+.langButtonsContainer button {
+  border: none;
+  background-color: transparent;
+  padding: 8px;
+  font-size: 1.05em;
+}

@@ -1,3 +1,66 @@
+.container {
+  color: inherit;
+  margin-top: 100px;
+  padding-bottom: 80px;
+}
+
+.main {
+  color: inherit;
+}
+
+.main p,
+.main h1,
+.main h2,
+.main h3,
+.main h4,
+.main li,
+.main a,
+.main em,
+.main strong,
+.main div,
+.main ul {
+  color: inherit;
+}
+
+.main h1,
+.main h2,
+.main h3,
+.main h4 {
+  text-transform: capitalize;
+  margin: 25px 0;
+}
+
+.main p,
+.main li {
+  letter-spacing: 0.5px;
+  word-spacing: 2px;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.main img {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 50px;
+}
+
+.main ul {
+  padding: 10px 0;
+  margin-bottom: 15px;
+}
+
+.main li {
+  margin: 0 20px 10px;
+}
+
+.main p a {
+  text-decoration: underline;
+}
+
+.aboutAuthor p {
+  overflow-wrap: break-word;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
@@ -48,4 +111,14 @@
 
 .addtionalBlogs:hover {
   color: #c11f3a;
+}
+
+@media screen and (max-width: 570px) {
+  .blogHeading {
+    font-size: 1.8em;
+  }
+
+  .main p {
+    text-align: justify;
+  }
 }

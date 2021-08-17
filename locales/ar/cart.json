@@ -1,4 +1,5 @@
 {
+    "cartTitle": "فيت+ عربة التسوق",
     "cart": "عربة التسوق",
     "name": "الاسم",
     "quantity": "الكمية",
@@ -39,10 +40,12 @@
     "orderId": "رقم طلبك هو",
     "blogs": "المقالات",
     "continueShopping": "المتجر",
+    "emptyCart": "السلة فارغة",
     "cartErrors": {
         "firstNameErr": "الرجاء ادخال الاسم",
         "lastNameErr": "الرجاء ادخال الكنية",
         "emailErr": "الرجاء ادخال البريد الالكتروني",
+        "invalidEmail": "البريد الالكتروني غير صالح",
         "phoneNumberErr": "الرجاء ادخال رقم الهاتف",
         "addressErr": "الرجاء ادخال العنوان",
         "cardNumberErr": "الرجاء ادخال رقم بطاقة الائتمان",

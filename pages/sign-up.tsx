@@ -1,27 +1,25 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../redux/hooks';
 import { setLoading, setUser } from '../redux/reducers/user-slice';
-import notify from '../shared utility/notify';
+import router from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/Link';
-import {
-  Container,
-  FlexContainer,
-} from '../components/shared-components/containers';
+import { FlexContainer } from '../components/shared-components/containers';
 import { accent, boxShadow, secondaryLight } from '../styles/styleConstants';
 import Heading from '../components/heading';
 import Input from '../components/form-input';
 import Button from '../components/button';
 import Paragraph from '../components/paragraph';
+import Meta from '../components/Meta';
+import notify from '../shared utility/notify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import router from 'next/router';
 
 const Signup = () => {
   const { t } = useTranslation('user');
-  const [username, setUserName] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
-  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
+  const [username, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const dispatch = useAppDispatch();
 
@@ -67,14 +65,15 @@ const Signup = () => {
 
   return (
     <>
-      <Container
-        m={'120px auto 0'}
-        w='320px'
-        p='25px 5px 15px 5px'
+      <Meta title={t`signUpTitle`} />
+      <div
         style={{
+          margin: '120px auto 0',
+          width: '320px',
+          padding: '25px 5px 15px 5px',
           height: '470px',
           boxShadow: boxShadow,
-          background: 'url(/auth_bg_90OPC.jpg)',
+          background: 'url(/auth_bg_90OPC.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           position: 'relative',
@@ -141,7 +140,7 @@ const Signup = () => {
             <a style={{ color: accent, fontWeight: 'bold' }}>{t`login`}</a>
           </Link>
         </Paragraph>
-      </Container>
+      </div>
       <div style={{ paddingBottom: 100 }} />
     </>
   );

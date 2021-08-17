@@ -138,7 +138,7 @@ const cart = () => {
 
   return (
     <>
-      <Meta title='Fit+ Cart' />
+      <Meta title={t`cartTitle`} />
 
       <Container
         m={`${space_max} 0 0`}
@@ -149,11 +149,6 @@ const cart = () => {
         {step > 2 ? null : <Stepper current={step} theme={theme} />}
 
         {currentView(step)}
-
-        <span style={{ position: 'fixed', top: '90%', left: 0 }}>
-          <button onClick={nextStep}>Next</button>
-          <button onClick={previousStep}>previous</button>
-        </span>
       </Container>
     </>
   );

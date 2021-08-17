@@ -1,4 +1,5 @@
 {
+    "blogsTitle": "Fit+ Blogs",
     "blogs": "blogs",
     "aboutAuthor": "about the author",
     "sortBy": "sort by",
@@ -13,5 +14,6 @@
     "next": "Next",
     "previous": "Previous",
     "addToFavorite": "Add To Favorite",
-    "removeFromFavorite": "Remove From Favorite"
+    "removeFromFavorite": "Remove From Favorite",
+    "loginToLikeBlog": "Please, Login To Add This Blog To Favorites"
 }

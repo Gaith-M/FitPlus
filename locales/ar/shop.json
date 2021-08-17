@@ -1,4 +1,5 @@
 {
+    "shopTitle": "فيت + المتجر",
     "shop": "المتجر",
     "search-options": "خيارات البحث",
     "selectCategory": "اختر الفئة",
@@ -20,8 +21,9 @@
     "addedToCart": "تمت الاضافة بنجاح",
     "addToWishlist": "اضافة الى المفضلة",
     "addedToWishlist": "تمت الاضافة الى المفضلة",
-    "removeFromWishlist": "ازالة من المفضلة",
+    "removeFromWishlist": "تمت ازالة من المفضلة",
     "removedFromWishlist": "تمت الازالة من المفضلة",
+    "loginToAddToWishlist": "الرجاء تسجيل الدخول لإضافة هذا المنتج الى المفضلة",
     "next": "التالي",
     "previous": "السابق",
     "noSimiliarProducts": "لا يوجد بضائع ذات صلة",

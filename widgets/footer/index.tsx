@@ -1,28 +1,42 @@
-// --------------------------Components & Styled Elements--------------------------
+// --------------------------Components-------------------------
 import Link from 'next/Link';
 import Facebook from '../../components/svgs/Facebook';
 import Twitter from '../../components/svgs/Twitter';
 import YouTubeIcon from '../../components/svgs/YouTube';
 import Instagram from '../../components/svgs/Instagram';
 import LogoIcon from '../../components/svgs/LogoIcon';
-import {
-  StyledFooterContainer,
-  StyledFooter,
-  StyledLi,
-  StyledCopyRight,
-  StyledLogoContainer,
-  StyledSocialMediaIconContainer,
-} from './styledElements';
 import useTranslation from 'next-translate/useTranslation';
+import styles from './styles.module.scss';
+import { useRouter } from 'next/router';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation('common');
+  const { isFallback } = useRouter();
+
+  if (isFallback) {
+    return (
+      <div className={styles.footerContainer}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <LogoIcon />
+        </div>
+        <div className={styles.copyRight}>
+          <span>Fit+</span> &copy; {new Date().getFullYear()}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <StyledFooterContainer>
-      <StyledFooter>
-        <div className='socialMediaParentContainer'>
-          <StyledSocialMediaIconContainer>
+    <div className={styles.footerContainer}>
+      <footer className={styles.footer}>
+        <div className={styles.socialMediaParentContainer}>
+          <div className={styles.socialMediaIconContainer}>
             <a href='https://www.youtube.com' target='_blank'>
               <YouTubeIcon color='#49494aff' />
             </a>
@@ -35,74 +49,61 @@ const Footer: React.FC = () => {
             <a href='https://www.facebook.com' target='_blank'>
               <Facebook color='#49494aff' />
             </a>
-          </StyledSocialMediaIconContainer>
+          </div>
         </div>
-        <StyledLogoContainer>
+        <div className={styles.logoContainer}>
           <LogoIcon />
-        </StyledLogoContainer>
+        </div>
 
-        <ul style={{ minWidth: 300, flex: '1 1 50%', padding: '10px' }}>
-          <StyledLi>
+        <ul className={styles.footerUL}>
+          <li>
             <a href='/privacy-policy'>{t`footer.p-policy`}</a>
-          </StyledLi>
-          <StyledLi>
+          </li>
+          <li>
             <a href='/terms-of-service'>{t`footer.t-o-service`}</a>
-          </StyledLi>
-          <StyledLi>
-            <address
-              style={{
-                color: '#f1f1f1',
-                fontStyle: 'normal',
-                lineHeight: 2,
-                position: 'relative',
-                top: '-4px',
-              }}
-            >
+          </li>
+          <li>
+            <address className={styles.footerAddress}>
               {t`footer.address`} <br />
               {t`footer.phone`} <br />
               {t`footer.email`}
             </address>
-          </StyledLi>
+          </li>
         </ul>
 
-        <ul style={{ minWidth: 300, flex: '1 1 50%', padding: '10px' }}>
-          <StyledLi>
+        <ul className={styles.footerUL}>
+          <li>
             <Link href='/'>
               <a>{t`navbar.home`}</a>
             </Link>
-          </StyledLi>
-          <StyledLi>
+          </li>
+          <li>
             <Link href='/blog'>
               <a>{t`navbar.blog`}</a>
             </Link>
-          </StyledLi>
-          <StyledLi>
+          </li>
+          <li>
             <Link href='/shop'>
               <a>{t`navbar.shop`}</a>
             </Link>
-          </StyledLi>
-          <StyledLi>
+          </li>
+          <li>
             <Link href='/about'>
               <a>{t`navbar.about`}</a>
             </Link>
-          </StyledLi>
-          <StyledLi>
+          </li>
+          <li>
             <Link href='/contact'>
               <a>{t`navbar.contact`}</a>
             </Link>
-          </StyledLi>
+          </li>
         </ul>
-      </StyledFooter>
-      <StyledCopyRight>
-        <span
-          style={{ fontWeight: 'bold', color: 'inherit', fontStyle: 'italic' }}
-        >
-          Fit+
-        </span>{' '}
-        &copy; {new Date().getFullYear()} <br />
+      </footer>
+      <div className={styles.copyRight}>
+        <span>Fit+</span> &copy; {new Date().getFullYear()} <br />
         {t`footer.reserved`}
-      </StyledCopyRight>
-    </StyledFooterContainer>
+      </div>
+    </div>
   );
 };
 

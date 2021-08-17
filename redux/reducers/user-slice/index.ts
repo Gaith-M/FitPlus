@@ -9,14 +9,7 @@ interface stateInterface {
 }
 
 const initialState: stateInterface = {
-  user: {
-    username: 'farlight',
-    firstName: 'gaith',
-    lastName: 'jade',
-    email: 'gaith@gmail.com',
-    phone: '123123',
-    address: 'aaaaa',
-  },
+  user: null,
   wishlist: [],
   favoriteBlogs: [],
   isLoading: false,

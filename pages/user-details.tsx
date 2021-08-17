@@ -4,8 +4,6 @@ import { themeSelector } from '../redux/reducers/theme-slice';
 // ----------------------- UI Imports -----------------------
 import Heading from '../components/heading';
 import Button from '../components/button';
-import { Container } from '../components/shared-components/containers';
-import { space_max } from '../styles/styleConstants';
 import { userInterface } from '../interfaces/user';
 import { updateUser } from '../redux/reducers/user-slice';
 import styles from '../styles/user-details.module.scss';
@@ -16,6 +14,7 @@ import { itemsInWishlist, likedBlogsQuery } from '../queries';
 import Link from 'next/Link';
 import notify from '../shared utility/notify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import Meta from '../components/Meta';
 
 const index = () => {
   const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
@@ -26,7 +25,13 @@ const index = () => {
   );
   const dispatch = useAppDispatch();
   const { t } = useTranslation('user');
-  const { locale } = useRouter();
+  const { locale, replace } = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      locale === 'en' ? replace('/login') : replace('/ar/login');
+    }
+  }, [user]);
 
   const [firstName, setFirstName] = useState(user?.firstName ?? '');
   const [lastName, setLastName] = useState(user?.lastName ?? '');
@@ -162,200 +167,196 @@ const index = () => {
   }, [locale]);
 
   return (
-    <Container
-      m={`${space_max} 0 0`}
-      p={`0 0 ${space_max} 0`}
-      className={theme}
-    >
-      <Heading lvl='display'>Wish list</Heading>
-      {wishlistItems ? (
-        <div
-          className={styles.container}
-          style={{
-            backgroundColor:
-              theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
-          }}
-        >
+    <>
+      <Meta title={t`userDetails`} />
+
+      <div style={{ marginTop: 100, paddingBottom: 100 }} className={theme}>
+        <Heading lvl='display'>{t`wishlist`}</Heading>
+        {wishlistItems ? (
           <div
-            className='gridContainer'
+            className={styles.container}
             style={{
               backgroundColor:
                 theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
             }}
           >
-            {wishlistItems.map(({ id, name, slug, image }) => (
-              <div className={styles.wishlistItemsCard}>
-                <img src={urlFor(image.image.asset).url()} alt={image.alt} />
-                <Link key={id} href={`products/${slug}`}>
-                  <a className={styles.link}>{name}</a>
-                </Link>
-              </div>
+            <div
+              className='gridContainer'
+              style={{
+                backgroundColor:
+                  theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              }}
+            >
+              {wishlistItems.map(({ id, name, slug, image }) => (
+                <div className={styles.wishlistItemsCard}>
+                  <img src={urlFor(image.image.asset).url()} alt={image.alt} />
+                  <Link key={id} href={`products/${slug}`}>
+                    <a className={styles.link}>{name}</a>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div
+            className={`${styles.container} ${styles.noResultsContainer}`}
+            style={{
+              backgroundColor:
+                theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
+            }}
+          >
+            {t`noWishlist`}
+          </div>
+        )}
+
+        <Heading lvl='display'>{t`likedBlogs`}</Heading>
+        {likedBlogs ? (
+          <div
+            className={styles.container}
+            style={{
+              backgroundColor:
+                theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
+            }}
+          >
+            {likedBlogs.map(({ id, title, slug }) => (
+              <Link key={id} href={`blogs/${slug}`}>
+                <a className={styles.link}>{title}</a>
+              </Link>
             ))}
           </div>
-        </div>
-      ) : (
-        <div
-          className={styles.container}
-          style={{
-            backgroundColor:
-              theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
-            padding: '70px',
-            textAlign: 'center',
-          }}
-        >
-          {t`noWishlist`}
-        </div>
-      )}
+        ) : (
+          <div
+            className={`${styles.container} ${styles.noResultsContainer}`}
+            style={{
+              backgroundColor:
+                theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
+            }}
+          >
+            {t`noLikedBlogs`}
+          </div>
+        )}
 
-      <Heading lvl='display'>Favorite Blogs</Heading>
-      {likedBlogs ? (
+        <Heading lvl='display'>{t`userDetails`}</Heading>
+
         <div
-          className={styles.container}
+          className={styles.formContainer}
           style={{
             backgroundColor:
               theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
           }}
         >
-          {likedBlogs.map(({ id, title, slug }) => (
-            <Link key={id} href={`blogs/${slug}`}>
-              <a className={styles.link}>{title}</a>
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <div
-          className={styles.container}
-          style={{
-            backgroundColor:
-              theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
-            padding: '70px',
-            textAlign: 'center',
-          }}
-        >
-          {t`noLikedBlogs`}
-        </div>
-      )}
+          <label className={styles.userDetailsInput}>
+            <span>First Name:</span>
+            <input
+              type='text'
+              name='name'
+              readOnly={!editMode}
+              onChange={handleChange}
+              value={editMode ? newName : firstName}
+              placeholder={t`firstName`}
+              autoComplete='off'
+              style={{
+                backgroundColor:
+                  theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
+                color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
+              }}
+            />
+          </label>
 
-      <Heading lvl='display'>{t`userDetails`}</Heading>
+          <label className={styles.userDetailsInput}>
+            <span>First Name:</span>
+            <input
+              type='text'
+              name='lastName'
+              readOnly={!editMode}
+              onChange={handleChange}
+              value={editMode ? newLastName : lastName}
+              placeholder={t`lastName`}
+              autoComplete='off'
+              style={{
+                backgroundColor:
+                  theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
+                color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
+              }}
+            />
+          </label>
 
-      <div
-        className={styles.formContainer}
-        style={{
-          backgroundColor:
-            theme === 'light' ? 'var(--secondaryLight)' : 'var(--onyx)',
-        }}
-      >
-        <label className={styles.userDetailsInput}>
-          <span>First Name:</span>
-          <input
-            type='text'
-            name='name'
-            readOnly={!editMode}
-            onChange={handleChange}
-            value={editMode ? newName : firstName}
-            placeholder={t`firstName`}
-            autoComplete='off'
-            style={{
-              backgroundColor:
-                theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
-              color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
-            }}
-          />
-        </label>
+          <label className={styles.userDetailsInput}>
+            <span>phone:</span>
+            <input
+              type='number'
+              name='phone'
+              readOnly={!editMode}
+              onChange={handleChange}
+              value={editMode ? newPhone : phone}
+              placeholder={t`phone`}
+              autoComplete='off'
+              style={{
+                backgroundColor:
+                  theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
+                color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
+              }}
+            />
+          </label>
 
-        <label className={styles.userDetailsInput}>
-          <span>First Name:</span>
-          <input
-            type='text'
-            name='lastName'
-            readOnly={!editMode}
-            onChange={handleChange}
-            value={editMode ? newLastName : lastName}
-            placeholder={t`lastName`}
-            autoComplete='off'
-            style={{
-              backgroundColor:
-                theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
-              color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
-            }}
-          />
-        </label>
+          <label className={styles.userDetailsInput}>
+            <span>email:</span>
+            <input
+              type='email'
+              name='email'
+              readOnly={!editMode}
+              onChange={handleChange}
+              value={editMode ? newEmail : email}
+              placeholder={t`email`}
+              autoComplete='off'
+              style={{
+                backgroundColor:
+                  theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
+                color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
+              }}
+            />
+          </label>
+          <label className={styles.userDetailsInput}>
+            <span>address:</span>
+            <input
+              type='text'
+              name='address'
+              readOnly={!editMode}
+              onChange={handleChange}
+              value={editMode ? newAddress : address}
+              placeholder={t`address`}
+              autoComplete='off'
+              style={{
+                backgroundColor:
+                  theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
+                color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
+              }}
+            />
+          </label>
 
-        <label className={styles.userDetailsInput}>
-          <span>phone:</span>
-          <input
-            type='number'
-            name='phone'
-            readOnly={!editMode}
-            onChange={handleChange}
-            value={editMode ? newPhone : phone}
-            placeholder={t`phone`}
-            autoComplete='off'
-            style={{
-              backgroundColor:
-                theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
-              color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
-            }}
-          />
-        </label>
+          <div className={styles.buttonsContainer}>
+            {editMode ? (
+              <Button m='0 20px' w='150px' handleClick={cancelEdit}>
+                {' '}
+                {t`cancel`}{' '}
+              </Button>
+            ) : null}
 
-        <label className={styles.userDetailsInput}>
-          <span>email:</span>
-          <input
-            type='email'
-            name='email'
-            readOnly={!editMode}
-            onChange={handleChange}
-            value={editMode ? newEmail : email}
-            placeholder={t`email`}
-            autoComplete='off'
-            style={{
-              backgroundColor:
-                theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
-              color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
-            }}
-          />
-        </label>
-        <label className={styles.userDetailsInput}>
-          <span>address:</span>
-          <input
-            type='text'
-            name='address'
-            readOnly={!editMode}
-            onChange={handleChange}
-            value={editMode ? newAddress : address}
-            placeholder={t`address`}
-            autoComplete='off'
-            style={{
-              backgroundColor:
-                theme === 'dark' ? 'var(--raisinBlack)' : 'var(--light)',
-              color: theme === 'dark' ? 'var(--light)' : 'var(--raisinBlack)',
-            }}
-          />
-        </label>
-
-        <div className={styles.buttonsContainer}>
-          {editMode ? (
-            <Button m='0 20px' w='150px' handleClick={cancelEdit}>
-              {' '}
-              {t`cancel`}{' '}
-            </Button>
-          ) : null}
-
-          {!editMode && (
-            <Button w='150px' handleClick={() => toggleEditMode(!editMode)}>
-              {t`edit`}
-            </Button>
-          )}
-          {editMode && (
-            <Button w='150px' handleClick={confirmEdit}>
-              {t`confirm`}
-            </Button>
-          )}
+            {!editMode && (
+              <Button w='150px' handleClick={() => toggleEditMode(!editMode)}>
+                {t`edit`}
+              </Button>
+            )}
+            {editMode && (
+              <Button w='150px' handleClick={confirmEdit}>
+                {t`confirm`}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </Container>
+    </>
   );
 };
 

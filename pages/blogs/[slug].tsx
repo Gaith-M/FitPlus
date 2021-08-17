@@ -13,11 +13,12 @@ import { blogQuery, relatedBlogsQuery } from '../../queries';
 // ------------------- UI Imports -------------------
 import Meta from '../../components/Meta';
 import Heading from '../../components/heading';
-import { Container } from '../../components/shared-components/containers';
-import { accent, space_max } from '../../styles/styleConstants';
+import Spinner from '../../components/spinner';
+import { accent } from '../../styles/styleConstants';
 import { Heart } from 'react-feather';
-import Loader from '../../components/loader';
+import PageNotFound from '../../components/no-page';
 import styles from '../../styles/blogPage.module.scss';
+import notify from '../../shared utility/notify';
 
 interface DataInterface {
   author: {
@@ -28,6 +29,7 @@ interface DataInterface {
     moreFromAuthor: { title: string; slug: string }[];
   };
   content: {}[];
+  preview: string;
   dateOfPublish: string;
   image: { _type: string; alt: string; asset: {} };
   title: string;
@@ -40,15 +42,20 @@ interface PropsInterface {
   data: DataInterface;
   moreBlogsFromAuthor: { title: string; slug: string }[];
   relatedBlogs: { title: string; slug: string }[];
+  notFound: boolean;
 }
 
-const index = ({ data, relatedBlogs }: PropsInterface) => {
+const index = ({ data, relatedBlogs, notFound }: PropsInterface) => {
+  if (notFound) {
+    return <PageNotFound />;
+  }
+
   const { isFallback } = useRouter();
   if (isFallback) {
     return (
-      <Container m={`${space_max} 0 0`} p='0 0 80px 0'>
-        <Loader />
-      </Container>
+      <div style={{ height: '80vh' }}>
+        <Spinner />;
+      </div>
     );
   }
   const { content, title } = data;
@@ -74,8 +81,14 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
   // Like Logic
   // =========================
   // =========================
+  const { user } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
-  const addToFavorite = () => dispatch(addBlogToFavorite(data._id));
+  const addToFavorite = () => {
+    if (!user) {
+      return notify('warning', t`loginToLikeBlog`);
+    }
+    dispatch(addBlogToFavorite(data._id));
+  };
   const removeFromFavorite = () => dispatch(removeBlogFromFavorite(data._id));
   const isFavorite =
     useAppSelector(({ user }) => user.favoriteBlogs).findIndex(
@@ -84,9 +97,9 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
 
   return (
     <>
-      <Meta title={title} />
-      <Container m={`${space_max} 0 0`} p='0 0 80px 0'>
-        <main className={`${theme} blog`}>
+      <Meta title={title} description={data.preview} />
+      <div className={styles.container}>
+        <main className={styles.main}>
           <Heading lvl={1}>{title}</Heading>
 
           <img src={urlFor(data?.image).url()} alt={data?.image.alt} />
@@ -108,19 +121,19 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
             </button>
           </div>
 
-          <PortableText blocks={content} className={`content ${theme}`} />
+          <PortableText blocks={content} />
 
-          <Container m='0 0 50px 0' className={theme}>
+          <div style={{ marginBottom: 50 }} className={styles.aboutAuthor}>
             <Heading lvl='display' s='1.5em' m='60px 0 15px 0'>
               {t`aboutAuthor`}{' '}
               <span style={{ color: accent }}>{data?.author.localeName}</span>
             </Heading>
 
             <PortableText blocks={data?.author.about} />
-          </Container>
+          </div>
         </main>
 
-        <Container m='0 0 40px 0' className={theme}>
+        <div style={{ marginBottom: 50 }} className={theme}>
           <Heading lvl='display' s='1.2em' m='0 0 10px 0'>
             {t`moreFrom`}
             <span style={{ color: accent }}>{data.author.localeName}</span>
@@ -134,10 +147,10 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
               );
             }
           })}
-        </Container>
+        </div>
 
         {relatedBlogsArray.length > 0 && (
-          <Container m='0 0 40px 0' className={theme}>
+          <div style={{ marginBottom: 50 }} className={theme}>
             <Heading lvl='display' s='1.2em' m='0 0 10px 0'>
               {t`moreBlogs`}
             </Heading>
@@ -146,9 +159,9 @@ const index = ({ data, relatedBlogs }: PropsInterface) => {
                 <a className={styles.addtionalBlogs}>{title}</a>
               </Link>
             ))}
-          </Container>
+          </div>
         )}
-      </Container>
+      </div>
     </>
   );
 };
@@ -177,6 +190,16 @@ export const getStaticProps: GetStaticProps = async ({
     lang: locale,
   });
 
+  if (!data) {
+    return {
+      props: {
+        data,
+        relatedBlogs: null,
+        notFound: true,
+      },
+    };
+  }
+
   const relatedBlogs = await sanityClient.fetch(relatedBlogsQuery, {
     category: data.category,
     lang: locale,
@@ -186,6 +209,7 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       data,
       relatedBlogs,
+      notFound: false,
     },
   };
 };

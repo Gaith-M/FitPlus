@@ -9,23 +9,18 @@ import Heading from '../../components/heading';
 import Loader from '../../components/loader';
 import { fetchBlogs } from '../../shared utility/fetchBlogs';
 
-interface SectionInterface {
-  theme: string;
-}
-
-const index: React.FC<SectionInterface> = ({ theme }) => {
+const index: React.FC = () => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
   const blogs = useAppSelector(({ blogs }) => blogs.blogs);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (blogs.length > 0) return;
     fetchBlogs(blogsQuery, { lang: locale }, dispatch);
-  });
+  }, [locale]);
 
   return (
-    <main style={{ margin: '30px 0' }} className={theme}>
+    <div style={{ color: 'inherit', margin: '30px 0' }}>
       <Heading color='inherit' lvl={2}>{t`section-titles.blogs`}</Heading>
 
       {blogs.length > 0 ? (
@@ -33,16 +28,17 @@ const index: React.FC<SectionInterface> = ({ theme }) => {
           className='gridContainer'
           style={{
             gridTemplateColumns: 'repeat( auto-fit, minmax(310px, 1fr) )',
+            color: 'inherit',
           }}
         >
           {blogs.slice(0, 6).map((blog) => (
-            <BlogCard theme={theme} blog={blog} key={blog.title} />
+            <BlogCard blog={blog} key={blog.title} />
           ))}
         </div>
       ) : (
         <Loader />
       )}
-    </main>
+    </div>
   );
 };
 

@@ -46,6 +46,7 @@ body {
 
 a {
   text-decoration: none;
+  line-height: 1.5;
 }
 
 .SEOHeading {
@@ -166,34 +167,9 @@ input[type='number'][type='number'] {
   display: none !important;
 }
 
-.slide_text {
-  color: #fafafa;
-  font-size: 32px;
-  filter: drop-shadow(2px 4px 8px #191919);
-}
-
-.slide_contianer {
-  position: absolute;
-  top: 35%;
-  left: 10%;
-}
-
 /* small nav */
 .menuContainer:hover .iconBar {
   background-color: #c11f3a !important;
-}
-
-/* ----------------------------------------------------- */
-/* --------------Containers--------------- */
-/* --------------------------------------------------- */
-.gridContainer {
-  display: grid;
-  justify-items: center;
-  justify-content: center;
-  gap: 20px;
-  width: 96%;
-  color: inherit;
-  margin: 50px auto;
 }
 
 /* ---------------product list item----------------- */
@@ -233,96 +209,15 @@ ul {
 .facebookSVG:hover {
   fill: #3b5998;
 }
+
 /* ----------------------------------------------------------------*/
 
-li a {
-  color: #fafafa;
-  transition: 0.3s ease-out;
-}
-
-li a:hover {
-  color: #3087c5ff;
-}
-
-.socialMediaParentContainer {
-  flex: 0 1 50%;
-  margin: 40px 0;
-}
-
-/* Shop & Blogs No Results Container */
-
-@media (max-width: 870px) {
-  .slide_contianer {
-    top: 30%;
-  }
-  .slide_text {
-    font-size: 28px;
-  }
-
-  .footerList {
-    order: 2;
-    flex: 1 1 100%;
-  }
-
-  .socialMediaParentContainer {
-    flex: 1 1 100%;
-  }
-}
-
-/* Blog Styles */
-.blog.dark p,
-.blog.dark h1,
-.blog.dark h2,
-.blog.dark h3,
-.blog.dark h4,
-.blog.dark li {
-  color: #fafafa;
-}
-
-.blog.dark a {
-  color: #fafafa;
-  text-decoration: underline;
-}
-.blog a {
-  color: #494949;
-}
-
-.blog.dark em,
-.blog.dark strong {
-  color: #fafafa;
-}
-
-.blog h1,
-.blog h2,
-.blog h3,
-.blog h4 {
-  text-transform: capitalize;
-  margin: 20px 0;
-  color: #49494a;
-}
-
-.blog img {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 50px;
-}
-
-.blog p,
-.blog li {
-  letter-spacing: 0.5px;
-  word-spacing: 2px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  color: #49494a;
-}
-
-.blog ul {
-  padding: 10px 0;
-  margin-bottom: 15px;
-}
-
-.blog li {
-  margin: 0 20px 10px;
+.gridContainer {
+  display: grid;
+  gap: 20px;
+  align-items: stretch;
+  justify-items: center;
+  padding: 5px;
 }
 
 .autoComplete-container {

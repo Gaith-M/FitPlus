@@ -1,4 +1,5 @@
 {
+    "blogsTitle": "فيت + المدونة",
     "blogs": "المقالات",
     "aboutAuthor": "حول الكاتب",
     "sortBy": "تصنيف حسب",
@@ -13,5 +14,6 @@
     "next": "التالي",
     "previous": "السابق",
     "addToFavorite": "اضافة الى المفضلة",
-    "removeFromFavorite": "ازالة من المفضلة"
+    "removeFromFavorite": "ازالة من المفضلة",
+    "loginToLikeBlog": "الرجاء تسجيل الدخول لإضافة هذا المقال الى المفضلة"
 }

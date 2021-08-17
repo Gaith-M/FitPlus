@@ -1,4 +1,5 @@
 {
+    "shopTitle": "Fit+ Shop",
     "shop": "Shop",
     "search-options": "Search Options",
     "selectCategory": "Select Category",
@@ -20,8 +21,9 @@
     "addedToCart": "Product Added To Cart!",
     "addToWishlist": "Add To wishlist",
     "addedToWishlist": "Product Added To Wishlist!",
-    "removeFromWishlist": "Remove From Wishlist",
+    "removeFromWishlist": "Item Removed From Wishlist",
     "removedFromWishlist": "Item Removed From Wishlist!",
+    "loginToAddToWishlist": "Please, Login To Add This Item To Your Wish list",
     "next": "Next",
     "previous": "Previous",
     "noSimiliarProducts": "No Similair Products",

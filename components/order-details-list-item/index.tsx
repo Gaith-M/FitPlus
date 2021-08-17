@@ -1,5 +1,3 @@
-import { dark } from '../../styles/styleConstants';
-
 const index = ({ fieldName, value }) => {
   return (
     <li

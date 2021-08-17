@@ -1,4 +1,5 @@
 {
+    "cartTitle": "Fit+ Cart",
     "cart": "Cart",
     "name": "Name",
     "quantity": "Quantity",
@@ -40,10 +41,12 @@
     "blogs": "blogs",
     "continueShopping": "Continue Shopping",
     "select": "Select",
+    "emptyCart": "Cart Is Empty",
     "cartErrors": {
         "firstNameErr": "please, enter first name",
         "lastNameErr": "please, enter last name",
         "emailErr": "please, enter email",
+        "invalidEmail": "please, enter a valid email",
         "phoneNumberErr": "please, enter phone number",
         "addressErr": "please, enter address",
         "cardNumberErr": "please, enter card number",

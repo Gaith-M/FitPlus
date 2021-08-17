@@ -1,4 +1,6 @@
 {
+    "loginTitle": "Fit+ Login",
+    "signUpTitle": "Fit+ Sign Up",
     "login": "Login",
     "signUp": "Sign Up",
     "username": "User Name",
@@ -15,7 +17,7 @@
     "edit": "Edit",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "likedBlogs": "Liked Blogs",
+    "likedBlogs": "Favorite Blogs",
     "noLikedBlogs": "You Haven't Liked Any Blogs Yet",
     "wishlist": "Wish List",
     "noWishlist": "You Don't Have Any Items In Your Wishlist",

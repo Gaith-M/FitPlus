@@ -1,5 +1,5 @@
 // ---------------Logic Imports---------------
-import { useRouter } from 'next/dist/client/router';
+import router, { useRouter } from 'next/dist/client/router';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/Link';
 // ---------------UI Imports---------------
@@ -24,12 +24,25 @@ export const LargeNav: React.FC<NavInterface> = ({
   numberOfItemsInCart,
   className,
 }) => {
-  const { pathname } = useRouter();
+  const { pathname, asPath, reload, locale, push, isFallback } = useRouter();
   const { t } = useTranslation('common');
 
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(({ user }) => user);
-  const router = useRouter();
+
+  const changeLocale = (lang: 'ar' | 'en') => {
+    push(asPath, asPath, { locale: lang, scroll: false });
+  };
+
+  if (isFallback) {
+    return (
+      <NavbarParentContainer className={className}>
+        <div className={styles.largeNavContainer}>
+          <LogoIcon w='90' />
+        </div>
+      </NavbarParentContainer>
+    );
+  }
 
   return (
     <NavbarParentContainer className={className}>
@@ -101,7 +114,7 @@ export const LargeNav: React.FC<NavInterface> = ({
                   className={styles.logoutButton}
                   onClick={() => {
                     dispatch(removeUser());
-                    router.reload();
+                    reload();
                   }}
                 >
                   {t`navbar.logout`}
@@ -117,6 +130,23 @@ export const LargeNav: React.FC<NavInterface> = ({
                 </Link>
               </>
             )}
+
+            <div className={styles.langButtonsContainer}>
+              <button
+                style={{
+                  color:
+                    locale === 'ar' ? 'var(--cardinal)' : 'var(--davysGray)',
+                }}
+                onClick={() => changeLocale('ar')}
+              >{t`navbar.ar`}</button>
+              <button
+                style={{
+                  color:
+                    locale === 'en' ? 'var(--cardinal)' : 'var(--davysGray)',
+                }}
+                onClick={() => changeLocale('en')}
+              >{t`navbar.en`}</button>
+            </div>
             <Switch />
           </Popup>
 

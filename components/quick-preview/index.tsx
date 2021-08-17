@@ -34,9 +34,14 @@ const index = ({
 }: PropsInterface) => {
   const { t } = useTranslation('shop');
   const dispatch = useAppDispatch();
-  const wishlist = useAppSelector(({ user }) => user.wishlist);
+  const { user } = useAppSelector(({ user }) => user);
+  const wishlist: string[] = useAppSelector(({ user }) => user.wishlist);
 
   const addToWishlist = () => {
+    if (!user) {
+      notify('warning', t`loginToAddToWishlist`);
+      return;
+    }
     notify('success', t`addedToWishlist`);
     dispatch(addItemToWishlist(item.id));
   };
