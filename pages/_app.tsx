@@ -4,6 +4,7 @@ import { store } from '../redux/store';
 import Layout from '../widgets/layout';
 import { toast } from 'react-toastify';
 import '../styles/globals.css';
+import Meta from '../components/Meta';
 
 toast.configure({
   position: toast.POSITION.BOTTOM_RIGHT,
@@ -13,6 +14,9 @@ toast.configure({
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
+      <Meta>
+        <link rel='shortcut icon' href='/Fit_Logo.webp' />
+      </Meta>
       <Layout>
         <Component {...pageProps} />
       </Layout>
