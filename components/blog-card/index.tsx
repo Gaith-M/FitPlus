@@ -3,6 +3,7 @@ import Paragraph from '../paragraph';
 import useTranslation from 'next-translate/useTranslation';
 import { urlFor } from '../../lib/sanity';
 import styles from './styles.module.scss';
+import image from 'next/image';
 
 // Title must be between 36 and 60 characters
 
@@ -32,6 +33,7 @@ const index: React.FC<blogCardInterface> = ({ blog }) => {
         height='300px'
         style={{ display: 'inline-block', marginBottom: 10 }}
         src={urlFor(blog.image).url()}
+        alt={blog.image.alt}
       />
       <h3>{blog.title}</h3>
       <h4>
