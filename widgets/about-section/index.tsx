@@ -22,7 +22,7 @@ const index: React.FC = () => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb.jpg' width={300} height={200} />
+          <Image src='./about_thumb.jpg' width={300} height={200} />
           <Paragraph align='center'>{t`about.thirdCardText`}</Paragraph>
         </div>
 
@@ -32,7 +32,7 @@ const index: React.FC = () => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb_coach.jpg' width={300} height={200} />
+          <Image src='./about_thumb_coach.jpg' width={300} height={200} />
           <Paragraph align='center'>{t`about.secondCardText`}</Paragraph>
         </div>
 
@@ -42,7 +42,7 @@ const index: React.FC = () => {
             color: 'inherit',
           }}
         >
-          <Image src='/about_thumb_doc.jpg' width={300} height={200} />
+          <Image src='./about_thumb_doc.jpg' width={300} height={200} />
           <Paragraph align='center'>{t`about.firstCardText`}</Paragraph>
         </div>
       </div>
