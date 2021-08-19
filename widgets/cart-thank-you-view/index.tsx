@@ -30,7 +30,7 @@ const index = ({ theme }) => {
       style={{
         minHeight: '70vh',
         backgroundColor: theme === 'light' ? secondaryLight : onyx,
-        backgroundImage: 'url(/accent_checkmark_half_opacity.webp)',
+        backgroundImage: 'url(/accent_checkmark_half_opacity.jpg)',
         backgroundPosition: 'center',
         backgroundSize: '400px 300px',
         backgroundRepeat: 'no-repeat',

@@ -73,7 +73,7 @@ const Signup = () => {
           padding: '25px 5px 15px 5px',
           height: '470px',
           boxShadow: boxShadow,
-          background: 'url(/auth_bg_90OPC.webp)',
+          background: 'url(/auth_bg_90OPC.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           position: 'relative',

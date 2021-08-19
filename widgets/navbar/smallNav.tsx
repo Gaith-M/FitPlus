@@ -88,7 +88,7 @@ export const SmallNav: React.FC<NavInterface> = ({
           >
             <img
               style={{ maxWidth: '100%' }}
-              src={className === 'navbarLight' ? '/sun.webp' : '/darkIcon.webp'}
+              src={className === 'navbarLight' ? 'sun.png' : '/darkIcon.png'}
             />
           </button>
         </div>

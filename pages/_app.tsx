@@ -15,7 +15,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <Meta>
-        <link rel='shortcut icon' href='/Fit_Logo.webp' />
+        <link rel='shortcut icon' href='/Fit_Logo.png' />
       </Meta>
       <Layout>
         <Component {...pageProps} />

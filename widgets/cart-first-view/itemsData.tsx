@@ -2,7 +2,7 @@ export default [
   {
     id: '1',
     imgDetails: {
-      src: '/whey_protein_thumb.webp',
+      src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
     },
     name: 'Whey Protien - Gold Standard',
@@ -12,7 +12,7 @@ export default [
   {
     id: '2',
     imgDetails: {
-      src: '/whey_protein_thumb.webp',
+      src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
     },
     name: 'Whey Protien - Gold Standard. chocolate falvored',
@@ -22,7 +22,7 @@ export default [
   {
     id: '3',
     imgDetails: {
-      src: '/whey_protein_thumb.webp',
+      src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
     },
     name: 'Whey Protien - Large Package',
@@ -32,7 +32,7 @@ export default [
   {
     id: '4',
     imgDetails: {
-      src: '/whey_protein_thumb.webp',
+      src: '/whey_protein_thumb.jpg',
       alt: `product's image`,
     },
     name: 'Whey Protien - Gold Standard - ISO - filled with carbs',

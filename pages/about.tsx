@@ -20,7 +20,7 @@ export const About = () => {
         {/* add color prop */}
         <AboutCard
           title={t`modernGyms`}
-          imgSrc='/gym_photo.webp'
+          imgSrc='/gym_photo.jpg'
           className={styles.blogCard}
         >
           <Paragraph>{t`firstCardText`}</Paragraph>
@@ -28,7 +28,7 @@ export const About = () => {
 
         <AboutCard
           title={t`proStaff`}
-          imgSrc='/staff.webp'
+          imgSrc='/staff.jpg'
           className={styles.blogCard}
         >
           <Paragraph>{t`secondCardText`}</Paragraph>
@@ -36,7 +36,7 @@ export const About = () => {
 
         <AboutCard
           title={t`locations`}
-          imgSrc='/map.webp'
+          imgSrc='/map.jpg'
           className={styles.blogCard}
         >
           <Paragraph>
