@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link href='/blog'>
+            <Link href='/blogs'>
               <a>{t`navbar.blog`}</a>
             </Link>
           </li>

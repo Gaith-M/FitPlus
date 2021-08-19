@@ -11,6 +11,7 @@ import {
 } from '../../redux/reducers/user-slice';
 import { blogQuery, relatedBlogsQuery } from '../../queries';
 // ------------------- UI Imports -------------------
+import 'react-toastify/dist/ReactToastify.min.css';
 import Meta from '../../components/Meta';
 import Heading from '../../components/heading';
 import Spinner from '../../components/spinner';
