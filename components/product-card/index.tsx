@@ -5,7 +5,6 @@ import Link from 'next/link';
 // --------------------UI Imports--------------------
 import Button from '../button';
 import { boxShadow, secondaryLight } from '../../styles/styleConstants';
-import { Container } from '../shared-components/containers';
 // --------------------Component's Interface--------------------
 import { itemInterface } from '../../interfaces/products';
 
@@ -27,10 +26,10 @@ const index: React.FC<CompInterface> = ({
 }) => {
   const { t } = useTranslation('shop');
   return (
-    <Container
-      w='220px'
-      bg={secondaryLight}
+    <div
       style={{
+        backgroundColor: secondaryLight,
+        width: 220,
         textAlign: 'center',
         boxShadow: boxShadow,
       }}
@@ -57,7 +56,7 @@ const index: React.FC<CompInterface> = ({
           m='10px 0 0 0'
         >{t`quickView.quickView`}</Button>
       )}
-    </Container>
+    </div>
   );
 };
 

@@ -11,11 +11,8 @@ import Heading from '../../components/heading';
 import Button from '../../components/button';
 import ImgsPanel from '../../widgets/product-image-preview';
 import Select from 'react-select';
-import {
-  Container,
-  FlexContainer,
-} from '../../components/shared-components/containers';
-import { accent, space_max } from '../../styles/styleConstants';
+import { FlexContainer } from '../../components/shared-components/containers';
+import { accent } from '../../styles/styleConstants';
 import { sanityClient } from '../../lib/sanity';
 import {
   itemQuery,
@@ -215,11 +212,7 @@ const index = ({ data, notFound }: ComponentInterface) => {
   return (
     <>
       <Meta title={data.name} description={data.seoDescription} />
-      <Container
-        m={`${space_max} 0 0`}
-        p='0 0 80px 0'
-        style={{ color: 'inherit' }}
-      >
+      <div style={{ color: 'inherit', marginTop: 100, paddingBottom: 80 }}>
         <Heading lvl={1} m='0 0 20px 0'>
           {data.name}
         </Heading>
@@ -243,11 +236,7 @@ const index = ({ data, notFound }: ComponentInterface) => {
         >
           <ImgsPanel imgsArray={data.images} />
 
-          <Container
-            p='0 20px 20px'
-            style={{ color: 'inherit' }}
-            className={styles.ProductInfoContainer}
-          >
+          <div className={styles.ProductInfoContainer}>
             {/* Sizes */}
             {data.productInfo.avaliableSizes && (
               <FlexContainer align='center' style={{ color: 'inherit' }}>
@@ -397,7 +386,7 @@ const index = ({ data, notFound }: ComponentInterface) => {
                 {t`removeFromWishlist`}
               </Button>
             )}
-          </Container>
+          </div>
         </div>
 
         {similiarProducts && (
@@ -420,7 +409,7 @@ const index = ({ data, notFound }: ComponentInterface) => {
             </div>
           </>
         )}
-      </Container>
+      </div>
     </>
   );
 };
