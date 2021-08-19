@@ -17,7 +17,7 @@ const index = () => {
         interval={5000}
       >
         <div style={{ position: 'relative' }}>
-          <img src='./slider_one.jpg' />
+          <img src='/slider_one.jpg' />
           <div
             className={styles.slide_contianer}
             style={{
@@ -30,7 +30,7 @@ const index = () => {
           </div>
         </div>
         <div>
-          <img src='./slider_four.jpg' />
+          <img src='/slider_four.jpg' />
           <div className={styles.slide_contianer}>
             <p
               className={styles.slide_text}
