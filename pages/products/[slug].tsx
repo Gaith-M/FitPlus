@@ -30,8 +30,6 @@ import {
   setProductLoadingState,
   setSimiliarProducts,
 } from '../../redux/reducers/shop-slice';
-import 'react-toastify/dist/ReactToastify.min.css';
-import notify from '../../shared utility/notify';
 import {
   addItemToWishlist,
   removeItemFromWishlist,
@@ -39,6 +37,8 @@ import {
 import Spinner from '../../components/spinner';
 import Meta from '../../components/Meta';
 import PageNotFound from '../../components/no-page';
+import 'react-toastify/dist/ReactToastify.min.css';
+import notify from '../../shared utility/notify';
 
 interface ComponentInterface {
   data: itemInterface;

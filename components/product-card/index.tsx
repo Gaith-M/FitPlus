@@ -41,7 +41,7 @@ const index: React.FC<CompInterface> = ({
         width={200}
         height={200}
       />
-      <Link href={`http://localhost:3000/products/${slug}`}>
+      <Link href={`/products/${slug}`}>
         <a>
           <Button w='100%' noShadow>
             {t`quickView.view`}
