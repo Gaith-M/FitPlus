@@ -11,7 +11,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { sanityClient, urlFor } from '../lib/sanity';
 import { itemsInWishlist, likedBlogsQuery } from '../queries';
-import Link from 'next/Link';
+import Link from 'next/link';
 import notify from '../shared utility/notify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Meta from '../components/Meta';

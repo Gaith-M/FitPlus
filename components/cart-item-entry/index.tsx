@@ -47,17 +47,17 @@ const index: React.FC<compInterface> = ({
       <ul>
         {color && (
           <li>
-            {t`color`}: {color}
+            {t`color`}: <span>{color}</span>
           </li>
         )}
         {flavor && (
           <li>
-            {t`flavor`}: {flavor}
+            {t`flavor`}: <span>{flavor}</span>
           </li>
         )}
         {size && (
           <li>
-            {t`size`}: {size}
+            {t`size`}: <span>{size}</span>
           </li>
         )}
         <li>
@@ -72,10 +72,10 @@ const index: React.FC<compInterface> = ({
           />
         </li>
         <li>
-          {t`price`}: {price} $
+          {t`price`}: <span>{price}$</span>
         </li>
         <li>
-          {t`total`}: {(price * quantity).toFixed(2)} $
+          {t`total`}: <span>{(price * quantity).toFixed(2)}$</span>
         </li>
       </ul>
     </div>

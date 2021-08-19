@@ -3,7 +3,7 @@ import { itemInterface } from '../../interfaces/products';
 import { urlFor } from '../../lib/sanity';
 import { accent } from '../../styles/styleConstants';
 import RadioButton from '../../components/radio-input';
-import Link from 'next/Link';
+import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
 import notify from '../../shared utility/notify';
 import {

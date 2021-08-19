@@ -1,7 +1,7 @@
 // ---------------Logic Imports---------------
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import Link from 'next/Link';
+import Link from 'next/link';
 // ---------------UI Imports---------------
 import StyledBadge from '../../components/badge';
 import LogoIcon from '../../components/svgs/LogoIcon';

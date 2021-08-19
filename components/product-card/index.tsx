@@ -1,7 +1,7 @@
 // --------------------Logic--------------------
 import useTranslation from 'next-translate/useTranslation';
 import { urlFor } from '../../lib/sanity';
-import Link from 'next/Link';
+import Link from 'next/link';
 // --------------------UI Imports--------------------
 import Button from '../button';
 import { boxShadow, secondaryLight } from '../../styles/styleConstants';

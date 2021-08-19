@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import StyledButton from '../button';
 import { Carousel } from 'react-responsive-carousel';
 import styles from './styles.module.scss';

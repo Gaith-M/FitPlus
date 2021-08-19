@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import Button from '../../components/button';
 import Heading from '../../components/heading';
 import { useEffect } from 'react';

@@ -1,5 +1,5 @@
 // --------------------------Components-------------------------
-import Link from 'next/Link';
+import Link from 'next/link';
 import Facebook from '../../components/svgs/Facebook';
 import Twitter from '../../components/svgs/Twitter';
 import YouTubeIcon from '../../components/svgs/YouTube';

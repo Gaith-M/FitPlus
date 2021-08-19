@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';

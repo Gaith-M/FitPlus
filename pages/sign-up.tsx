@@ -3,7 +3,7 @@ import { useAppDispatch } from '../redux/hooks';
 import { setLoading, setUser } from '../redux/reducers/user-slice';
 import router from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { FlexContainer } from '../components/shared-components/containers';
 import { accent, boxShadow, secondaryLight } from '../styles/styleConstants';
 import Heading from '../components/heading';

@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import Paragraph from '../paragraph';
 import useTranslation from 'next-translate/useTranslation';
 import { urlFor } from '../../lib/sanity';

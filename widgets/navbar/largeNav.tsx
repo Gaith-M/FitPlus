@@ -1,7 +1,7 @@
 // ---------------Logic Imports---------------
 import router, { useRouter } from 'next/dist/client/router';
 import useTranslation from 'next-translate/useTranslation';
-import Link from 'next/Link';
+import Link from 'next/link';
 // ---------------UI Imports---------------
 import UserIcon from '../../components/svgs/UserIcon';
 import StyledBadge from '../../components/badge';

@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import Meta from '../components/Meta';
-import Link from 'next/Link';
+import Link from 'next/link';
 // -------------------UI Imports-------------------
 import AboutCard from '../components/about-page-main-card';
 import Heading from '../components/heading';
