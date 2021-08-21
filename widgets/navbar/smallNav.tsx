@@ -70,7 +70,11 @@ export const SmallNav: React.FC<NavInterface> = ({
             className === 'navbarLight' ? '#f1f1f18a' : '#15151bde',
         }}
       >
-        <LogoIcon w='100' h='60' />
+        <Link href='/'>
+          <a>
+            <LogoIcon w='100' h='60' />
+          </a>
+        </Link>
         <div className={styles.flexContainer} style={{ flex: '0 0 100px' }}>
           <MenuIcon
             h='5px'
@@ -94,8 +98,21 @@ export const SmallNav: React.FC<NavInterface> = ({
         </div>
       </div>
       <Overlay open={toggle} onClick={() => setToggle(false)} />
-      <NavWrapper open={toggle}>
-        <div className={styles.closeButtonContainer}>
+      <NavWrapper
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        style={{
+          transform:
+            locale === 'en'
+              ? `translateX(${toggle ? '0' : '-115%'})`
+              : `translateX(${toggle ? '221%' : '321%'})`,
+        }}
+      >
+        <div
+          className={styles.closeButtonContainer}
+          style={{
+            justifyContent: locale === 'ar' ? 'flex-start' : 'flex-end',
+          }}
+        >
           <span
             className={styles.navCloseButton}
             onClick={() => setToggle(false)}

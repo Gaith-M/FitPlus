@@ -8,7 +8,7 @@ import Button from '../components/button';
 import FlexInput from '../components/form-input';
 import { FlexContainer } from '../components/shared-components/containers';
 import { boxShadow, light, space_1, space_2 } from '../styles/styleConstants';
-import Meta from '../components/Meta'
+import Meta from '../components/Meta';
 import notify from '../shared utility/notify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -85,70 +85,70 @@ const contact = () => {
 
   return (
     <>
-    <Meta title={t`contactUsTitle`}/>
-    <div style={{ color: 'inherit', paddingBottom: 100 }}>
-      <Heading lvl={1}>{t`contactUs`}</Heading>
-      <FlexContainer
-        wrap='wrap'
-        p={`${space_1}`}
-        style={{ boxShadow: boxShadow }}
+      <Meta title={t`contactUsTitle`} />
+      <div style={{ color: 'inherit', paddingBottom: 100 }}>
+        <Heading lvl={1}>{t`contactUs`}</Heading>
+        <FlexContainer
+          wrap='wrap'
+          p={`${space_1}`}
+          style={{ boxShadow: boxShadow }}
         >
-        <FlexInput
-          inputName='firstName'
-          flex='1 1 45%'
-          value={firstName}
-          placeholder={t`f-name`}
-          handleChange={handleChange}
-          style={{ color: 'inherit' }}
-        />
-        <FlexInput
-          inputName='lastName'
-          value={lastName}
-          placeholder={t`l-name`}
-          flex='1 1 45%'
-          style={{ color: 'inherit' }}
-          handleChange={handleChange}
-        />
-        <FlexInput
-          inputName='email'
-          value={email}
-          placeholder={t`email`}
-          flex='1 1 45%'
-          style={{ color: 'inherit' }}
-          handleChange={handleChange}
-        />
-        <FlexInput
-          inputName='phone'
-          type='number'
-          value={phone}
-          placeholder={t`phone`}
-          flex='1 1 45%'
-          style={{ color: 'inherit' }}
-          handleChange={handleChange}
+          <FlexInput
+            inputName='firstName'
+            flex='1 1 45%'
+            value={firstName}
+            placeholder={t`f-name`}
+            handleChange={handleChange}
+            style={{ color: 'inherit' }}
+          />
+          <FlexInput
+            inputName='lastName'
+            value={lastName}
+            placeholder={t`l-name`}
+            flex='1 1 45%'
+            style={{ color: 'inherit' }}
+            handleChange={handleChange}
+          />
+          <FlexInput
+            inputName='email'
+            value={email}
+            placeholder={t`email`}
+            flex='1 1 45%'
+            style={{ color: 'inherit' }}
+            handleChange={handleChange}
+          />
+          <FlexInput
+            inputName='phone'
+            type='tel'
+            value={phone}
+            placeholder={t`phone`}
+            flex='1 1 45%'
+            style={{ color: 'inherit' }}
+            handleChange={handleChange}
           />
 
-        <TextArea
-          name='message'
-          value={message}
-          placeholder={t`message`}
-          onChange={handleChange}
-          color='inherit'
+          <TextArea
+            name='message'
+            value={message}
+            placeholder={t`message`}
+            onChange={handleChange}
+            color='inherit'
           />
 
-        <div
-          style={{
-            flex: '1',
-            marginTop: space_2,
-            display: 'flex',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <Button w='150px' handleClick={handleSubmit}>
-            {t`submit`}
-          </Button>
-        </div>
-      </FlexContainer>
-    </div>
+          <div
+            style={{
+              flex: '1',
+              marginTop: space_2,
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Button w='150px' handleClick={handleSubmit}>
+              {t`submit`}
+            </Button>
+          </div>
+        </FlexContainer>
+      </div>
     </>
   );
 };

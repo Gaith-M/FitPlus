@@ -52,7 +52,11 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className={styles.logoContainer}>
-          <LogoIcon />
+          <Link href='/'>
+            <a>
+            <LogoIcon />
+            </a>
+          </Link>
         </div>
 
         <ul className={styles.footerUL}>
@@ -66,7 +70,7 @@ const Footer: React.FC = () => {
             <address className={styles.footerAddress}>
               {t`footer.address`} <br />
               {t`footer.phone`} <br />
-              {t`footer.email`}
+              <a href='mailto:mhdgaith94@gmail.com'>{t`footer.email`}</a>
             </address>
           </li>
         </ul>

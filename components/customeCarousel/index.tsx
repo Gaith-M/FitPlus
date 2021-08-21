@@ -34,7 +34,10 @@ const index = () => {
             src='/slider_four.jpg'
             alt='fitness plus store has a wide range of supplements to chose from'
           />
-          <div className={styles.slide_contianer}>
+          <div
+            className={styles.slide_contianer}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
             <p
               className={styles.slide_text}
               style={{
@@ -44,14 +47,14 @@ const index = () => {
               }}
             >
               {t`banner.sliderTwo`} <br />
-              <div className={styles.buttonContainer}>
-                <StyledButton w={'200px'} fontSize='18px'>
-                  <Link href='/shop'>
-                    <a style={{ color: 'inherit' }}>{t`banner.shopNow`}</a>
-                  </Link>
-                </StyledButton>
-              </div>
             </p>
+            <div className={styles.buttonContainer}>
+              <StyledButton w={'200px'} fontSize='18px'>
+                <Link href='/shop'>
+                  <a style={{ color: 'inherit' }}>{t`banner.shopNow`}</a>
+                </Link>
+              </StyledButton>
+            </div>
           </div>
         </div>
       </Carousel>

@@ -10,7 +10,12 @@ interface compInterface {
   color?: string;
   flavor?: string;
   size?: string;
-  handleDelete: (id: string) => void;
+  handleDelete: (
+    id: string,
+    color: string | null,
+    flavor: string | null,
+    size: string | null
+  ) => void;
   handleChange: (
     id: string,
     color: string,
@@ -39,7 +44,7 @@ const index: React.FC<compInterface> = ({
 
         <button
           className={styles.deleteButton}
-          onClick={() => handleDelete(id)}
+          onClick={() => handleDelete(id, color, flavor, size)}
         >
           X
         </button>

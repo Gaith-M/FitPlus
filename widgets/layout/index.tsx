@@ -2,18 +2,30 @@ import NavBar from '../navbar';
 import Footer from '../footer';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { themeSelector } from '../../redux/reducers/theme-slice';
 import styles from './styles.module.scss';
+import { loadCart } from '../../redux/reducers/cart-slice';
 
 const Layout: React.FC = (props) => {
   const isLightTheme = useAppSelector(themeSelector);
   const { lang } = useTranslation();
+  const dispatch = useAppDispatch();
   let dir = lang === 'en' ? 'ltr' : 'rtl';
 
   useEffect(() => {
     dir = lang === 'en' ? 'ltr' : 'rtl';
   }, [lang]);
+
+  useEffect(() => {
+    if (typeof window) {
+      let cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+
+      if (cartInLocalStorage && cartInLocalStorage.length > 0) {
+        dispatch(loadCart(cartInLocalStorage));
+      }
+    }
+  }, []);
 
   return (
     <>

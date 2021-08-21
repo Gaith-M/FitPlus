@@ -285,7 +285,7 @@ const index = () => {
           <label className={styles.userDetailsInput}>
             <span>phone:</span>
             <input
-              type='number'
+              type='tel'
               name='phone'
               readOnly={!editMode}
               onChange={handleChange}

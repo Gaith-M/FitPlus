@@ -14,6 +14,7 @@ import ShopDisplay from '../widgets/shop-display';
 import 'react-toastify/dist/ReactToastify.min.css';
 import notify from '../shared utility/notify';
 import useTranslation from 'next-translate/useTranslation';
+import { setCartInLocalStorage } from '../shared utility/localeStorageFuncs';
 
 const shop = () => {
   const { t } = useTranslation('shop');
@@ -21,6 +22,13 @@ const shop = () => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(({ shop }) => shop.isLoading);
   const products: itemInterface[] = useAppSelector(({ shop }) => shop.products);
+  const { items } = useAppSelector(({ cart }) => cart);
+
+  useEffect(() => {
+    if (window) {
+      if(items.length > 0) setCartInLocalStorage(items);
+    }
+  }, [items]);
 
   //=========================================================================
   // ========================================================================
@@ -126,11 +134,7 @@ const shop = () => {
       notify('warning', t`invalidQuantity`);
       return;
     }
-    setAmount(1);
-    setSelectedProduct(null);
-    setSelectedColor(null);
-    setSelectedFlavor(null);
-    setSelectedSize(null);
+
     dispatch(
       addToCart({
         item: {
@@ -146,6 +150,12 @@ const shop = () => {
         quantity: amount,
       })
     );
+    setAmount(1);
+    setSelectedProduct(null);
+    setSelectedColor(null);
+    setSelectedFlavor(null);
+    setSelectedSize(null);
+
     notify('success', t`addedToCart`);
   };
 

@@ -47,7 +47,11 @@ export const LargeNav: React.FC<NavInterface> = ({
   return (
     <NavbarParentContainer className={className}>
       <div className={styles.largeNavContainer}>
-        <LogoIcon w='90' />
+        <Link href='/'>
+          <a>
+            <LogoIcon w='90' />
+          </a>
+        </Link>
         <nav className={styles.largeNav}>
           <Link href='/'>
             <a

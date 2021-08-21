@@ -36,6 +36,7 @@ import Meta from '../../components/Meta';
 import PageNotFound from '../../components/no-page';
 import 'react-toastify/dist/ReactToastify.min.css';
 import notify from '../../shared utility/notify';
+import { setCartInLocalStorage } from '../../shared utility/localeStorageFuncs';
 
 interface ComponentInterface {
   data: itemInterface;
@@ -58,6 +59,13 @@ const index = ({ data, notFound }: ComponentInterface) => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(({ user }) => user);
   const wishlist: string[] = useAppSelector(({ user }) => user.wishlist);
+  const { items } = useAppSelector(({ cart }) => cart);
+
+  useEffect(() => {
+    if (window) {
+      if (items.length > 0) setCartInLocalStorage(items);
+    }
+  }, [items]);
 
   const similiarProducts: {
     name: string;
@@ -124,15 +132,14 @@ const index = ({ data, notFound }: ComponentInterface) => {
       notify('warning', t`invalidQuantity`);
       return;
     }
-
     dispatch(
       addToCart({
         item: {
           name: data.name,
           id: data.id,
-          color: selectedColor?.value,
-          size: selectedSize?.value,
-          flavor: selectedFlavor?.value,
+          color: selectedColor ? selectedColor.value : null,
+          size: selectedSize ? selectedSize.value : null,
+          flavor: selectedFlavor ? selectedFlavor.value : null,
           price: data.price.usd.discountPrice
             ? data.price.usd.discountPrice
             : data.price.usd.originalPrice,

@@ -18,6 +18,7 @@ import Heading from '../../components/heading';
 import Loader from '../../components/loader';
 import 'react-toastify/dist/ReactToastify.min.css';
 import notify from '../../shared utility/notify';
+import { setCartInLocalStorage } from '../../shared utility/localeStorageFuncs';
 
 const index = () => {
   const { t } = useTranslation('shop');
@@ -25,6 +26,13 @@ const index = () => {
   const dispatch = useAppDispatch();
   const products: itemInterface[] = useAppSelector(({ shop }) => shop.products);
   const isLoading = useAppSelector(({ shop }) => shop.isLoading);
+  const { items } = useAppSelector(({ cart }) => cart);
+
+  useEffect(() => {
+    if (window) {
+      if (items.length > 0) setCartInLocalStorage(items);
+    }
+  }, [items]);
 
   // Quick View Logic
   const [selectedProduct, setSelectedProduct] = useState<null | itemInterface>(
@@ -78,11 +86,7 @@ const index = () => {
       notify('warning', t`invalidQuantity`);
       return;
     }
-    setAmount(1);
-    setSelectedProduct(null);
-    setSelectedColor(null);
-    setSelectedFlavor(null);
-    setSelectedSize(null);
+
     dispatch(
       addToCart({
         item: {
@@ -98,6 +102,12 @@ const index = () => {
         quantity: amount,
       })
     );
+    setAmount(1);
+    setSelectedProduct(null);
+    setSelectedColor(null);
+    setSelectedFlavor(null);
+    setSelectedSize(null);
+
     notify('success', t`addedToCart`);
   };
 

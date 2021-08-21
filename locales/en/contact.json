@@ -13,7 +13,7 @@
         "lastName": "please, enter your last name",
         "email": "please, enter your email",
         "phone": "please, enter your phone",
-        "message": "please, enter your phone",
+        "message": "please, enter your message",
         "messageLimit": "Message shouldn't exceed 500 characters",
         "messageSentFail": "Message Was Not Sent"
     }

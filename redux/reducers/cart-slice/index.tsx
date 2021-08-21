@@ -15,27 +15,30 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    updateCart(state, { payload }: PayloadAction<itemInCartInterface[]>) {
+      state.items = payload;
+    },
     addToCart({ items }, action: PayloadAction<itemInCartInterface>) {
       const { payload } = action;
-      let index = items.findIndex(({ item }) => item.id === payload.item.id);
-      if (index < 0) {
+      let index = items.findIndex(
+        (i) =>
+          i.item.id === payload.item.id &&
+          i.item.color === payload.item.color &&
+          i.item.flavor === payload.item.flavor &&
+          i.item.size === payload.item.size
+      );
+      if (index <= -1) {
         items.push(action.payload);
       } else {
-        let item = items[index].item;
-        if (
-          item.color === payload.item.color &&
-          item.flavor === payload.item.flavor &&
-          item.size === payload.item.size
-        ) {
-          items[index].quantity += payload.quantity;
-        } else {
-          items.push(action.payload);
-        }
+        items[index].quantity += payload.quantity;
       }
     },
     removeFromCart({ items }, action: PayloadAction<string>) {
       let index = items.findIndex(({ item }) => item.id === action.payload);
       if (index >= 0) items.splice(index, 1);
+    },
+    loadCart(state, { payload }: PayloadAction<itemInCartInterface[]>) {
+      state.items = payload;
     },
     emptyCart(state) {
       state.items = [];
@@ -59,8 +62,15 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateQty, setShipping, emptyCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateQty,
+  setShipping,
+  emptyCart,
+  loadCart,
+  updateCart,
+} = cartSlice.actions;
 export const cartSelector = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;

@@ -119,7 +119,7 @@ const index = ({
           value={phone}
           handleChange={handleChange}
           w='100%'
-          type='number'
+          type='tel'
         />
         <Input
           placeholder={t`address`}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Meta from '../components/Meta';
 import useTranslation from 'next-translate/useTranslation';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -15,14 +15,23 @@ import Thankyou from '../widgets/cart-thank-you-view';
 import { itemInCartInterface } from '../interfaces/cart';
 import { emptyCart } from '../redux/reducers/cart-slice';
 import { userInterface } from '../interfaces/user';
+import { setCartInLocalStorage } from '../shared utility/localeStorageFuncs';
 
 const cart = () => {
   const theme = useAppSelector(themeSelector) ? 'light' : 'dark';
   const { t } = useTranslation('cart');
   const [step, setStep] = useState(0);
-  const items: itemInCartInterface[] = useAppSelector(({ cart }) => cart.items);
+  const items: itemInCartInterface[] | [] = useAppSelector(
+    ({ cart }) => cart.items
+  );
   const user: userInterface = useAppSelector(({ user }) => user.user);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (window) {
+      setCartInLocalStorage(items);
+    }
+  }, [items]);
 
   const nextStep = () => {
     if (step >= 3) return;

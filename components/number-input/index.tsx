@@ -56,7 +56,7 @@ const index: React.FC<compInterface> = ({
         className={styles.button}
         onClick={() => {
           if (quantity <= 1) return;
-          handleChange(id, color, size, flavor, quantity - 1);
+          handleChange(id, color, size, flavor, quantity + 1);
         }}
       >
         <ArrowDown

@@ -51,7 +51,6 @@ export const NavWrapper = styled.div`
   padding: ${`${space_1} ${space_2}`};
   box-shadow: ${boxShadow};
   background-color: ${light};
-  transform: ${({ open }) => `translateX(${open ? '0' : '-115%'})`};
 `;
 
 export const StyledSmallNav = styled.nav`
