@@ -63,7 +63,7 @@ const contact = () => {
     if (!email) {
       return notify('warning', t`errors.email`);
     }
-    if (!phone) {
+    if (!/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(phone)) {
       return notify('warning', t`errors.phone`);
     }
     if (!message) {

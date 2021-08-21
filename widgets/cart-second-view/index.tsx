@@ -69,7 +69,8 @@ const index = ({
       ) {
         return notify('warning', t`cartErrors.invalidEmail`);
       }
-      if (!phone) return notify('warning', t`cartErrors.phoneNumberErr`);
+      if (!/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(phone))
+        return notify('warning', t`cartErrors.phoneNumberErr`);
       if (!address) return notify('warning', t`cartErrors.addressErr`);
       if (!cardNumber) return notify('warning', t`cartErrors.cardNumberErr`);
       if (!CVC) return notify('warning', t`cartErrors.cardCVCErr`);

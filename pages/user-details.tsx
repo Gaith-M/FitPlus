@@ -65,7 +65,7 @@ const index = () => {
     if (!newLastName) {
       return notify('warning', t`errors.enterLastName`);
     }
-    if (!newPhone) {
+    if (!/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(newPhone)) {
       return notify('warning', t`errors.enterPhone`);
     }
     if (!newEmail) {
