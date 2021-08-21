@@ -104,7 +104,11 @@ export const SmallNav: React.FC<NavInterface> = ({
           transform:
             locale === 'en'
               ? `translateX(${toggle ? '0' : '-115%'})`
-              : `translateX(${toggle ? '221%' : '321%'})`,
+              : `translateX(${
+                  toggle
+                    ? `${window?.innerWidth - 240}px`
+                    : `${window?.innerWidth + 240}px`
+                })`,
         }}
       >
         <div
