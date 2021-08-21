@@ -4,6 +4,7 @@ import Paragraph from '../../components/paragraph';
 import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
 import styles from './styles.module.scss';
+import Link from 'next/link';
 
 const index: React.FC = () => {
   const { t } = useTranslation('common');
@@ -49,10 +50,14 @@ const index: React.FC = () => {
 
       <div className={styles.flexContainer}>
         <Button flex='1 1 200px' m='10px' p='20px'>
-          {t`buttons.learnMore`}
+          <Link href='/about'>
+            <a>{t`buttons.learnMore`}</a>
+          </Link>
         </Button>
         <Button flex='1 1 200px' m='10px' p='20px'>
-          {t`buttons.getInTouch`}
+          <Link href='/contact'>
+            <a>{t`buttons.getInTouch`}</a>
+          </Link>
         </Button>
       </div>
     </div>
